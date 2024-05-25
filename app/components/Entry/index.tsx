@@ -2,48 +2,63 @@ import Icon from "./AsyncIcon";
 
 type Bookmark = any;
 
+export const CachedLink = ({ link }) => (
+  <a
+    target="_blank"
+    href={"https://web.archive.org/web/*/" + link}
+    rel="noreferrer"
+  >
+    (Cached Link)
+  </a>
+);
+
+export const HNLink = ({ link }) => (
+  <a
+    target="_blank"
+    href={
+      "https://hn.algolia.com/?dateRange=all&page=0&prefix=true&query=" +
+      encodeURIComponent(link)
+    }
+    rel="noreferrer"
+  >
+    (HN)
+  </a>
+);
+
 export const Entry = ({
-  style,
   entry,
   doArchive,
   doRestore,
+  doUpvote,
+  doDownvote,
 }: {
-  style;
   entry: Bookmark;
   doArchive;
   doRestore;
+  doUpvote;
+  doDownvote;
 }) => {
   const isArchived = entry.archived == 1;
-  const CachedLink = ({ link }) => (
-    <a
-      target="_blank"
-      href={"https://web.archive.org/web/*/" + link}
-      rel="noreferrer"
-    >
-      (Cached Link)
-    </a>
-  );
-
-  const HNLink = ({ link }) => (
-    <a
-      target="_blank"
-      href={
-        "https://hn.algolia.com/?dateRange=all&page=0&prefix=true&query=" +
-        encodeURIComponent(link)
-      }
-      rel="noreferrer"
-    >
-      (HN)
-    </a>
-  );
 
   return (
-    <div className="flex uk-card uk-card-body" style={style}>
+    <>
       <div className="flex flex-col items-center">
-        {entry.score}
+        {entry.points}
         <div className="flex flex-col">
-          <Icon icon="chevron-up"></Icon>
-          <Icon icon="chevron-down"></Icon>
+          <Icon
+            icon="chevron-up"
+            onClick={() => {
+              console.log({ upvoting: entry.id });
+              doUpvote(entry.id);
+            }}
+          ></Icon>
+          <Icon
+            icon="chevron-down"
+            onClick={() => {
+              console.log({ downvoted: entry.id });
+              doDownvote(entry.id);
+            }}
+          ></Icon>
         </div>
       </div>
       <div>
@@ -72,6 +87,6 @@ export const Entry = ({
           ></Icon>
         )}
       </div>
-    </div>
+    </>
   );
 };

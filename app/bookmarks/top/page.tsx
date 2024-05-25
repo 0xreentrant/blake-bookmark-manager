@@ -10,7 +10,7 @@ export default async function Page() {
     const allBookmarks = `
       select * from bookmarks
       where archived = 0
-      order by score desc
+      order by points desc
     `;
 
     db.all(allBookmarks, (err, data) => {

@@ -5,7 +5,12 @@ import { FixedSizeList as List } from "react-window";
 
 import { Entry } from "../components/Entry";
 import { BookmarksLayoutContext } from "./BookmarksLayoutContext";
-import { archiveBookmark, restoreBookmark } from "../actions";
+import {
+  archiveBookmark,
+  restoreBookmark,
+  upvoteBookmark,
+  downvoteBookmark,
+} from "../actions";
 
 const DEBUG = false;
 
@@ -26,13 +31,16 @@ export function Bookmarks({ bookmarks, hasError }) {
 
   const Row = ({ style, data, index }) => {
     return (
-      <Entry
-        key={index}
-        style={style}
-        entry={data[index]}
-        doArchive={archiveBookmark.bind(null, data[index].id)}
-        doRestore={restoreBookmark.bind(null, data[index].id)}
-      />
+      <div className="flex uk-card uk-card-body" style={style}>
+        <Entry
+          key={index}
+          entry={data[index]}
+          doArchive={archiveBookmark}
+          doRestore={restoreBookmark}
+          doUpvote={upvoteBookmark}
+          doDownvote={downvoteBookmark}
+        />
+      </div>
     );
   };
 

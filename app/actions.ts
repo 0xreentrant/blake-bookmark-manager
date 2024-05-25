@@ -46,3 +46,67 @@ export async function restoreBookmark(id) {
     revalidatePath("/bookmarks", "layout");
   });
 }
+
+export async function upvoteBookmark(id) {
+  return await new Promise((resolve, reject) => {
+    const query = `
+      update bookmarks
+      set points = points + 1
+      where id = ?
+    `;
+
+    db.all(query, [id], (err, data) => {
+      if (err) {
+        console.error(err);
+        return reject(err);
+      }
+
+      resolve({ message: "Upvoted id " + id });
+    });
+
+    revalidatePath("/bookmarks", "layout");
+  });
+}
+
+export async function downvoteBookmark(id) {
+  return await new Promise((resolve, reject) => {
+    const query = `
+      update bookmarks
+      set points = points - 1
+      where id = ?
+    `;
+
+    db.all(query, [id], (err, data) => {
+      if (err) {
+        console.error(err);
+        return reject(err);
+      }
+
+      resolve({ message: "Downvoted id " + id });
+    });
+
+    revalidatePath("/", "page");
+  });
+}
+
+export async function saveNote(id, notes, postData) {
+  return await new Promise((resolve, reject) => {
+    const query = `
+      update bookmarks
+      set notes = ?
+      where id = ?
+    `;
+
+    db.all(query, [notes, id], (err, data) => {
+      if (err) {
+        console.error(err);
+        return reject(err);
+      }
+
+      resolve({ message: "Saved note to id " + id });
+    });
+
+    // don't revalidate the path so that the user can continue to
+    // edit without disruption via autosave
+  });
+}
