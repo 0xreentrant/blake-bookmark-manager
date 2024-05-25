@@ -1,8 +1,11 @@
+import Icon from './AsyncIcon'
+
 export const Entry = ({ style, entry, onClick }) => {
   const CachedLink = ({ link }) => (
     <a
       target="_blank"
-      href={"https://web.archive.org/web/*/" + link} rel="noreferrer"
+      href={"https://web.archive.org/web/*/" + link}
+      rel="noreferrer"
     >
       (Cached Link)
     </a>
@@ -14,7 +17,8 @@ export const Entry = ({ style, entry, onClick }) => {
       href={
         "https://hn.algolia.com/?dateRange=all&page=0&prefix=true&query=" +
         encodeURIComponent(link)
-      } rel="noreferrer"
+      }
+      rel="noreferrer"
     >
       (HN)
     </a>
@@ -25,8 +29,8 @@ export const Entry = ({ style, entry, onClick }) => {
       <div className="flex flex-col items-center">
         {entry.score}
         <div className="flex flex-col">
-          <span uk-icon="chevron-up"></span>
-          <span uk-icon="chevron-down"></span>
+          <Icon icon="chevron-up"></Icon>
+          <Icon icon="chevron-down"></Icon>
         </div>
       </div>
       <div>
@@ -36,9 +40,9 @@ export const Entry = ({ style, entry, onClick }) => {
         {new Date(entry.date * 1000).toLocaleString()}
         <hr />
         <CachedLink link={entry.href} />
-          <HNLink link={entry.href} />
-          <span uk-icon="trash" onClick={() => onClick(entry.id)}></span>
+        <HNLink link={entry.href} />
+        <Icon icon="trash" onClick={() => onClick(entry.id)}></Icon>
       </div>
-     </div>
+    </div>
   );
 };
