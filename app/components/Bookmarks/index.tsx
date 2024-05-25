@@ -12,6 +12,21 @@ import {
   downvoteBookmark,
 } from "../../actions";
 
+function outerHeight(element: HTMLElement) {
+  // from: https://stackoverflow.com/a/54095466
+  const height = element.offsetHeight,
+    style = window.getComputedStyle(element);
+
+  return ["top", "bottom"]
+    .map((side) => parseInt(style[`margin-${side}`]))
+    .reduce((total, side) => total + side, height);
+}
+
+export function Bookmarks({ bookmarks, lists, hasError }) {
+  const parentRef = useContext(LayoutContext);
+  const listRef = useRef<HTMLElement>();
+  const [remainderHeight, setRemainderHeight] = useState(0);
+
 const Row = ({ style, data, index }) => {
   const entry = data[index];
   const { id, archived, points, href, title, date } = entry;
@@ -26,6 +41,7 @@ const Row = ({ style, data, index }) => {
         href={href}
         title={title}
         date={date}
+      lists={lists}
         handleUpvote={() => upvoteBookmark(id)}
         handleDownvote={() => downvoteBookmark(id)}
         handleArchive={() => archiveBookmark(id)}
@@ -36,22 +52,7 @@ const Row = ({ style, data, index }) => {
   );
 };
 
-function outerHeight(element: HTMLElement) {
-  // from: https://stackoverflow.com/a/54095466
-  const height = element.offsetHeight,
-    style = window.getComputedStyle(element);
-
-  return ["top", "bottom"]
-    .map((side) => parseInt(style[`margin-${side}`]))
-    .reduce((total, side) => total + side, height);
-}
-
-export function Bookmarks({ bookmarks, hasError }) {
-  const parentRef = useContext(LayoutContext);
-  const listRef = useRef<HTMLElement>();
-  const [remainderHeight, setRemainderHeight] = useState(0);
-
-// TODO: turn into hook
+  // TODO: turn into hook
   useEffect(() => {
     const parentContainer = parentRef.current;
 

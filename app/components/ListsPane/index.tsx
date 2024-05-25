@@ -1,21 +1,13 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import Link from "next/link";
 import { createList } from "../../actions";
 import { Icon } from "../Icon";
 import { Nav } from "./Nav";
-
-const ListEntry = ({ title, id }) => {
-  return (
-    <div>
-      <Link href={`/bookmarks/list/${id}`}>{title}</Link>
-    </div>
-  );
-};
+import {ListEntry} from '../ListEntry'
 
 export function ListsPane({ lists, totalBookmarks }) {
-  const [res, doCreateList] = useFormState(createList);
+  const [, doCreateList] = useFormState(createList);
 
   return (
     <div className="flex flex-col w-48 h-screen overflow-hidden">

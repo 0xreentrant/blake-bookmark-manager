@@ -60,3 +60,10 @@ export async function createList() {
   const out = dbNew.insert(lists).values({ title: "New List" }).returning();
   redirect(`/bookmarks/list/${out.get().id}`);
 }
+
+export async function addRemoveFromLists(formData: FormData) {
+  for (const [key, value] of formData) {
+    console.log(key, value);
+  }
+  return formData;
+}
