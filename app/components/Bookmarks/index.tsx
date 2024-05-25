@@ -3,16 +3,38 @@
 import { useEffect, useState, useContext, useRef } from "react";
 import { FixedSizeList as List } from "react-window";
 
-import { Entry } from "../components/Entry";
-import { BookmarksLayoutContext } from "./BookmarksLayoutContext";
+import { Entry } from "../Entry";
+import { LayoutContext } from "../LayoutContext";
 import {
   archiveBookmark,
   restoreBookmark,
   upvoteBookmark,
   downvoteBookmark,
-} from "../actions";
+} from "../../actions";
 
-const DEBUG = false;
+const Row = ({ style, data, index }) => {
+  const entry = data[index];
+  const { id, archived, points, href, title, date } = entry;
+  const isArchived = archived == 1;
+  return (
+    <div style={style} className="m-2">
+      <Entry
+        key={index}
+        id={id}
+        isArchived={isArchived}
+        points={points}
+        href={href}
+        title={title}
+        date={date}
+        handleUpvote={() => upvoteBookmark(id)}
+        handleDownvote={() => downvoteBookmark(id)}
+        handleArchive={() => archiveBookmark(id)}
+        handleRestore={() => restoreBookmark(id)}
+        handleOpenModal={() => {}}
+      />
+    </div>
+  );
+};
 
 function outerHeight(element: HTMLElement) {
   // from: https://stackoverflow.com/a/54095466
@@ -25,34 +47,11 @@ function outerHeight(element: HTMLElement) {
 }
 
 export function Bookmarks({ bookmarks, hasError }) {
-  const parentRef = useContext(BookmarksLayoutContext);
+  const parentRef = useContext(LayoutContext);
   const listRef = useRef<HTMLElement>();
   const [remainderHeight, setRemainderHeight] = useState(0);
 
-  const Row = ({ style, data, index }) => {
-    const entry = data[index];
-    const { id, archived, points, href, title, date } = entry;
-    const isArchived = archived == 1;
-    return (
-      <div style={style} className="m-2">
-        <Entry
-          key={index}
-          id={id}
-          isArchived={isArchived}
-          points={points}
-          href={href}
-          title={title}
-          date={date}
-          handleUpvote={() => upvoteBookmark(id)}
-          handleDownvote={() => downvoteBookmark(id)}
-          handleArchive={() => archiveBookmark(id)}
-          handleRestore={() => restoreBookmark(id)}
-          handleOpenModal={() => {}}
-        />
-      </div>
-    );
-  };
-
+// TODO: turn into hook
   useEffect(() => {
     const parentContainer = parentRef.current;
 

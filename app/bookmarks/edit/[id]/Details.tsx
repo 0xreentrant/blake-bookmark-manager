@@ -21,10 +21,18 @@ export function Details({ entry }) {
     },
   });
 
+  const { id, archived, points, href, title, date } = entry;
+  const isArchived = archived == 1;
+
   return (
     <>
       <Entry
-        entry={entry}
+          id={id}
+          isArchived={isArchived}
+          points={points}
+          href={href}
+          title={title}
+          date={date}
         handleArchive={archiveBookmark}
         handleRestore={restoreBookmark}
         handleUpvote={upvoteBookmark}

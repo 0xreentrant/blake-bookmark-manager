@@ -2,7 +2,7 @@
 
 import { eq, desc } from "drizzle-orm";
 import { dbNew } from "../../db";
-import { Bookmarks } from "../Bookmarks";
+import { Bookmarks } from "../../components/Bookmarks";
 import { bookmarks } from "../../schema";
 
 export default async function Page() {

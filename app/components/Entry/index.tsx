@@ -27,10 +27,10 @@ export const HNLink = ({ link }) => (
 export const Entry = ({
   id,
   isArchived,
-        points,
-        href,
-        title,
-        date,
+  points,
+  href,
+  title,
+  date,
   handleArchive,
   handleRestore,
   handleUpvote,
@@ -40,15 +40,15 @@ export const Entry = ({
 }: {
   id;
   isArchived;
-        points,
-        href,
-        title,
-        date,
+  points;
+  href;
+  title;
+  date;
   handleArchive;
   handleRestore;
   handleUpvote;
   handleDownvote;
-  handleOpenModal;
+  handleOpenModal?;
   style?;
 }) => {
   // TODO: remove the border and fix the spacing between entries
@@ -77,7 +77,9 @@ export const Entry = ({
         <Link href={`/bookmarks/edit/${id}`}>
           <Icon icon="file-edit" />
         </Link>{" "}
-        <Icon icon="folder" onClick={handleOpenModal} />
+        {handleOpenModal &&
+          <Icon icon="folder" onClick={handleOpenModal} />
+          }
       </div>
     </div>
   );
