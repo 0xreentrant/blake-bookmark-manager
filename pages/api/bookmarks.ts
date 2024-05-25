@@ -2,9 +2,19 @@ import sqlite3 from 'sqlite3'
 
 const db = new sqlite3.Database('./bookmarks.db')
 
-export default function handler(req, res) {
-  const query = `
+const randomBookmarks = `
   select * from (
+    select * from bookmarks
+    where archived = 0
+    order by RANDOM()
+    limit 10
+  )
+  order by date desc
+`
+
+export default function handler(req, res) {
+  const allBookmarks = `
+    select * from (
       select * from bookmarks
       where archived = 0
       order by RANDOM()
@@ -13,7 +23,7 @@ export default function handler(req, res) {
     order by date desc
   `
 
-  db.all(query, (err, data) => {
+  db.all(allBookmarks, (err, data) => {
     if (err) {
       console.error(err)
       res.status(500)

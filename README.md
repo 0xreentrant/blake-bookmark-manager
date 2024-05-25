@@ -1,5 +1,17 @@
-TODOs:
+## Importing
+```
+node convert.js <path to bookmarks.html>
+```
 
+## Running
+```
+yarn run dev
+```
+
+## TODOs:
+
+- [ ] lists
+- [ ] search
 - [ ] link to HN comments
 - [ ] imports as updates 
    - updated the table to make href UNIQUE constraint
