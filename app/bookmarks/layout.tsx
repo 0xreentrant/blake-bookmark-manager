@@ -1,12 +1,17 @@
 "use client";
+
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useState, useRef } from "react";
+import { BookmarksLayoutContext } from "./BookmarksLayoutContext";
 
 export default function BookmarksLayout({ children }) {
+  const parentRef = useRef();
   const pathname = usePathname();
   const withActiveToggle = (t) => (pathname === t ? "uk-active" : "");
+
   return (
-    <>
+    <div className="h-screen" ref={parentRef}>
       <ul className="uk-subnav uk-subnav-primary p-2">
         <li className={withActiveToggle("/")}>
           <Link href="/bookmarks/all">All</Link>
@@ -15,7 +20,9 @@ export default function BookmarksLayout({ children }) {
           <Link href="/bookmarks/random">Random</Link>
         </li>{" "}
       </ul>
-      {children}
-    </>
+      <BookmarksLayoutContext.Provider value={parentRef}>
+        {children}
+      </BookmarksLayoutContext.Provider>
+    </div>
   );
 }

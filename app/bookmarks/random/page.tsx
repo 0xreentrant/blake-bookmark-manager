@@ -1,13 +1,13 @@
 "use server";
 
 import sqlite3 from "sqlite3";
-import { Bookmarks } from "../bookmarks";
+import { Bookmarks } from "../Bookmarks";
 
 const db = new sqlite3.Database("./bookmarks.db");
 
 export default async function Page() {
   const bookmarks = await new Promise((resolve, reject) => {
-  const randomBookmarks = `
+    const randomBookmarks = `
     select * from (
     select * from bookmarks
     where archived = 0
@@ -29,8 +29,6 @@ export default async function Page() {
   });
 
   return (
-    <div className="flex flex-1 h-screen w-full">
-      <Bookmarks bookmarks={bookmarks} hasError={false} doArchive={{}} />
-    </div>
+ <Bookmarks bookmarks={bookmarks} hasError={false} doArchive={{}} />
   );
 }
