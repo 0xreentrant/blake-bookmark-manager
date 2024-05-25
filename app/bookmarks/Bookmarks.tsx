@@ -5,6 +5,7 @@ import { FixedSizeList as List } from "react-window";
 
 import { Entry } from "../components/Entry";
 import { BookmarksLayoutContext } from "./BookmarksLayoutContext";
+import { archiveBookmark } from "../actions";
 
 // from: https://stackoverflow.com/a/54095466
 function outerHeight(element: HTMLElement) {
@@ -16,17 +17,19 @@ function outerHeight(element: HTMLElement) {
     .reduce((total, side) => total + side, height);
 }
 
-export function Bookmarks({ bookmarks, doArchive, hasError }) {
+export function Bookmarks({ bookmarks, hasError }) {
   const parentRef = useContext(BookmarksLayoutContext);
   const listRef = useRef();
   const [remainderHeight, setRemainderHeight] = useState(0);
+
   const Row = ({ style, data, index }) => {
+ console.log({ id: data[index].id });
     return (
       <Entry
         key={index}
         style={style}
         entry={data[index]}
-        onClick={doArchive}
+        onClick={archiveBookmark.bind(null, data[index].id)}
       />
     );
   };
