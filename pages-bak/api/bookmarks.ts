@@ -7,6 +7,7 @@ export default function handler(req, res) {
     select * from bookmarks
     where archived = 0
     order by date desc
+    limit 15
   `
 
   db.all(allBookmarks, (err, data) => {
