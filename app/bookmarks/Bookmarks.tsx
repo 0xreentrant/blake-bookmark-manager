@@ -7,8 +7,10 @@ import { Entry } from "../components/Entry";
 import { BookmarksLayoutContext } from "./BookmarksLayoutContext";
 import { archiveBookmark } from "../actions";
 
-// from: https://stackoverflow.com/a/54095466
+const DEBUG = false;
+
 function outerHeight(element: HTMLElement) {
+  // from: https://stackoverflow.com/a/54095466
   const height = element.offsetHeight,
     style = window.getComputedStyle(element);
 
@@ -23,7 +25,6 @@ export function Bookmarks({ bookmarks, hasError }) {
   const [remainderHeight, setRemainderHeight] = useState(0);
 
   const Row = ({ style, data, index }) => {
- console.log({ id: data[index].id });
     return (
       <Entry
         key={index}
@@ -39,22 +40,43 @@ export function Bookmarks({ bookmarks, hasError }) {
 
     // need ResizeObserver for initial render to set height, otherwise 0px
     const resizeObserver = new ResizeObserver((event) => {
+      DEBUG && console.log("-- RESIZE");
+
       const rawParentHeight = event[0].contentBoxSize[0].blockSize;
 
       // get all children and their heights, except for the list element
       const getRemainderHeightWithoutList = () => {
+        DEBUG && console.log("---");
         let totalHeights = 0;
 
         for (let child of parentContainer.childNodes) {
-          if (child !== listRef.current) {
+          if (child !== listRef.current.parentNode) {
             totalHeights += outerHeight(child);
           }
+
+          DEBUG &&
+            console.log({
+              child,
+              outerHeight: outerHeight(child),
+              isList: child == listRef.current.parentNode,
+            });
         }
 
         return totalHeights;
       };
 
       const remainder = rawParentHeight - getRemainderHeightWithoutList();
+
+      DEBUG &&
+        console.log({
+          rawParentHeight,
+          heightWithoutList: getRemainderHeightWithoutList(),
+          remainder,
+          parentContainer,
+          listRef: listRef.current,
+          event,
+        });
+
       setRemainderHeight(remainder);
     });
 
@@ -65,7 +87,7 @@ export function Bookmarks({ bookmarks, hasError }) {
         resizeObserver.unobserve(parentRef.current);
       }
     };
-  }, [parentRef, listRef]);
+  }, [parentRef]);
 
   if (hasError) {
     return <div>Failed to load</div>;

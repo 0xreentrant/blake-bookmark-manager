@@ -11,7 +11,7 @@ export default function BookmarksLayout({ children }) {
   const withActiveToggle = (t) => (pathname === t ? "uk-active" : "");
 
   return (
-    <div className="h-screen" ref={parentRef}>
+    <div className="h-screen overflow-hidden" ref={parentRef}>
       <ul className="uk-subnav uk-subnav-primary p-2">
         <li className={withActiveToggle("/")}>
           <Link href="/bookmarks/all">All</Link>
