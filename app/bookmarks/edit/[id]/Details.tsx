@@ -3,21 +3,21 @@
 import { useState } from "react";
 import { useAutosave } from "react-autosave";
 import Editor from "@monaco-editor/react";
-import { Entry } from "../../components/Entry";
+import { Entry } from "../../../components/Entry";
 import {
   archiveBookmark,
   restoreBookmark,
   upvoteBookmark,
   downvoteBookmark,
   saveNote,
-} from "../../actions";
+} from "../../../actions";
 
 export function Details({ entry }) {
   const [text, setText] = useState(entry.notes);
   useAutosave({
     data: text,
     onSave: (data) => {
-      saveNote(entry.id, data);
+      saveNote(entry.id, data, null);
     },
   });
 
@@ -25,10 +25,10 @@ export function Details({ entry }) {
     <>
       <Entry
         entry={entry}
-        doArchive={archiveBookmark}
-        doRestore={restoreBookmark}
-        doUpvote={upvoteBookmark}
-        doDownvote={downvoteBookmark}
+        handleArchive={archiveBookmark}
+        handleRestore={restoreBookmark}
+        handleUpvote={upvoteBookmark}
+        handleDownvote={downvoteBookmark}
       />
       <Editor
         height="50vh"

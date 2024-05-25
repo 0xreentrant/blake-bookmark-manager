@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { dbNew } from "./db";
 import { bookmarks, lists } from "./schema";
-import { increment, decrement } from "./dbUtils";
+import { incr, decr } from "./dbUtils";
 
 export async function archiveBookmark(id) {
   const out = await dbNew
@@ -30,7 +30,7 @@ export async function restoreBookmark(id) {
 export async function upvoteBookmark(id) {
   const out = dbNew
     .update(bookmarks)
-    .set({ points: increment(bookmarks.points) })
+    .set({ points: incr(bookmarks.points) })
     .where(eq(bookmarks.id, id));
 
   revalidatePath("/bookmarks", "layout");
@@ -40,7 +40,7 @@ export async function upvoteBookmark(id) {
 export async function downvoteBookmark(id) {
   const out = await dbNew
     .update(bookmarks)
-    .set({ points: decrement(bookmarks.points) })
+    .set({ points: decr(bookmarks.points) })
     .where(eq(bookmarks.id, id));
 
   revalidatePath("/", "page");

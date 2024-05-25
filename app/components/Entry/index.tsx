@@ -1,6 +1,5 @@
+import Link from "next/link";
 import { Icon } from "../Icon";
-
-type Bookmark = any;
 
 export const CachedLink = ({ link }) => (
   <a
@@ -26,65 +25,59 @@ export const HNLink = ({ link }) => (
 );
 
 export const Entry = ({
-  entry,
-  doArchive,
-  doRestore,
-  doUpvote,
-  doDownvote,
+  id,
+  isArchived,
+        points,
+        href,
+        title,
+        date,
+  handleArchive,
+  handleRestore,
+  handleUpvote,
+  handleDownvote,
+  handleOpenModal,
   style,
 }: {
-  entry: Bookmark;
-  doArchive;
-  doRestore;
-  doUpvote;
-  doDownvote;
-  style;
+  id;
+  isArchived;
+        points,
+        href,
+        title,
+        date,
+  handleArchive;
+  handleRestore;
+  handleUpvote;
+  handleDownvote;
+  handleOpenModal;
+  style?;
 }) => {
-  const isArchived = entry.archived == 1;
-
   // TODO: remove the border and fix the spacing between entries
   return (
     <div className="flex border rounded-lg" style={style}>
       <div className="flex flex-col items-center">
-        {entry.points}
+        {points}
         <div className="flex flex-col">
-          <Icon
-            icon="chevron-up"
-            onClick={() => {
-              doUpvote(entry.id);
-            }}
-          ></Icon>
-          <Icon
-            icon="chevron-down"
-            onClick={() => {
-              doDownvote(entry.id);
-            }}
-          ></Icon>
+          <Icon icon="chevron-up" onClick={handleUpvote}></Icon>
+          <Icon icon="chevron-down" onClick={handleDownvote}></Icon>
         </div>
       </div>
       <div>
         <h3 className="uk-card-title">
-          <a href={entry.href}>{entry.title}</a>
+          <a href={href}>{title}</a>
         </h3>
-        {new Date(entry.date * 1000).toLocaleString()}
+        {new Date(date * 1000).toLocaleString()}
         <hr />
-        <CachedLink link={entry.href} />
-        <HNLink link={entry.href} />
+        <CachedLink link={href} />
+        <HNLink link={href} />
         {isArchived ? (
-          <Icon
-            icon="refresh"
-            onClick={() => {
-              doRestore(entry.id);
-            }}
-          ></Icon>
+          <Icon icon="refresh" onClick={handleRestore} />
         ) : (
-          <Icon
-            icon="trash"
-            onClick={() => {
-              doArchive(entry.id);
-            }}
-          ></Icon>
+          <Icon icon="trash" onClick={handleArchive} />
         )}
+        <Link href={`/bookmarks/edit/${id}`}>
+          <Icon icon="file-edit" />
+        </Link>{" "}
+        <Icon icon="folder" onClick={handleOpenModal} />
       </div>
     </div>
   );

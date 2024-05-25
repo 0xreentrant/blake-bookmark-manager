@@ -26,19 +26,28 @@ function outerHeight(element: HTMLElement) {
 
 export function Bookmarks({ bookmarks, hasError }) {
   const parentRef = useContext(BookmarksLayoutContext);
-  const listRef = useRef();
+  const listRef = useRef<HTMLElement>();
   const [remainderHeight, setRemainderHeight] = useState(0);
 
   const Row = ({ style, data, index }) => {
+    const entry = data[index];
+    const { id, archived, points, href, title, date } = entry;
+    const isArchived = archived == 1;
     return (
       <div style={style} className="m-2">
         <Entry
           key={index}
-          entry={data[index]}
-          doArchive={archiveBookmark}
-          doRestore={restoreBookmark}
-          doUpvote={upvoteBookmark}
-          doDownvote={downvoteBookmark}
+          id={id}
+          isArchived={isArchived}
+          points={points}
+          href={href}
+          title={title}
+          date={date}
+          handleUpvote={() => upvoteBookmark(id)}
+          handleDownvote={() => downvoteBookmark(id)}
+          handleArchive={() => archiveBookmark(id)}
+          handleRestore={() => restoreBookmark(id)}
+          handleOpenModal={() => {}}
         />
       </div>
     );
@@ -49,43 +58,22 @@ export function Bookmarks({ bookmarks, hasError }) {
 
     // need ResizeObserver for initial render to set height, otherwise 0px
     const resizeObserver = new ResizeObserver((event) => {
-      DEBUG && console.log("-- RESIZE");
-
       const rawParentHeight = event[0].contentBoxSize[0].blockSize;
 
       // get all children and their heights, except for the list element
       const getRemainderHeightWithoutList = () => {
-        DEBUG && console.log("---");
         let totalHeights = 0;
 
         for (let child of parentContainer.childNodes) {
-          if (child !== listRef.current.parentNode) {
+          if (listRef.current && child !== listRef.current.parentNode) {
             totalHeights += outerHeight(child);
           }
-
-          DEBUG &&
-            console.log({
-              child,
-              outerHeight: outerHeight(child),
-              isList: child == listRef.current.parentNode,
-            });
         }
 
         return totalHeights;
       };
 
       const remainder = rawParentHeight - getRemainderHeightWithoutList();
-
-      DEBUG &&
-        console.log({
-          rawParentHeight,
-          heightWithoutList: getRemainderHeightWithoutList(),
-          remainder,
-          parentContainer,
-          listRef: listRef.current,
-          event,
-        });
-
       setRemainderHeight(remainder);
     });
 
