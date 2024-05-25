@@ -5,7 +5,7 @@ import { FixedSizeList as List } from "react-window";
 
 import { Entry } from "../components/Entry";
 import { BookmarksLayoutContext } from "./BookmarksLayoutContext";
-import { archiveBookmark } from "../actions";
+import { archiveBookmark, restoreBookmark } from "../actions";
 
 const DEBUG = false;
 
@@ -30,7 +30,8 @@ export function Bookmarks({ bookmarks, hasError }) {
         key={index}
         style={style}
         entry={data[index]}
-        onClick={archiveBookmark.bind(null, data[index].id)}
+        doArchive={archiveBookmark.bind(null, data[index].id)}
+        doRestore={restoreBookmark.bind(null, data[index].id)}
       />
     );
   };

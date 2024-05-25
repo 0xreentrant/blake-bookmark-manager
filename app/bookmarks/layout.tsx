@@ -19,6 +19,9 @@ export default function BookmarksLayout({ children }) {
         <li>
           <Link href="/bookmarks/random">Random</Link>
         </li>{" "}
+        <li>
+          <Link href="/bookmarks/archived">Archived</Link>
+        </li>{" "}
       </ul>
       <BookmarksLayoutContext.Provider value={parentRef}>
         {children}

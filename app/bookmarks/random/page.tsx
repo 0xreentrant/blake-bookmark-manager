@@ -8,13 +8,13 @@ const db = new sqlite3.Database("./bookmarks.db");
 export default async function Page() {
   const bookmarks = await new Promise((resolve, reject) => {
     const randomBookmarks = `
-    select * from (
-    select * from bookmarks
-    where archived = 0
-    order by RANDOM()
-    limit 10
-    ) order by date desc
-  `;
+      select * from (
+      select * from bookmarks
+      where archived = 0
+      order by RANDOM()
+      limit 10
+      ) order by date desc
+    `;
 
     db.all(randomBookmarks, (err, data) => {
       if (err) {
@@ -22,13 +22,11 @@ export default async function Page() {
         return reject(err);
       }
 
-      console.log("showing results:\n", data);
+      //console.log("showing results:\n", data);
 
       resolve(data);
     });
   });
 
-  return (
- <Bookmarks bookmarks={bookmarks} hasError={false} doArchive={{}} />
-  );
+  return <Bookmarks bookmarks={bookmarks} hasError={false} />;
 }

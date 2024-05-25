@@ -7,13 +7,13 @@ const db = new sqlite3.Database("./bookmarks.db");
 
 export default async function Page() {
   const bookmarks = await new Promise((resolve, reject) => {
-    const allBookmarks = `
+    const randomBookmarks = `
       select * from bookmarks
-      where archived = 0
+      where archived = 1
       order by date desc
     `;
 
-    db.all(allBookmarks, (err, data) => {
+    db.all(randomBookmarks, (err, data) => {
       if (err) {
         console.error(err);
         return reject(err);

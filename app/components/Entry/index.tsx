@@ -1,6 +1,19 @@
-import Icon from './AsyncIcon'
+import Icon from "./AsyncIcon";
 
-export const Entry = ({ style, entry, onClick }) => {
+type Bookmark = any;
+
+export const Entry = ({
+  style,
+  entry,
+  doArchive,
+  doRestore,
+}: {
+  style;
+  entry: Bookmark;
+  doArchive;
+  doRestore;
+}) => {
+  const isArchived = entry.archived == 1;
   const CachedLink = ({ link }) => (
     <a
       target="_blank"
@@ -41,7 +54,23 @@ export const Entry = ({ style, entry, onClick }) => {
         <hr />
         <CachedLink link={entry.href} />
         <HNLink link={entry.href} />
-        <Icon icon="trash" onClick={() => onClick(entry.id)}></Icon>
+        {isArchived ? (
+          <Icon
+            icon="refresh"
+            onClick={() => {
+              console.log({ restoring: entry.id, doRestore });
+              doRestore(entry.id);
+            }}
+          ></Icon>
+        ) : (
+          <Icon
+            icon="trash"
+            onClick={() => {
+              console.log({ archiving: entry.id, doArchive });
+              doArchive(entry.id);
+            }}
+          ></Icon>
+        )}
       </div>
     </div>
   );
