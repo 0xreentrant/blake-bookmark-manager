@@ -1,34 +1,34 @@
-import { useState } from "react";
-import styled from "@emotion/styled";
+import { inspect } from "@xstate/inspect";
 import { Box, Link } from "@mui/material";
 import "../styles/globals.css";
 
-import { Viewer } from "../features/Viewer";
+import { Navigation } from "../features/Navigation";
+import { useTopUIState } from "../features/useTopUIState";
 
-const Navigation = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  padding: 20px;
-  border-bottom: 1px solid black;
-  background-color: #eee;
-`;
+if (typeof window !== "undefined") {
+  inspect({
+  url: "https://statecharts.io/inspect",
+  iframe: false
+});
+}
 
 function MyApp({ Component, pageProps }) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [state, send] = useTopUIState();
+  const { isExpanded } = state.context;
+
+  const toggleExpanded = () => {
+    console.log("was", state.context.isExpanded);
+    const res = isExpanded ? "SHRINK_HEADER" : "EXPAND_HEADER";
+    send(res);
+  };
 
   return (
-    <Box display="flex">
-      <Box display="flex" flexDirection="column" width="100%" height="100vh">
-        <Navigation>
-          <Link href="/">All</Link>
-          <Link href="/random">Random</Link>
-        </Navigation>
-        <Component {...pageProps} />
-      </Box>
-      {isOpen ? (
-        <Viewer url="https://cnn.com" handleClose={() => setIsOpen(false)} />
-        ) : null}
+    <Box display="flex" height="100vh">
+      <Navigation isExpanded={isExpanded} handleExpand={toggleExpanded}>
+        <Link href="/">All</Link>
+        <Link href="/random">Random</Link>
+      </Navigation>
+      <Component {...pageProps} />
     </Box>
   );
 }
