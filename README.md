@@ -23,20 +23,25 @@ yarn run dev
   - [ ] summarize entries in a couple of sentences
   - [ ] add notes
   
-  Lists
+**Lists**
   - [ ] recommend other bookmarks like the current one
   * [ ] add to lists
   - [ ] generate similar lists, create list from single
 
 **Rest**
   - [ ] latest digest
+  - [ ] export database into chrome format
   - [ ] "Reader View" simplified viewing
   - [ ] support twitter, reddit, youtube bookmarks/saved
   - [ ] support loading PDFs
   - [ ] EXTENSION: update bookmarks as they are added
   - [ ] EXTENSION: highlight and annotate page content
+  - [ ] EXTENSION: load lists into tab groups
+  - [ ] EXTENSION: bookmark tabs in groups
 
 ### DONE
+- [x] updated to Next.js 14
+- [x] replaced mui w/ franken/ui
 - [x] virtual scrolling (perf. enhance long lists)
 - [x] link to HN comments
 - [x] include MUI
