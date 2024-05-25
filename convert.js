@@ -6,8 +6,6 @@ const file = fs.readFileSync('./bookmarks.html', {encoding: 'utf8', flag: 'r'})
 const $ = cheerio.load(file)
 const db = new sqlite3.Database('./bookmarks.db')
 
-//console.log(file)
-
 let list = []
 const bookmarks = $('a').each((_, el) => { 
   const $el = $(el)
@@ -18,11 +16,12 @@ const bookmarks = $('a').each((_, el) => {
   })
 })
 
-db.run('delete from bookmarks', [], () => {
-  for (let b of list) {
-    //console.log(Object.values(b))
-    db.run('insert into bookmarks (href, date, title) values (?, ?, ?)', Object.values(b))
-  }
-})
-
-
+for (let b of list) {
+  //console.log(Object.values(b))
+  db.run('insert into bookmarks (href, date, title) values (?, ?, ?)', Object.values(b), (err) => {
+    if (err) {
+      // show us the duplicates, just in case
+      console.error(err)
+    }
+  })
+}

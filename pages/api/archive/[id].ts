@@ -13,10 +13,11 @@ export default function handler(req, res) {
 
   db.all(query, [req.query.id], (err, data) => {
     if (err) {
+      console.error(err)
       res.status(500)
       return; 
     }
 
-    res.json(data)
+    res.status(200).json(data)
   })
 }
