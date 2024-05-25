@@ -4,7 +4,7 @@ const sqlite3 = require('sqlite3').verbose()
 
 if (!process.argv[2]) {
   console.error('Need a path to bookmarks html')
-  return
+  exit();
 }
 
 console.log('Reading', process.argv[2])
