@@ -40,6 +40,7 @@ yarn run dev
   - [ ] EXTENSION: bookmark tabs in groups
 
 ### DONE
+- [x] upvote/downvote
 - [x] updated to Next.js 14
 - [x] replaced mui w/ franken/ui
 - [x] virtual scrolling (perf. enhance long lists)
