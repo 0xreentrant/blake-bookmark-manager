@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import React, { useEffect, useState, useRef } from "react";
 import { BookmarksLayoutContext } from "./BookmarksLayoutContext";
 
+
 export default function BookmarksLayout({ children }) {
   const parentRef = useRef();
   const pathname = usePathname();
@@ -13,13 +14,16 @@ export default function BookmarksLayout({ children }) {
   return (
     <div className="h-screen overflow-hidden" ref={parentRef}>
       <ul className="uk-subnav uk-subnav-primary p-2">
-        <li className={withActiveToggle("/")}>
+        <li className={withActiveToggle("/bookmarks/all")}>
           <Link href="/bookmarks/all">All</Link>
         </li>{" "}
-        <li>
+        <li className={withActiveToggle("/bookmarks/top")}>
+          <Link href="/bookmarks/top">Top</Link>
+        </li>{" "}
+        <li className={withActiveToggle("/bookmarks/random")}>
           <Link href="/bookmarks/random">Random</Link>
         </li>{" "}
-        <li>
+        <li className={withActiveToggle("/bookmarks/archived")}>
           <Link href="/bookmarks/archived">Archived</Link>
         </li>{" "}
       </ul>
