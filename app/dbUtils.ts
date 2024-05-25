@@ -1,9 +1,9 @@
 import { sql, AnyColumn } from "drizzle-orm";
 
-export const increment = (column: AnyColumn, value = 1) => {
+export const incr = (column: AnyColumn, value = 1) => {
   return sql`${column} + ${value}`;
 };
 
-export const decrement = (column: AnyColumn, value = 1) => {
+export const decr = (column: AnyColumn, value = 1) => {
   return sql`${column} - ${value}`;
 };
