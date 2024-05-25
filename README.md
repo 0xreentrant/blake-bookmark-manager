@@ -1,6 +1,6 @@
 ## Importing
 ```
-node convert.js <path to bookmarks.html>
+node utils/convert.js <path to bookmarks.html>
 ```
 
 ## Running
@@ -24,8 +24,10 @@ yarn run dev
   - [ ] add notes
   
 **Lists**
+  - [ ] 1st-class spotify-style lists modal
+  - [ ] top level "lists" panel
+  - [ ] drag-n-drop to add to list
   - [ ] recommend other bookmarks like the current one
-  * [ ] add to lists
   - [ ] generate similar lists, create list from single
 
 **Rest**

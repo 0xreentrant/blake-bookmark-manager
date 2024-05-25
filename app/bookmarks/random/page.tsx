@@ -1,32 +1,19 @@
 "use server";
 
-import sqlite3 from "sqlite3";
+import { eq, desc, sql } from "drizzle-orm";
+import { db, dbNew } from "../../db";
 import { Bookmarks } from "../Bookmarks";
-
-const db = new sqlite3.Database("./bookmarks.db");
+import { bookmarks } from "../../schema";
 
 export default async function Page() {
-  const bookmarks = await new Promise((resolve, reject) => {
-    const randomBookmarks = `
-      select * from (
-      select * from bookmarks
-      where archived = 0
-      order by RANDOM()
-      limit 10
-      ) order by date desc
-    `;
+  const random = dbNew
+    .select()
+    .from(bookmarks)
+    .where(eq(bookmarks.archived, 0))
+    .orderBy(sql`RANDOM()`)
+    .limit(10)
+    .as("random");
+  const sorted = await dbNew.select().from(random).orderBy(desc(random.date));
 
-    db.all(randomBookmarks, (err, data) => {
-      if (err) {
-        console.error(err);
-        return reject(err);
-      }
-
-      //console.log("showing results:\n", data);
-
-      resolve(data);
-    });
-  });
-
-  return <Bookmarks bookmarks={bookmarks} hasError={false} />;
+  return <Bookmarks bookmarks={sorted} hasError={false} />;
 }

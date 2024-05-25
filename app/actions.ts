@@ -1,112 +1,62 @@
 "use server";
 
-import sqlite3 from "sqlite3";
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-
-const db = new sqlite3.Database("./bookmarks.db");
+import { redirect } from "next/navigation";
+import { dbNew } from "./db";
+import { bookmarks, lists } from "./schema";
+import { increment, decrement } from "./dbUtils";
 
 export async function archiveBookmark(id) {
-  await new Promise((resolve, reject) => {
-    const query = `
-      update bookmarks
-      set archived = 1
-      where id = ?
-    `;
+  const out = await dbNew
+    .update(bookmarks)
+    .set({ archived: 1 })
+    .where(eq(bookmarks.id, id));
 
-    db.all(query, [id], (err, data) => {
-      if (err) {
-        console.error(err);
-        return reject(err);
-      }
-
-      resolve({ message: "Archived id " + id });
-    });
-  });
-
-  revalidatePath("/bookmarks", "layout");
+  revalidatePath("/bookmarks");
+  return out;
 }
 
 export async function restoreBookmark(id) {
-  return await new Promise((resolve, reject) => {
-    const query = `
-      update bookmarks
-      set archived = 0
-      where id = ?
-    `;
+  const out = await dbNew
+    .update(bookmarks)
+    .set({ archived: 0 })
+    .where(eq(bookmarks.id, id));
 
-    db.all(query, [id], (err, data) => {
-      if (err) {
-        console.error(err);
-        return reject(err);
-      }
-
-      resolve({ message: "Restored id " + id });
-    });
-
-    revalidatePath("/bookmarks", "layout");
-  });
+  revalidatePath("/bookmarks", "layout");
+  return out;
 }
 
 export async function upvoteBookmark(id) {
-  return await new Promise((resolve, reject) => {
-    const query = `
-      update bookmarks
-      set points = points + 1
-      where id = ?
-    `;
+  const out = dbNew
+    .update(bookmarks)
+    .set({ points: increment(bookmarks.points) })
+    .where(eq(bookmarks.id, id));
 
-    db.all(query, [id], (err, data) => {
-      if (err) {
-        console.error(err);
-        return reject(err);
-      }
-
-      resolve({ message: "Upvoted id " + id });
-    });
-
-    revalidatePath("/bookmarks", "layout");
-  });
+  revalidatePath("/bookmarks", "layout");
+  return out;
 }
 
 export async function downvoteBookmark(id) {
-  return await new Promise((resolve, reject) => {
-    const query = `
-      update bookmarks
-      set points = points - 1
-      where id = ?
-    `;
+  const out = await dbNew
+    .update(bookmarks)
+    .set({ points: decrement(bookmarks.points) })
+    .where(eq(bookmarks.id, id));
 
-    db.all(query, [id], (err, data) => {
-      if (err) {
-        console.error(err);
-        return reject(err);
-      }
-
-      resolve({ message: "Downvoted id " + id });
-    });
-
-    revalidatePath("/", "page");
-  });
+  revalidatePath("/", "page");
+  return out;
 }
 
-export async function saveNote(id, notes, postData) {
-  return await new Promise((resolve, reject) => {
-    const query = `
-      update bookmarks
-      set notes = ?
-      where id = ?
-    `;
+export async function saveNote(id, notes, _) {
+  const out = dbNew
+    .update(bookmarks)
+    .set({ notes: notes })
+    .where(eq(bookmarks.id, id));
 
-    db.all(query, [notes, id], (err, data) => {
-      if (err) {
-        console.error(err);
-        return reject(err);
-      }
+  return out;
+}
 
-      resolve({ message: "Saved note to id " + id });
-    });
-
-    // don't revalidate the path so that the user can continue to
-    // edit without disruption via autosave
-  });
+export async function createList() {
+  const out = dbNew.insert(lists).values({ title: "New List" }).returning();
+  redirect(`/bookmarks/list/${out.get().id}`);
 }

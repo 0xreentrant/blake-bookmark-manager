@@ -31,7 +31,7 @@ export function Bookmarks({ bookmarks, hasError }) {
 
   const Row = ({ style, data, index }) => {
     return (
-      <div className="flex uk-card uk-card-body" style={style}>
+      <div style={style} className="m-2">
         <Entry
           key={index}
           entry={data[index]}
@@ -111,7 +111,7 @@ export function Bookmarks({ bookmarks, hasError }) {
       height={remainderHeight}
       itemData={bookmarks}
       itemCount={bookmarks.length}
-      itemSize={122}
+      itemSize={100}
       innerRef={listRef}
     >
       {Row}

@@ -1,11 +1,7 @@
-import sqlite3 from "sqlite3";
+import { db } from "../../db";
 import { Details } from "./Details";
 
-const db = new sqlite3.Database("./bookmarks.db");
-
 export default async function DetailsPage({ params }) {
-  console.log({ getting: params.id });
-
   const bookmark = await new Promise((resolve, reject) => {
     const bookmark = `
       select * from bookmarks
@@ -17,8 +13,6 @@ export default async function DetailsPage({ params }) {
         console.error(err);
         return reject(err);
       }
-
-      console.log("showing results:\n", data);
 
       resolve(data);
     });

@@ -1,4 +1,4 @@
-import Icon from "./AsyncIcon";
+import { Icon } from "../Icon";
 
 type Bookmark = any;
 
@@ -31,31 +31,32 @@ export const Entry = ({
   doRestore,
   doUpvote,
   doDownvote,
+  style,
 }: {
   entry: Bookmark;
   doArchive;
   doRestore;
   doUpvote;
   doDownvote;
+  style;
 }) => {
   const isArchived = entry.archived == 1;
 
+  // TODO: remove the border and fix the spacing between entries
   return (
-    <>
+    <div className="flex border rounded-lg" style={style}>
       <div className="flex flex-col items-center">
         {entry.points}
         <div className="flex flex-col">
           <Icon
             icon="chevron-up"
             onClick={() => {
-              console.log({ upvoting: entry.id });
               doUpvote(entry.id);
             }}
           ></Icon>
           <Icon
             icon="chevron-down"
             onClick={() => {
-              console.log({ downvoted: entry.id });
               doDownvote(entry.id);
             }}
           ></Icon>
@@ -73,7 +74,6 @@ export const Entry = ({
           <Icon
             icon="refresh"
             onClick={() => {
-              console.log({ restoring: entry.id, doRestore });
               doRestore(entry.id);
             }}
           ></Icon>
@@ -81,12 +81,11 @@ export const Entry = ({
           <Icon
             icon="trash"
             onClick={() => {
-              console.log({ archiving: entry.id, doArchive });
               doArchive(entry.id);
             }}
           ></Icon>
         )}
       </div>
-    </>
+    </div>
   );
 };

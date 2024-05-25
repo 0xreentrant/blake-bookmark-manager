@@ -17,7 +17,6 @@ export function Details({ entry }) {
   useAutosave({
     data: text,
     onSave: (data) => {
-      console.log({ saving: data });
       saveNote(entry.id, data);
     },
   });
