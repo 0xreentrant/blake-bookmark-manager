@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { dbNew } from "./db";
-import { bookmarks, lists } from "./schema";
+import { bookmarks, lists, bookmarksToLists } from "./schema";
 import { incr, decr } from "./dbUtils";
 
 export async function archiveBookmark(id) {
@@ -58,12 +58,24 @@ export async function saveNote(id, notes, _) {
 
 export async function createList() {
   const out = dbNew.insert(lists).values({ title: "New List" }).returning();
+  console.log({ out: out.values });
   redirect(`/bookmarks/list/${out.get().id}`);
 }
 
-export async function addRemoveFromLists(formData: FormData) {
-  for (const [key, value] of formData) {
-    console.log(key, value);
+export async function addRemoveFromLists(bookmarkId, formData) {
+  console.log(formData);
+  let listIds: Array<Number> = [];
+  for (const [id] of formData) {
+    listIds.push(Number(id));
   }
-  return formData;
+
+  const values = listIds.map((listId) => ({ bookmarkId, listId }));
+
+  console.log({values})
+
+  // @ts-ignore
+  const out = await dbNew.insert(bookmarksToLists).values(values).returning();
+
+  revalidatePath("/");
+  return out;
 }

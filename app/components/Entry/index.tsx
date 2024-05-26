@@ -26,7 +26,8 @@ export const HNLink = ({ link }) => (
     (HN)
   </a>
 );
-const ListEntry = ({ list }) => (
+
+export const ListEntry = ({ list }) => (
   <div className=" flex justify-between pb-4">
     {list.title}
     <div className="round">
@@ -35,6 +36,7 @@ const ListEntry = ({ list }) => (
     </div>
   </div>
 );
+
 export const Entry = ({
   id,
   isArchived,
@@ -92,6 +94,7 @@ export const Entry = ({
         </Link>{" "}
         {handleOpenModal && (
           <>
+            {/* TODO: optimize, pull up so that we're only using 1 actual modal */}
             <Dialog.Root>
               <Dialog.Trigger>
                 <Icon icon="folder" />
@@ -102,7 +105,7 @@ export const Entry = ({
                   <Dialog.Title className="m-0  font-medium">
                     Add to List
                   </Dialog.Title>
-                  <form action={addRemoveFromLists}>
+                  <form action={addRemoveFromLists.bind(null, id)}>
                     {lists &&
                       lists.map((list) => (
                         <ListEntry key={list.id} list={list} />
