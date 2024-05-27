@@ -110,6 +110,7 @@ export async function addRemoveFromLists(bookmarkId, formData) {
     added.push(
       dbNew
         .insert(bookmarksToLists)
+        // @ts-ignore
         .values(listsToAddTo.map((listId: Number) => ({ listId, bookmarkId })))
         .returning()
         .get()
@@ -121,6 +122,7 @@ export async function addRemoveFromLists(bookmarkId, formData) {
       removed.push(
         dbNew
           .delete(bookmarksToLists)
+          // @ts-ignore
           .where(eq(bookmarksToLists.listId, listId))
           .returning()
           .get()
@@ -138,4 +140,16 @@ export async function deleteList(id) {
   console.log("deleting");
   revalidatePath("/");
   redirect("/bookmarks/all");
+}
+
+type List = {
+  title: string;
+};
+export async function editList(id, formData: FormData) {
+  const title = formData.get("title").toString();
+
+  const out = await dbNew.update(lists).set({ title }).where(eq(lists.id, id));
+
+  revalidatePath("/");
+  return out;
 }
