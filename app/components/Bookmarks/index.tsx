@@ -31,7 +31,12 @@ export function Bookmarks({ bookmarks, allLists, hasError }) {
     const entry = data[index];
     const { id, archived, points, href, title, date, bookmarksToLists } = entry;
     const isArchived = archived == 1;
-    const includedInLists = bookmarksToLists?.map((e) => e.listId);
+    const includedInLists = bookmarksToLists
+      ? bookmarksToLists.map((e) => e.listId)
+      : [];
+
+console.log({id, title, bookmarksToLists})
+
     return (
       <div style={style} className="m-2">
         <Entry

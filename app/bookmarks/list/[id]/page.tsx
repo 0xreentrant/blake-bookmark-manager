@@ -1,6 +1,6 @@
 "use server";
 
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { dbNew } from "../../../db";
 import { bookmarks, lists, bookmarksToLists } from "../../../schema";
 import { List } from "./List";
@@ -8,17 +8,38 @@ import { List } from "./List";
 export default async function Page({ params }) {
   const { id } = params;
 
-  const list = dbNew.select().from(lists).where(eq(lists.id, id)).get();
-
-  const listBookmarks = await dbNew
-    // @ts-ignore
-    .select(bookmarks)
-    .from(bookmarksToLists)
-    .leftJoin(bookmarks, eq(bookmarksToLists.bookmarkId, bookmarks.id))
-    .leftJoin(lists, eq(bookmarksToLists.listId, lists.id))
-    .where(eq(lists.id, id));
-
   const allLists = await dbNew.query.lists.findMany();
 
-  return <List list={list} bookmarks={listBookmarks} lists={allLists} />;
+  let listBookmarks = await dbNew.query.lists.findFirst({
+    with: {
+      bookmarksToLists: {
+        columns: { bookmarkId: false, listId: false },
+        with: {
+          bookmark: {
+            with: {
+              bookmarksToLists: {
+                columns: { bookmarkId: false },
+              },
+            },
+          },
+        },
+      },
+    },
+    where: eq(lists.id, id),
+  });
+
+  const list = { id: listBookmarks.id, title: listBookmarks.title };
+  listBookmarks = listBookmarks.bookmarksToLists.map((b) => ({
+    ...b.bookmark,
+  }));
+
+  console.log(JSON.stringify(listBookmarks, null, 4));
+
+  return (
+    <List
+      list={list}
+      bookmarks={listBookmarks}
+      lists={allLists}
+    />
+  );
 }
