@@ -1,3 +1,7 @@
+import React, { forwardRef } from "react";
 import dynamic from "next/dynamic";
-const Icon = dynamic(() => import("./Icon"), { ssr: false });
-export {Icon};
+const UKIcon = dynamic(() => import("./UKIcon"), { ssr: false });
+const Icon = function (props) {
+  return <UKIcon {...props} />;
+};
+export { Icon };

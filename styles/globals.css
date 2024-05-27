@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --main-accent-color: #66bb6a;
+}
+
 html,
 body {
   padding: 0;
@@ -56,8 +60,8 @@ a {
 }
 
 .round input[type="checkbox"]:checked + label {
-  background-color: #66bb6a;
-  border-color: #66bb6a;
+  background-color: var(--main-accent-color);
+  border-color: var(--main-accent-color);
 }
 
 .round input[type="checkbox"]:checked + label:after {

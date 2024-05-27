@@ -2,40 +2,12 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import Link from "next/link";
 import { Icon } from "../Icon";
+import { IconFolderAdd } from "../Icon/FolderAdd";
+import { IconFolderCheck } from "../Icon/FolderCheck";
 import { addRemoveFromLists } from "../../actions";
-
-export const CachedLink = ({ link }) => (
-  <a
-    target="_blank"
-    href={"https://web.archive.org/web/*/" + link}
-    rel="noreferrer"
-  >
-    (Cached Link)
-  </a>
-);
-
-export const HNLink = ({ link }) => (
-  <a
-    target="_blank"
-    href={
-      "https://hn.algolia.com/?dateRange=all&page=0&prefix=true&query=" +
-      encodeURIComponent(link)
-    }
-    rel="noreferrer"
-  >
-    (HN)
-  </a>
-);
-
-export const ListEntry = ({ list, isChecked }) => (
-  <div className=" flex justify-between pb-4">
-    {list.title}
-    <div className="round">
-      <input type="checkbox" name={list.id} id={list.id} checked={isChecked} />
-      <label htmlFor={list.id} />
-    </div>
-  </div>
-);
+import { ListEntry } from "./ListEntry";
+import { HNLink } from "./HNLink";
+import { CachedLink } from "./CachedLink";
 
 export const Entry = ({
   id,
@@ -97,7 +69,7 @@ export const Entry = ({
             {/* TODO: optimize, pull up so that we're only using 1 actual modal */}
             <Dialog.Root>
               <Dialog.Trigger>
-                <Icon icon="folder" />
+                {listsIncluded.length ? <IconFolderAdd /> : <IconFolderCheck fill="green"/>}
               </Dialog.Trigger>
               <Dialog.Portal>
                 <Dialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />
@@ -108,11 +80,12 @@ export const Entry = ({
                   <form action={addRemoveFromLists.bind(null, id)}>
                     {allLists &&
                       allLists.map((list) => {
-                        console.log({
-                        listsIncluded,
-                        isChecked:
-                        listsIncluded && listsIncluded.includes(list.id),
-                        });
+                        //listsIncluded.length &&
+                        //console.log({
+                        //listsIncluded,
+                        //isChecked:
+                        //listsIncluded && listsIncluded.includes(list.id),
+                        //});
                         return (
                           <ListEntry
                             key={list.id}
