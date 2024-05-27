@@ -54,7 +54,7 @@ export const Entry = ({
       </div>
       <div>
         <h3>
-          <a href={href}>{title}</a>
+          <Link href={href}>{title}</Link>
         </h3>
         {new Date(date * 1000).toLocaleString()}
         <hr />

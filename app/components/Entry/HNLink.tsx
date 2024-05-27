@@ -1,5 +1,7 @@
+import Link from "next/link";
+
 export const HNLink = ({ link }) => (
-  <a
+  <Link
     target="_blank"
     href={
       "https://hn.algolia.com/?dateRange=all&page=0&prefix=true&query=" +
@@ -8,7 +10,5 @@ export const HNLink = ({ link }) => (
     rel="noreferrer"
   >
     (HN)
-  </a>
+  </Link>
 );
-
-

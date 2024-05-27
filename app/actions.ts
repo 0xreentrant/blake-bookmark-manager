@@ -79,10 +79,10 @@ export async function addRemoveFromLists(bookmarkId, formData) {
     .all()
     .map(({ listId }) => listId);
 
-    // TODO: optimize this so that if there are no changes do nothing, ie.:
-    // - no change at all
-    // - nothing to add
-    // - nothing to remove
+  // TODO: optimize this so that if there are no changes do nothing, ie.:
+  // - no change at all
+  // - nothing to add
+  // - nothing to remove
 
   const setIntersect = (a, b) => a.filter((e) => b.includes(e));
   const setSubtract = (m, s) => m.filter((e) => !s.includes(e));
@@ -131,4 +131,11 @@ export async function addRemoveFromLists(bookmarkId, formData) {
   console.log({ added, removed });
 
   revalidatePath("/bookmarks/list");
+}
+
+export async function deleteList(id) {
+  await dbNew.delete(lists).where(eq(lists.id, id)).returning();
+  console.log("deleting");
+  revalidatePath("/");
+  redirect("/bookmarks/all");
 }

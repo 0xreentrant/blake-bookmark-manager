@@ -3,7 +3,7 @@
 import { eq } from "drizzle-orm";
 import { dbNew } from "../../../db";
 import { bookmarks, lists, bookmarksToLists } from "../../../schema";
-import { Bookmarks } from "../../../components/Bookmarks";
+import { List } from "./List";
 
 export default async function Page({ params }) {
   const { id } = params;
@@ -20,16 +20,5 @@ export default async function Page({ params }) {
 
   const allLists = await dbNew.query.lists.findMany();
 
-  //console.log({ listBookmarks: JSON.stringify(listBookmarks, null, 4) });
-
-  return (
-    <div>
-      <h1>{list.title}</h1>
-      <Bookmarks
-        bookmarks={listBookmarks}
-        allLists={allLists}
-        hasError={false}
-      />
-    </div>
-  );
+  return <List list={list} bookmarks={listBookmarks} lists={allLists} />;
 }
