@@ -27,11 +27,11 @@ export const HNLink = ({ link }) => (
   </a>
 );
 
-export const ListEntry = ({ list }) => (
+export const ListEntry = ({ list, isChecked }) => (
   <div className=" flex justify-between pb-4">
     {list.title}
     <div className="round">
-      <input type="checkbox" name={list.id} id={list.id} />
+      <input type="checkbox" name={list.id} id={list.id} checked={isChecked} />
       <label htmlFor={list.id} />
     </div>
   </div>
@@ -44,12 +44,12 @@ export const Entry = ({
   href,
   title,
   date,
-  lists,
+  allLists,
+  listsIncluded,
   handleArchive,
   handleRestore,
   handleUpvote,
   handleDownvote,
-  handleOpenModal,
   style,
 }: {
   id;
@@ -58,12 +58,12 @@ export const Entry = ({
   href;
   title;
   date;
-  lists;
+  allLists;
+  listsIncluded;
   handleArchive;
   handleRestore;
   handleUpvote;
   handleDownvote;
-  handleOpenModal?;
   style?;
 }) => {
   // TODO: remove the border and fix the spacing between entries
@@ -92,7 +92,7 @@ export const Entry = ({
         <Link href={`/bookmarks/edit/${id}`}>
           <Icon icon="file-edit" />
         </Link>{" "}
-        {handleOpenModal && (
+        {
           <>
             {/* TODO: optimize, pull up so that we're only using 1 actual modal */}
             <Dialog.Root>
@@ -106,10 +106,23 @@ export const Entry = ({
                     Add to List
                   </Dialog.Title>
                   <form action={addRemoveFromLists.bind(null, id)}>
-                    {lists &&
-                      lists.map((list) => (
-                        <ListEntry key={list.id} list={list} />
-                      ))}
+                    {allLists &&
+                      allLists.map((list) => {
+                        console.log({
+                        listsIncluded,
+                        isChecked:
+                        listsIncluded && listsIncluded.includes(list.id),
+                        });
+                        return (
+                          <ListEntry
+                            key={list.id}
+                            list={list}
+                            isChecked={
+                              listsIncluded && listsIncluded.includes(list.id)
+                            }
+                          />
+                        );
+                      })}
                     <div className="mt-[25px] flex justify-end">
                       <button
                         type="submit"
@@ -129,7 +142,7 @@ export const Entry = ({
               </Dialog.Portal>
             </Dialog.Root>
           </>
-        )}
+        }
       </div>
     </div>
   );

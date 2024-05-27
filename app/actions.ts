@@ -59,23 +59,76 @@ export async function saveNote(id, notes, _) {
 export async function createList() {
   const out = dbNew.insert(lists).values({ title: "New List" }).returning();
   console.log({ out: out.values });
-  redirect(`/bookmarks/list/${out.get().id}`);
+  //redirect(`/bookmarks/list/${out.get().id}`);
+  revalidatePath("/");
+  return out;
 }
 
 export async function addRemoveFromLists(bookmarkId, formData) {
-  console.log(formData);
-  let listIds: Array<Number> = [];
+  let listIdsSubmitted: Array<Number> = [];
   for (const [id] of formData) {
-    listIds.push(Number(id));
+    listIdsSubmitted.push(Number(id));
   }
 
-  const values = listIds.map((listId) => ({ bookmarkId, listId }));
+  const listsExistingOn: Array<Number> = dbNew
+    .select({ listId: lists.id })
+    .from(bookmarksToLists)
+    .leftJoin(bookmarks, eq(bookmarksToLists.bookmarkId, bookmarks.id))
+    .leftJoin(lists, eq(bookmarksToLists.listId, lists.id))
+    .where(eq(bookmarks.id, bookmarkId))
+    .all()
+    .map(({ listId }) => listId);
 
-  console.log({values})
+    // TODO: optimize this so that if there are no changes do nothing, ie.:
+    // - no change at all
+    // - nothing to add
+    // - nothing to remove
 
-  // @ts-ignore
-  const out = await dbNew.insert(bookmarksToLists).values(values).returning();
+  const setIntersect = (a, b) => a.filter((e) => b.includes(e));
+  const setSubtract = (m, s) => m.filter((e) => !s.includes(e));
 
-  revalidatePath("/");
-  return out;
+  const listsToRemoveFrom: Array<Number> = setSubtract(
+    listsExistingOn,
+    listIdsSubmitted
+  );
+  const listsToAddTo: Array<Number> = setSubtract(
+    listIdsSubmitted,
+    setIntersect(listIdsSubmitted, listsExistingOn)
+  );
+
+  console.log({
+    listIdsSubmitted,
+    listsExistingOn,
+    listsToRemoveFrom,
+    listsToAddTo,
+  });
+
+  const added = [];
+  const removed = [];
+
+  if (listsToAddTo.length > 0) {
+    added.push(
+      dbNew
+        .insert(bookmarksToLists)
+        .values(listsToAddTo.map((listId: Number) => ({ listId, bookmarkId })))
+        .returning()
+        .get()
+    );
+  }
+
+  if (listsToRemoveFrom.length > 0) {
+    for (let listId of listsToRemoveFrom) {
+      removed.push(
+        dbNew
+          .delete(bookmarksToLists)
+          .where(eq(bookmarksToLists.listId, listId))
+          .returning()
+          .get()
+      );
+    }
+  }
+
+  console.log({ added, removed });
+
+  revalidatePath("/bookmarks/list");
 }

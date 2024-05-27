@@ -11,5 +11,7 @@ export default async function Page() {
     orderBy: [desc(bookmarks.date)],
   });
 
-  return <Bookmarks bookmarks={list} hasError={false} />;
+  const allLists = await dbNew.query.lists.findMany();
+
+  return <Bookmarks bookmarks={list} allLists={allLists} hasError={false} />;
 }

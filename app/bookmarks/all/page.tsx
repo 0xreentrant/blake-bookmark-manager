@@ -7,6 +7,7 @@ import { bookmarks, lists } from "../../schema";
 
 export default async function Page() {
   const allBookmarks = await dbNew.query.bookmarks.findMany({
+    with: { bookmarksToLists: true },
     where: eq(bookmarks.archived, 0),
     orderBy: [desc(bookmarks.date)],
   });
@@ -14,6 +15,6 @@ export default async function Page() {
   const allLists = await dbNew.query.lists.findMany();
 
   return (
-    <Bookmarks bookmarks={allBookmarks} lists={allLists} hasError={false} />
+    <Bookmarks bookmarks={allBookmarks} allLists={allLists} hasError={false} />
   );
 }

@@ -45,9 +45,6 @@ export const bookmarksToLists = sqliteTable(
       .notNull()
       .references(() => lists.id, { onDelete: "cascade" }),
   },
-  (t) => ({
-    pk: primaryKey({ columns: [t.bookmarkId, t.listId] }),
-  })
 );
 
 export const bookmarksToListsRelations = relations(

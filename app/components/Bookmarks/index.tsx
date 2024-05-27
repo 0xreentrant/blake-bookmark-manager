@@ -22,35 +22,36 @@ function outerHeight(element: HTMLElement) {
     .reduce((total, side) => total + side, height);
 }
 
-export function Bookmarks({ bookmarks, lists, hasError }) {
+export function Bookmarks({ bookmarks, allLists, hasError }) {
   const parentRef = useContext(LayoutContext);
   const listRef = useRef<HTMLElement>();
   const [remainderHeight, setRemainderHeight] = useState(0);
 
-const Row = ({ style, data, index }) => {
-  const entry = data[index];
-  const { id, archived, points, href, title, date } = entry;
-  const isArchived = archived == 1;
-  return (
-    <div style={style} className="m-2">
-      <Entry
-        key={index}
-        id={id}
-        isArchived={isArchived}
-        points={points}
-        href={href}
-        title={title}
-        date={date}
-      lists={lists}
-        handleUpvote={() => upvoteBookmark(id)}
-        handleDownvote={() => downvoteBookmark(id)}
-        handleArchive={() => archiveBookmark(id)}
-        handleRestore={() => restoreBookmark(id)}
-        handleOpenModal={() => {}}
-      />
-    </div>
-  );
-};
+  const Row = ({ style, data, index }) => {
+    const entry = data[index];
+    const { id, archived, points, href, title, date, bookmarksToLists } = entry;
+    const isArchived = archived == 1;
+    const includedInLists = bookmarksToLists.map((e) => e.listId);
+    return (
+      <div style={style} className="m-2">
+        <Entry
+          key={index}
+          id={id}
+          isArchived={isArchived}
+          points={points}
+          href={href}
+          title={title}
+          date={date}
+          allLists={allLists}
+          listsIncluded={includedInLists}
+          handleUpvote={() => upvoteBookmark(id)}
+          handleDownvote={() => downvoteBookmark(id)}
+          handleArchive={() => archiveBookmark(id)}
+          handleRestore={() => restoreBookmark(id)}
+        />
+      </div>
+    );
+  };
 
   // TODO: turn into hook
   useEffect(() => {

@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "a8393307-c47e-4602-aed7-1b5afd532ac9",
+  "id": "faa8e4e7-42ca-47ca-a86d-623081803566",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "bookmarks": {
@@ -111,15 +111,7 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {
-        "bookmarks_to_lists_bookmark_id_list_id_pk": {
-          "columns": [
-            "bookmark_id",
-            "list_id"
-          ],
-          "name": "bookmarks_to_lists_bookmark_id_list_id_pk"
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
     "lists": {

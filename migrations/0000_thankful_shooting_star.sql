@@ -11,7 +11,6 @@ CREATE TABLE `bookmarks` (
 CREATE TABLE `bookmarks_to_lists` (
 	`bookmark_id` integer NOT NULL,
 	`list_id` integer NOT NULL,
-	PRIMARY KEY(`bookmark_id`, `list_id`),
 	FOREIGN KEY (`bookmark_id`) REFERENCES `bookmarks`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`list_id`) REFERENCES `lists`(`id`) ON UPDATE no action ON DELETE cascade
 );
