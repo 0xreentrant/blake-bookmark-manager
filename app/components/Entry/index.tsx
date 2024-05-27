@@ -70,7 +70,7 @@ export const Entry = ({
             <IconEdit />
           </Link>
 
-          {/* TODO: optimize, pull up so that we're only using 1 actual modal */}
+          {/* TODO: optimize, pull up so that we're only using 1 actual modal for add/remove lists */}
           <Dialog.Root>
             <Dialog.Trigger>
               {listsIncluded ? (
@@ -87,23 +87,15 @@ export const Entry = ({
                 </Dialog.Title>
                 <form action={addRemoveFromLists.bind(null, id)}>
                   {allLists &&
-                    allLists.map((list) => {
-                      //listsIncluded.length &&
-                      //console.log({
-                      //listsIncluded,
-                      //isChecked:
-                      //listsIncluded && listsIncluded.includes(list.id),
-                      //});
-                      return (
-                        <ListEntry
-                          key={list.id}
-                          list={list}
-                          isChecked={
-                            listsIncluded && listsIncluded.includes(list.id)
-                          }
-                        />
-                      );
-                    })}
+                    allLists.map((list) => (
+                      <ListEntry
+                        key={list.id}
+                        list={list}
+                        isChecked={
+                          listsIncluded && listsIncluded.includes(list.id)
+                        }
+                      />
+                    ))}
                   <div className="mt-[25px] flex justify-end">
                     <button
                       type="submit"
@@ -113,12 +105,7 @@ export const Entry = ({
                     </button>
                   </div>
                 </form>
-                <Dialog.Close asChild>
-                  <button
-                    className="absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
-                    aria-label="Close"
-                  ></button>
-                </Dialog.Close>
+                <Dialog.Close />
               </Dialog.Content>
             </Dialog.Portal>
           </Dialog.Root>

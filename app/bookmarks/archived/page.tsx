@@ -13,5 +13,9 @@ export default async function Page() {
 
   const allLists = await dbNew.query.lists.findMany();
 
+  if (!list.length) {
+    return <h1>Nothing Here!</h1>;
+  }
+
   return <Bookmarks bookmarks={list} allLists={allLists} hasError={false} />;
 }
