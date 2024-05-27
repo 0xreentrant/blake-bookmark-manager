@@ -97,6 +97,11 @@ export const Entry = ({
                       />
                     ))}
                   <div className="mt-[25px] flex justify-end">
+                  <Dialog.Close>
+                    <button className="inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none">
+                      Cancel
+                    </button>
+                  </Dialog.Close>
                     <button
                       type="submit"
                       className="inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
