@@ -1,1 +1,1 @@
-export const withActiveToggle = (p, t) => (p === t ? "uk-active" : "");
+export const withActiveToggle = (p, t) => (p === t ? "font-bold" : "");
