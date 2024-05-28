@@ -64,7 +64,7 @@ export async function createList() {
   return out;
 }
 
-export async function addRemoveFromLists(bookmarkId, formData) {
+export async function addRemoveFromLists(preventRefresh, bookmarkId, formData) {
   let listIdsSubmitted: Array<Number> = [];
   for (const [id] of formData) {
     listIdsSubmitted.push(Number(id));
@@ -132,7 +132,11 @@ export async function addRemoveFromLists(bookmarkId, formData) {
 
   console.log({ added, removed });
 
-  revalidatePath("/bookmarks/list");
+  // NOTE: this is for the Random page, so it doesn't refresh after adding/removing bookmarks from lists
+  console.log({ preventRefresh });
+  if (!preventRefresh) {
+    revalidatePath("/bookmarks");
+  }
 }
 
 export async function deleteList(id) {

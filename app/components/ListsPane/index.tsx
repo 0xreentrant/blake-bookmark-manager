@@ -4,7 +4,7 @@ import { useFormState } from "react-dom";
 import { createList } from "../../actions";
 import { Icon } from "../Icon";
 import { Nav } from "./Nav";
-import {ListEntry} from '../ListEntry'
+import { ListEntry } from "../ListEntry";
 
 export function ListsPane({ lists, totalBookmarks }) {
   const [, doCreateList] = useFormState(createList);
@@ -19,7 +19,7 @@ export function ListsPane({ lists, totalBookmarks }) {
         <span className="text-muted-foreground">Your Lists</span>
         <Icon icon="plus" onClick={() => doCreateList()} />
       </div>
-      <div className="h-full px-2 overflow-scroll">
+      <div className="h-full px-2 overflow-y-scroll">
         {lists &&
           lists.map((list) => (
             <ListEntry key={list.id} id={list.id} title={list.title} />

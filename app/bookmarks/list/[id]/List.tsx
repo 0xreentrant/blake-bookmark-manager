@@ -7,6 +7,7 @@ import { IconMenuHorizontal } from "../../../components/Icon/MenuHorizontal";
 import { IconMinusCircle } from "../../../components/Icon/IconMinusCircle";
 import { deleteList } from "../../../actions";
 import { editList } from "../../../actions";
+import { Nothing } from "../../../components/DefaultViews/Nothing";
 
 export function List({ list, bookmarks, lists }) {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -64,7 +65,11 @@ export function List({ list, bookmarks, lists }) {
         </div>
       </div>
 
-      <Bookmarks bookmarks={bookmarks} allLists={lists} hasError={false} />
+      {list?.length ? (
+        <Bookmarks bookmarks={bookmarks} allLists={lists} />
+      ) : (
+        <Nothing />
+      )}
 
       <Dialog.Root open={isEditDialogOpen} onOpenChange={setEditDialogOpen}>
         <Dialog.Trigger />

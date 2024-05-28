@@ -3,10 +3,11 @@
 import { eq, desc } from "drizzle-orm";
 import { dbNew } from "../../db";
 import { Bookmarks } from "../../components/Bookmarks";
-import { bookmarks, lists } from "../../schema";
+import { bookmarks } from "../../schema";
+import { Nothing } from "../../components/DefaultViews/Nothing";
 
 export default async function Page() {
-  const allBookmarks = await dbNew.query.bookmarks.findMany({
+  const list = await dbNew.query.bookmarks.findMany({
     with: { bookmarksToLists: true },
     where: eq(bookmarks.archived, 0),
     orderBy: [desc(bookmarks.date)],
@@ -15,6 +16,13 @@ export default async function Page() {
   const allLists = await dbNew.query.lists.findMany();
 
   return (
-    <Bookmarks bookmarks={allBookmarks} allLists={allLists} hasError={false} />
+    <div className="p-2">
+      <h1>All bookmarks</h1>
+      {list?.length ? (
+        <Bookmarks bookmarks={list} allLists={allLists}  />
+      ) : (
+        <Nothing />
+      )}
+    </div>
   );
 }

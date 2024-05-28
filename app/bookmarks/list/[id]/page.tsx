@@ -29,17 +29,10 @@ export default async function Page({ params }) {
   });
 
   const list = { id: listBookmarks.id, title: listBookmarks.title };
+
   listBookmarks = listBookmarks.bookmarksToLists.map((b) => ({
     ...b.bookmark,
   }));
 
-  console.log(JSON.stringify(listBookmarks, null, 4));
-
-  return (
-    <List
-      list={list}
-      bookmarks={listBookmarks}
-      lists={allLists}
-    />
-  );
+  return <List list={list} bookmarks={listBookmarks} lists={allLists} />;
 }

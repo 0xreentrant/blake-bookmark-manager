@@ -22,7 +22,7 @@ function outerHeight(element: HTMLElement) {
     .reduce((total, side) => total + side, height);
 }
 
-export function Bookmarks({ bookmarks, allLists, hasError }) {
+export function Bookmarks({ bookmarks, allLists }) {
   const parentRef = useContext(LayoutContext);
   const listRef = useRef<HTMLElement>();
   const [remainderHeight, setRemainderHeight] = useState(0);
@@ -35,10 +35,8 @@ export function Bookmarks({ bookmarks, allLists, hasError }) {
       ? bookmarksToLists.map((e) => e.listId)
       : [];
 
-console.log({id, title, bookmarksToLists})
-
     return (
-      <div style={style} className="m-2">
+      <div style={style} className="!w-[98%]">
         <Entry
           key={index}
           id={id}
@@ -92,14 +90,6 @@ console.log({id, title, bookmarksToLists})
     };
   }, [parentRef]);
 
-  if (hasError) {
-    return <div>Failed to load</div>;
-  }
-
-  if (!bookmarks) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <List
       height={remainderHeight}
@@ -107,6 +97,7 @@ console.log({id, title, bookmarksToLists})
       itemCount={bookmarks.length}
       itemSize={100}
       innerRef={listRef}
+      style={{ overflowX: "hidden" }}
     >
       {Row}
     </List>

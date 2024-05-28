@@ -4,6 +4,7 @@ import { eq, desc, sql } from "drizzle-orm";
 import { db, dbNew } from "../../db";
 import { Bookmarks } from "../../components/Bookmarks";
 import { bookmarks } from "../../schema";
+import { Nothing } from "../../components/DefaultViews/Nothing";
 
 export default async function Page() {
   const random = dbNew
@@ -13,7 +14,23 @@ export default async function Page() {
     .orderBy(sql`RANDOM()`)
     .limit(10)
     .as("random");
-  const sorted = await dbNew.select().from(random).orderBy(desc(random.date));
 
-  return <Bookmarks bookmarks={sorted} hasError={false} />;
+  const list = await dbNew.select().from(random).orderBy(desc(random.date));
+
+  const allLists = await dbNew.query.lists.findMany();
+
+  if (!list.length) {
+    return <h1>Nothing Here!</h1>;
+  }
+
+  return (
+    <div className="p-2">
+      <h1>Random bookmarks</h1>
+      {list?.length ? (
+        <Bookmarks bookmarks={list} allLists={allLists} />
+      ) : (
+        <Nothing />
+      )}
+    </div>
+  );
 }
