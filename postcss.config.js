@@ -3,7 +3,7 @@ module.exports = {
     tailwindcss: {},
     "postcss-sort-media-queries": {},
     "postcss-combine-duplicated-selectors": {
-      removeDuplicatedProperties: true,
+    removeDuplicatedProperties: true,
     },
   },
 };

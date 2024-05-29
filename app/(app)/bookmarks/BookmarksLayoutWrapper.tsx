@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { LayoutContext } from "../components/LayoutContext";
+import { LayoutContext } from "@/components/LayoutContext";
 
 export function BookmarksLayoutWrapper({ left, right }) {
   const parentRef = useRef();

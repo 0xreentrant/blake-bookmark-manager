@@ -2,9 +2,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { withActiveToggle } from "../utils/ui";
 import { IconHome } from "../Icon/Home";
-
 export function Nav({ totalBookmarks }) {
   const pathname = usePathname();
+  //const withActiveToggle = (p, t) => (p === t ? "font-bold" : "");
   return (
     <ul className="flex flex-col p-2">
       <li className="mb-2">
@@ -16,12 +16,12 @@ export function Nav({ totalBookmarks }) {
           href="/bookmarks/all"
         >
           <div className="flex items-center gap-x-2">
-            <IconHome icon="home" />
-            <span>All</span>
+            <IconHome />
+            <span className="hover:underline">All</span>
           </div>
           <span className="text-black text-xs">{totalBookmarks}</span>
         </Link>
-      </li>{" "}
+      </li>
       <li className="mb-2">
         <Link
           className={`${withActiveToggle(
@@ -31,11 +31,11 @@ export function Nav({ totalBookmarks }) {
           href="/bookmarks/top"
         >
           <div className="flex items-center gap-x-2">
-            <IconHome icon="home" />
-            <span>Top</span>
+            <IconHome  />
+            <span className="hover:underline">Top</span>
           </div>
         </Link>
-      </li>{" "}
+      </li>
       <li className="mb-2">
         <Link
           className={`${withActiveToggle(
@@ -45,11 +45,11 @@ export function Nav({ totalBookmarks }) {
           href="/bookmarks/random"
         >
           <div className="flex items-center gap-x-2">
-            <IconHome icon="home" />
-            <span>Random</span>
+            <IconHome  />
+            <span className="hover:underline">Random</span>
           </div>
         </Link>
-      </li>{" "}
+      </li>
       <li className="mb-2">
         <Link
           className={`${withActiveToggle(
@@ -59,11 +59,11 @@ export function Nav({ totalBookmarks }) {
           href="/bookmarks/archived"
         >
           <div className="flex items-center gap-x-2">
-            <IconHome icon="home" />
-            <span>Archived</span>
+            <IconHome  />
+            <span className="hover:underline">Archived</span>
           </div>
         </Link>
-      </li>{" "}
+      </li>
     </ul>
   );
 }

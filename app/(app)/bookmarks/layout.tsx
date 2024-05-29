@@ -1,9 +1,9 @@
 "use server";
 import { count } from "drizzle-orm";
-import { ListsPane } from "../components/ListsPane";
+import { ListsPane } from "@/components/ListsPane";
 import { BookmarksLayoutWrapper } from "./BookmarksLayoutWrapper";
-import { dbNew } from "../db";
-import { bookmarks } from "../schema";
+import { dbNew } from "@/db";
+import { bookmarks } from "@/schema";
 
 export default async function BookmarksLayout({ children }) {
   const lists = await dbNew.query.lists.findMany({});

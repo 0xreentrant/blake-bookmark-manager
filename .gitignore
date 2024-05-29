@@ -32,3 +32,6 @@ yarn-error.log*
 .vercel
 bookmarks.db
 bookmarks.html
+
+# contentlayer
+/contentlayer
