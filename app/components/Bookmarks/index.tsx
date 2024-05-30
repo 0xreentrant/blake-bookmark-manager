@@ -36,7 +36,7 @@ export function Bookmarks({ bookmarks, allLists }) {
       : [];
 
     return (
-      <div style={style} className="!w-[98%]">
+      <div style={style} className="">
         <Entry
           key={index}
           id={id}

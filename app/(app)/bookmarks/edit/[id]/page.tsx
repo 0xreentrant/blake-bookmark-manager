@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
-import { dbNew } from "../../../db";
+import { dbNew } from "@/db";
 import { Details } from "./Details";
-import { bookmarks } from "../../../schema";
+import { bookmarks } from "@/schema";
 
 export default async function DetailsPage({ params }) {
   const bookmark = dbNew

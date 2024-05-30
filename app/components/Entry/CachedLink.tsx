@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { IconInternetArchive} from '@/components/Icon/InternetArchive'
 
 export const CachedLink = ({ link }) => (
   <Link
@@ -6,8 +7,6 @@ export const CachedLink = ({ link }) => (
     href={"https://web.archive.org/web/*/" + link}
     rel="noreferrer"
   >
-    (Cached Link)
+    <IconInternetArchive />
   </Link>
 );
-
-

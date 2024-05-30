@@ -49,7 +49,7 @@ export const Entry = ({
 
   // TODO: remove the border and fix the spacing between entries
   return (
-    <div className="flex border rounded-lg" style={style}>
+    <div className="flex border rounded-lg p-2" style={style}>
       <div className="flex flex-col items-center">
         {points}
         <div className="flex flex-col">
@@ -57,28 +57,41 @@ export const Entry = ({
           <IconChevronDown onClick={handleDownvote} />
         </div>
       </div>
-      <div>
-        <h3>
-          <Link href={href}>{title}</Link>
-        </h3>
-        {new Date(date * 1000).toLocaleString()}
-        <hr />
-        <div className="flex w-full items-center">
-          <CachedLink link={href} />
-          <HNLink link={href} />
+      <div className="flex flex-col grow max-w-[calc(100%-1.25rem)] pl-2 divide-y">
+        <div className="pb-1.5">
+          <h3 className="truncate" title={title}>
+            <Link href={href}>{title}</Link>
+          </h3>
+          {new Date(date * 1000).toLocaleString()}
+        </div>
+        <div className="flex w-full items-center pt-1.5 gap-1.5 items-center">
+          <span title="Cached version from the Internet Archive">
+            <CachedLink link={href} />
+          </span>
+          <span title="Algolia search for a related post at Hacker News">
+            <HNLink link={href} />
+          </span>
           {isArchived ? (
-            <IconRefresh onClick={handleRestore} />
+            <span title="Restore from archive">
+              <IconRefresh onClick={handleRestore} />
+            </span>
           ) : (
-            <IconTrash onClick={handleArchive} />
+            <span title="Remove from bookmarks and associated lists">
+              <IconTrash onClick={handleArchive} />
+            </span>
           )}
-          <Link href={`/bookmarks/edit/${id}`}>
+          <Link href={`/bookmarks/edit/${id}`} title="Edit bookmark details">
             <IconEdit />
           </Link>
           <span onClick={() => setDialogOpen(true)}>
             {listsIncluded && !listsIncluded.length ? (
-              <IconFolderAdd />
+              <span title="Add or remove from a list">
+                <IconFolderAdd />
+              </span>
             ) : (
-              <IconFolderCheck fill="green" />
+              <span title="Add or remove from a list">
+                <IconFolderCheck fill="green" />
+              </span>
             )}
           </span>
 
@@ -103,8 +116,7 @@ export const Entry = ({
                     null,
                     shouldPreventRefresh,
                     id
-                  )}
-                >
+                  )}>
                   {allLists &&
                     allLists.map((list) => (
                       <ListEntry
@@ -123,8 +135,7 @@ export const Entry = ({
                     </Dialog.Close>
                     <button
                       type="submit"
-                      className="inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
-                    >
+                      className="inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none">
                       Done
                     </button>
                   </div>

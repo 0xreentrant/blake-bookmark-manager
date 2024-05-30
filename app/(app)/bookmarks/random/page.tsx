@@ -1,10 +1,10 @@
 "use server";
 
 import { eq, desc, sql } from "drizzle-orm";
-import { db, dbNew } from "../../db";
-import { Bookmarks } from "../../components/Bookmarks";
-import { bookmarks } from "../../schema";
-import { Nothing } from "../../components/DefaultViews/Nothing";
+import { db, dbNew } from "@/db";
+import { Bookmarks } from "@/components/Bookmarks";
+import { bookmarks } from "@/schema";
+import { Nothing } from "@/components/DefaultViews/Nothing";
 
 export default async function Page() {
   const random = dbNew
@@ -24,7 +24,7 @@ export default async function Page() {
   }
 
   return (
-    <div className="p-2">
+    <div className="divide-y">
       <h1>Random bookmarks</h1>
       {list?.length ? (
         <Bookmarks bookmarks={list} allLists={allLists} />

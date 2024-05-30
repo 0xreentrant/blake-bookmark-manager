@@ -16,8 +16,8 @@ export default async function Page() {
   const allLists = await dbNew.query.lists.findMany();
 
   return (
-    <div className="p-2">
-      <h1>All bookmarks</h1>
+    <div className="divide-y">
+      <h1 className="p-2">All bookmarks</h1>
       {list?.length ? (
         <Bookmarks bookmarks={list} allLists={allLists} />
       ) : (

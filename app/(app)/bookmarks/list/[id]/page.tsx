@@ -1,8 +1,8 @@
 "use server";
 
 import { eq, desc } from "drizzle-orm";
-import { dbNew } from "../../../db";
-import { bookmarks, lists, bookmarksToLists } from "../../../schema";
+import { dbNew } from "@/db";
+import { bookmarks, lists, bookmarksToLists } from "@/schema";
 import { List } from "./List";
 
 export default async function Page({ params }) {
@@ -15,6 +15,7 @@ export default async function Page({ params }) {
       bookmarksToLists: {
         columns: { bookmarkId: false, listId: false },
         with: {
+          //bookmark: true,
           bookmark: {
             with: {
               bookmarksToLists: {
@@ -27,6 +28,8 @@ export default async function Page({ params }) {
     },
     where: eq(lists.id, id),
   });
+
+  console.log(JSON.stringify(listBookmarks, null, 4));
 
   const list = { id: listBookmarks.id, title: listBookmarks.title };
 

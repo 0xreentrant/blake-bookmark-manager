@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { IconHackerNews } from "@/components/Icon/HackerNews";
 
 export const HNLink = ({ link }) => (
   <Link
@@ -9,6 +10,6 @@ export const HNLink = ({ link }) => (
     }
     rel="noreferrer"
   >
-    (HN)
+    <IconHackerNews />
   </Link>
 );
