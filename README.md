@@ -10,22 +10,16 @@ yarn run dev
 
 ## TODOs:
 **Navigation**
-  - [ ] dashboard UI w/ XState
   * [ ] filter/sort entries: alpha order, date added, frequency read, frequency suggested, upvotes/downvotes, favorites
   * [ ] search: fuzzy, strict, title, date range, tag, etc
   * [ ] supports ctrl-f for searching on page
-  - [ ] show archived
 
 **Per bookmark**
   Details/Metadata
-  - [ ] get metadata and store
   - [ ] rename entries
-  - [ ] summarize entries in a couple of sentences
-  - [ ] add notes
+  - [ ] summarize entries in a couple of sentences (AI?)
   
 **Lists**
-  - [ ] 1st-class spotify-style lists modal
-  - [ ] top level "lists" panel
   - [ ] drag-n-drop to add to list
   - [ ] recommend other bookmarks like the current one
   - [ ] generate similar lists, create list from single
@@ -41,7 +35,15 @@ yarn run dev
   - [ ] EXTENSION: load lists into tab groups
   - [ ] EXTENSION: bookmark tabs in groups
 
+*Performance*
+- [ ] paginate/stream bookmark data
+
+
 ### DONE
+- [x] add notes
+- [x] top level "lists" panel
+- [x] 1st-class spotify-style lists modal
+- [x] show archived
 - [x] upvote/downvote
 - [x] updated to Next.js 14
 - [x] replaced mui w/ franken/ui

@@ -1,25 +1,30 @@
 "use server";
 
 import { eq, desc } from "drizzle-orm";
+import { createSelectSchema } from "drizzle-zod";
+import { z } from "zod";
 import { dbNew } from "@/db";
-import { bookmarks, lists, bookmarksToLists } from "@/schema";
+import { lists } from "@/schema";
 import { List } from "./List";
+
+// @invariant Lists should not show archived bookmarks
 
 export default async function Page({ params }) {
   const { id } = params;
 
-  const allLists = await dbNew.query.lists.findMany();
+  const listSchema = createSelectSchema(lists);
+  type list = z.infer<typeof listSchema>;
 
-  let listBookmarks = await dbNew.query.lists.findFirst({
+  const allLists: Array<list> = await dbNew.query.lists.findMany();
+
+  const listWithBookmarks = await dbNew.query.lists.findFirst({
     with: {
       bookmarksToLists: {
-        columns: { bookmarkId: false, listId: false },
         with: {
-          //bookmark: true,
           bookmark: {
             with: {
               bookmarksToLists: {
-                columns: { bookmarkId: false },
+                with: { list: true },
               },
             },
           },
@@ -29,11 +34,17 @@ export default async function Page({ params }) {
     where: eq(lists.id, id),
   });
 
-  const list = { id: listBookmarks.id, title: listBookmarks.title };
-
-  listBookmarks = listBookmarks.bookmarksToLists.map((b) => ({
+  const bookmarksOnList = listWithBookmarks.bookmarksToLists.map((b) => ({
     ...b.bookmark,
   }));
 
-  return <List list={list} bookmarks={listBookmarks} lists={allLists} />;
+  //console.log(JSON.stringify(listBookmarks, null, 4));
+
+  return (
+    <List
+      list={{ id: listWithBookmarks.id, title: listWithBookmarks.title }}
+      bookmarks={bookmarksOnList}
+      lists={allLists}
+    />
+  );
 }

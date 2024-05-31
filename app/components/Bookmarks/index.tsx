@@ -32,13 +32,14 @@ export function Bookmarks({ bookmarks, allLists }) {
     const { id, archived, points, href, title, date, bookmarksToLists } = entry;
     const isArchived = archived == 1;
     const includedInLists = bookmarksToLists
-      ? bookmarksToLists.map((e) => e.listId)
+      ? //? bookmarksToLists.map((e) => e.listId)
+        bookmarksToLists
       : [];
 
     return (
       <div style={style} className="">
         <Entry
-          key={index}
+          key={id}
           id={id}
           isArchived={isArchived}
           points={points}
@@ -46,7 +47,7 @@ export function Bookmarks({ bookmarks, allLists }) {
           title={title}
           date={date}
           allLists={allLists}
-          listsIncluded={includedInLists}
+          includedInLists={includedInLists}
           handleUpvote={() => upvoteBookmark(id)}
           handleDownvote={() => downvoteBookmark(id)}
           handleArchive={() => archiveBookmark(id)}

@@ -14,10 +14,6 @@ export function List({ list, bookmarks, lists }) {
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
 
-  //console.log({ list, bookmarks, lists });
-  console.log("got", list?.length);
-  console.log("got", list?.length);
-
   const handleDeleteMenuItem = (e) => {
     setMenuOpen(false);
     setDeleteDialogOpen(true);
@@ -41,22 +37,26 @@ export function List({ list, bookmarks, lists }) {
           <div
             style={{
               display: isMenuOpen ? "block" : "none",
-            }}>
+            }}
+          >
             <ul
               style={{
                 backgroundColor: "white",
                 border: "1px solid black",
                 borderRadius: "1px",
-              }}>
+              }}
+            >
               <li
                 className="flex items-center p-2"
-                onClick={handleEditMenuItem}>
+                onClick={handleEditMenuItem}
+              >
                 <IconMinusCircle />
                 <span className="pl-2">Edit details</span>
               </li>
               <li
                 className="flex items-center p-2"
-                onClick={handleDeleteMenuItem}>
+                onClick={handleDeleteMenuItem}
+              >
                 <IconMinusCircle />
                 <span className="pl-2">Delete list</span>
               </li>
@@ -84,8 +84,10 @@ export function List({ list, bookmarks, lists }) {
               <form
                 className="w-full"
                 action={editList.bind(null, list.id)}
-                onSubmit={() => setEditDialogOpen(false)}>
+                onSubmit={() => setEditDialogOpen(false)}
+              >
                 <div>
+                  <div>Title</div>
                   <input
                     id="title"
                     type="text"
@@ -121,7 +123,8 @@ export function List({ list, bookmarks, lists }) {
             <div className="mt-2 flex justify-end">
               <button
                 className="border-2 border-solid p-2 mr-4"
-                onClick={() => setDeleteDialogOpen(false)}>
+                onClick={() => setDeleteDialogOpen(false)}
+              >
                 Cancel
               </button>
               <button
@@ -129,7 +132,8 @@ export function List({ list, bookmarks, lists }) {
                 onClick={() => {
                   setDeleteDialogOpen(false);
                   handlePerformDelete();
-                }}>
+                }}
+              >
                 Delete
               </button>
             </div>

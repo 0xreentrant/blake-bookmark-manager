@@ -1,6 +1,6 @@
 "use server";
 
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { dbNew } from "./db";
@@ -64,7 +64,22 @@ export async function createList() {
   return out;
 }
 
+export async function removeFromAllLists(id) {
+  await dbNew
+    .delete(bookmarksToLists)
+    // @ts-ignore figure this error out
+    .where(eq(bookmarksToLists.bookmarkId, id));
+
+  revalidatePath("/");
+}
+
+// @dev this should be called from an actual form with list ids
 export async function addRemoveFromLists(preventRefresh, bookmarkId, formData) {
+  // TODO: optimize this so that if there are no changes do nothing, ie.:
+  // - no change at all
+  // - nothing to add
+  // - nothing to remove
+
   let listIdsSubmitted: Array<Number> = [];
   for (const [id] of formData) {
     listIdsSubmitted.push(Number(id));
@@ -78,11 +93,6 @@ export async function addRemoveFromLists(preventRefresh, bookmarkId, formData) {
     .where(eq(bookmarks.id, bookmarkId))
     .all()
     .map(({ listId }) => listId);
-
-  // TODO: optimize this so that if there are no changes do nothing, ie.:
-  // - no change at all
-  // - nothing to add
-  // - nothing to remove
 
   const setIntersect = (a, b) => a.filter((e) => b.includes(e));
   const setSubtract = (m, s) => m.filter((e) => !s.includes(e));
@@ -110,7 +120,7 @@ export async function addRemoveFromLists(preventRefresh, bookmarkId, formData) {
     added.push(
       dbNew
         .insert(bookmarksToLists)
-        // @ts-ignore
+        // @ts-ignore figure this error out
         .values(listsToAddTo.map((listId: Number) => ({ listId, bookmarkId })))
         .returning()
         .get()
@@ -120,10 +130,16 @@ export async function addRemoveFromLists(preventRefresh, bookmarkId, formData) {
   if (listsToRemoveFrom.length > 0) {
     for (let listId of listsToRemoveFrom) {
       removed.push(
+        // TODO: extract common operation
         dbNew
           .delete(bookmarksToLists)
-          // @ts-ignore
-          .where(eq(bookmarksToLists.listId, listId))
+          // @ts-ignore figure this error out
+          .where(
+            and(
+              eq(bookmarksToLists.listId, listId),
+              eq(bookmarksToLists.bookmarkId, bookmarkId)
+            )
+          )
           .returning()
           .get()
       );

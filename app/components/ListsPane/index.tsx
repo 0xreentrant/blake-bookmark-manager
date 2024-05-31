@@ -2,7 +2,7 @@
 
 import { useFormState } from "react-dom";
 import { createList } from "../../actions";
-import { Icon } from "../Icon";
+import { IconPlus } from "../Icon/Plus";
 import { Nav } from "./Nav";
 import { ListEntry } from "../ListEntry";
 
@@ -17,7 +17,7 @@ export function ListsPane({ lists, totalBookmarks }) {
 
       <div className="flex justify-between px-2 pb-2">
         <span className="text-muted-foreground">Your Lists</span>
-        <Icon icon="plus" onClick={() => doCreateList()} />
+        <IconPlus  onClick={() => doCreateList()} />
       </div>
       <div className="h-full px-2 overflow-y-auto">
         {lists &&
