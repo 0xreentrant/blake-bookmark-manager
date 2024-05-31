@@ -19,7 +19,7 @@ export function ListsPane({ lists, totalBookmarks }) {
         <span className="text-muted-foreground">Your Lists</span>
         <Icon icon="plus" onClick={() => doCreateList()} />
       </div>
-      <div className="h-full px-2 overflow-y-scroll">
+      <div className="h-full px-2 overflow-y-auto">
         {lists &&
           lists.map((list) => (
             <ListEntry key={list.id} id={list.id} title={list.title} />

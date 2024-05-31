@@ -29,8 +29,6 @@ export default async function Page({ params }) {
     where: eq(lists.id, id),
   });
 
-  console.log(JSON.stringify(listBookmarks, null, 4));
-
   const list = { id: listBookmarks.id, title: listBookmarks.title };
 
   listBookmarks = listBookmarks.bookmarksToLists.map((b) => ({

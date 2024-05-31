@@ -59,9 +59,9 @@ export const Entry = ({
       </div>
       <div className="flex flex-col grow max-w-[calc(100%-1.25rem)] pl-2 divide-y">
         <div className="pb-1.5">
-          <h3 className="truncate" title={title}>
+          <span className="truncate font-bold" title={title}>
             <Link href={href}>{title}</Link>
-          </h3>
+          </span>
           {new Date(date * 1000).toLocaleString()}
         </div>
         <div className="flex w-full items-center pt-1.5 gap-1.5 items-center">
