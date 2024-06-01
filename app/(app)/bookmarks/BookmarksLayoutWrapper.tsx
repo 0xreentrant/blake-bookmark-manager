@@ -6,7 +6,6 @@ import { LayoutContext } from "@/components/LayoutContext";
 export function BookmarksLayoutWrapper({ left, right }) {
   const parentRef = useRef();
 
-
   return (
     <div className="flex w-full divide-x">
       {/* @invariant "left" must always have 2 children: the title and the bookmarks list (or placeholder) to prevent resizing from causing flickers */}
