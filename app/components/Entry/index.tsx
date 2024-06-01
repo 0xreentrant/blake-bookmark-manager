@@ -62,9 +62,9 @@ export const Entry = ({
     : handleArchive;
 
   //console.log({
-    //title,
-    //includedInLists,
-    //alertIfTrue: !!includedInLists?.length,
+  //title,
+  //includedInLists,
+  //alertIfTrue: !!includedInLists?.length,
   //});
 
   // TODO: remove the border and fix the spacing between entries
@@ -77,13 +77,14 @@ export const Entry = ({
           <IconChevronDown onClick={handleDownvote} />
         </div>
       </div>
-      <div className="flex flex-col grow max-w-[calc(100%-1.25rem)] pl-2 divide-y">
-        <div className="pb-1.5">
-          <span className="truncate font-bold" title={title}>
-            <Link href={href}>{title}</Link>
-          </span>
+      <div className="flex flex-col grow max-w-[calc(100%-1.25rem)] pl-2">
+        <span className="truncate font-bold" title={title}>
+          <Link href={href}>{title}</Link>
+        </span>
+        <div className="block lg:inline lg:pl-2">
           {new Date(date * 1000).toLocaleString()}
         </div>
+        <hr className="mt-1.5" />
         <div className="flex w-full items-center pt-1.5 gap-1.5 items-center">
           <span title="Cached version from the Internet Archive">
             <CachedLink link={href} />
@@ -159,6 +160,7 @@ export const Entry = ({
               </AlertDialog.Content>
             </AlertDialog.Portal>
           </AlertDialog.Root>
+
           {/* TODO: optimize, pull up so that we're only using 1 actual modal for add/remove lists */}
           {/* BUG, TODO: only for Random page, make sure we update if the bookmark has
            * been added to any or removed from all lists.  Also make sure the add/remove from lists
