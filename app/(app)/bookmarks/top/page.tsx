@@ -14,13 +14,14 @@ export default async function Page() {
 
   const allLists = await dbNew.query.lists.findMany();
   return (
-    <div className="divide-y">
+ 
+ <>
       <h1>Top bookmarks</h1>
       {list?.length ? (
-        <Bookmarks bookmarks={list} allLists={allLists} />
-      ) : (
-        <Nothing />
-      )}
-    </div>
+ <Bookmarks bookmarks={list} allLists={allLists} />
+ ) : (
+ <Nothing />
+ )}
+    </>
   );
 }

@@ -20,13 +20,13 @@ export default async function Page() {
   console.log(JSON.stringify(list, null, 4));
 
   return (
-    <div className="divide-y">
+ <>
       <h1 className="p-2">All bookmarks</h1>
       {list?.length ? (
-        <Bookmarks bookmarks={list} allLists={allLists} />
-      ) : (
-        <Nothing />
-      )}
-    </div>
+ <Bookmarks bookmarks={list} allLists={allLists} />
+ ) : (
+ <Nothing />
+ )}
+    </>
   );
 }

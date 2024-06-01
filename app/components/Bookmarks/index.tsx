@@ -79,6 +79,15 @@ export function Bookmarks({ bookmarks, allLists }) {
       };
 
       const remainder = rawParentHeight - getRemainderHeightWithoutList();
+
+      //remainder < 10 &&
+        //console.log({
+          //parentContainer,
+          //rawParentHeight,
+          //getRemainderHeightWithoutList: getRemainderHeightWithoutList(),
+          //remainder,
+        //});
+
       setRemainderHeight(remainder);
     });
 
@@ -89,7 +98,7 @@ export function Bookmarks({ bookmarks, allLists }) {
         resizeObserver.unobserve(parentRef.current);
       }
     };
-  }, [parentRef]);
+  }, [parentRef, listRef]);
 
   return (
     <List

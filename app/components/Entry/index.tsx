@@ -61,11 +61,11 @@ export const Entry = ({
     ? handleArchiveAlert // handleArchive will be called by the alert form action
     : handleArchive;
 
-  console.log({
-    title,
-    includedInLists,
-    alertIfTrue: !!includedInLists?.length,
-  });
+  //console.log({
+    //title,
+    //includedInLists,
+    //alertIfTrue: !!includedInLists?.length,
+  //});
 
   // TODO: remove the border and fix the spacing between entries
   return (

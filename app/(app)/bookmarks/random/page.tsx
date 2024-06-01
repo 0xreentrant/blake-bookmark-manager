@@ -24,13 +24,13 @@ export default async function Page() {
   }
 
   return (
-    <div className="divide-y">
+ <>
       <h1>Random bookmarks</h1>
       {list?.length ? (
-        <Bookmarks bookmarks={list} allLists={allLists} />
-      ) : (
-        <Nothing />
-      )}
-    </div>
+ <Bookmarks bookmarks={list} allLists={allLists} />
+ ) : (
+ <Nothing />
+ )}
+    </>
   );
 }
