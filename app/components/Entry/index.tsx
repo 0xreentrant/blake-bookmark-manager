@@ -11,8 +11,6 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { IconEdit } from "../Icon/Edit";
-import { IconChevronDown } from "../Icon/ChevronDown";
-import { IconChevronUp } from "../Icon/ChevronUp";
 import { IconTrash } from "../Icon/Trash";
 import { IconRefresh } from "../Icon/Refresh";
 import { IconFolderAdd } from "../Icon/FolderAdd";
@@ -23,6 +21,7 @@ import { ListEntry } from "./ListEntry";
 import { useRouter } from "next/navigation";
 import { IconInternetArchive } from "@/components/Icon/InternetArchive";
 import { IconHackerNews } from "@/components/Icon/HackerNews";
+import { Points } from "./Points";
 
 const localeOptions = {
   hour: "2-digit",
@@ -89,16 +88,15 @@ export const Entry = ({
         className="flex border rounded-lg py-2 px-4 w-full max-w-5xl relative"
         style={style}
       >
-        <div className="flex flex-col items-center">
-          {points}
-          <div className="flex flex-col">
-            <IconChevronUp onClick={handleUpvote} />
-            <IconChevronDown onClick={handleDownvote} />
-          </div>
-        </div>
+        <Points
+          points={points}
+          handleUpvote={handleUpvote}
+          handleDownvote={handleDownvote}
+        />
         <div className="flex flex-col grow max-w-[calc(100%-1.25rem)] pl-2 relative">
           <div className="truncate w-full">
             <div className="float-right pr-1">
+              {/* TODO: use the portal to extract this from the surrounding layout markup */}
               <DropdownMenu
                 open={isDropdownOpen}
                 onOpenChange={setDropdownOpen}
@@ -110,11 +108,13 @@ export const Entry = ({
                   />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem onSelect={(e) => router.push(linkInternetArchive)} >
+                  <DropdownMenuItem
+                    onSelect={(e) => router.push(linkInternetArchive)}
+                  >
                     <IconInternetArchive className="mr-2 h-4 w-4" />
                     <span>Check the Internet Archive</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onSelect={(e) => router.push(linkAlgolia)} >
+                  <DropdownMenuItem onSelect={(e) => router.push(linkAlgolia)}>
                     <IconHackerNews className="mr-2 h-4 w-4" />
                     <span>Search on HackerNews</span>
                   </DropdownMenuItem>
@@ -271,7 +271,7 @@ export const Entry = ({
           </Dialog.Root>
         </div>
 
-        <div className="absolute bottom-2.5 right-4">
+        <div className="absolute bottom-2.5 right-4 lg:relative lg:float-right lg:bottom-[auto] lg:right-[auto]">
           {includedInLists && !includedInLists.length ? (
             <IconFolderAdd
               onClick={() => setModifyListsDialogOpen(true)}
