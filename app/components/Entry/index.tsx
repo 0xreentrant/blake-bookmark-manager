@@ -151,7 +151,7 @@ export const Entry = ({
                 <IconHackerNews className="mr-2 h-4 w-4" />
                 <span>Search on HackerNews</span>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={handleArchiveByExistenceInLists}>
+              <DropdownMenuItem onClick={handleActionByArchivedState}>
                 {isArchived ? (
                   <>
                     <IconRefresh className="mr-2 h-4 w-4" />
