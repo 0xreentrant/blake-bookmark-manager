@@ -34,4 +34,6 @@ bookmarks.db
 bookmarks.html
 
 # contentlayer
-/contentlayer
+.contentlayer/
+
+.eslintcache

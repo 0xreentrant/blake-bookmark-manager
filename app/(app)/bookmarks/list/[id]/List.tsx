@@ -30,7 +30,7 @@ export function List({ list, bookmarks, lists }) {
 
   return (
     <div className="divide-y">
-      <div className="flex justify-between">
+      <div className="flex justify-between px-4 py-2">
         <h1>{list.title}</h1>
         <div>
           <IconMenuHorizontal onClick={() => setMenuOpen(!isMenuOpen)} />

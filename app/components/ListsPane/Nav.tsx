@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { withActiveToggle } from "../utils/ui";
+import { withActiveToggle } from "@/utils/ui";
 import { IconHome } from "../Icon/Home";
 export function Nav({ totalBookmarks }) {
   const pathname = usePathname();
-  //const withActiveToggle = (p, t) => (p === t ? "font-bold" : "");
   return (
     <ul className="flex flex-col p-2">
       <li className="mb-2">
@@ -31,7 +30,7 @@ export function Nav({ totalBookmarks }) {
           href="/bookmarks/top"
         >
           <div className="flex items-center gap-x-2">
-            <IconHome  />
+            <IconHome />
             <span className="hover:underline">Top</span>
           </div>
         </Link>
@@ -45,7 +44,7 @@ export function Nav({ totalBookmarks }) {
           href="/bookmarks/random"
         >
           <div className="flex items-center gap-x-2">
-            <IconHome  />
+            <IconHome />
             <span className="hover:underline">Random</span>
           </div>
         </Link>
@@ -59,7 +58,7 @@ export function Nav({ totalBookmarks }) {
           href="/bookmarks/archived"
         >
           <div className="flex items-center gap-x-2">
-            <IconHome  />
+            <IconHome />
             <span className="hover:underline">Archived</span>
           </div>
         </Link>
