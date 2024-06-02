@@ -29,7 +29,8 @@ export function List({ list, bookmarks, lists }) {
   };
 
   return (
-    <div className="divide-y">
+    <>
+      {/* @dev THERE MUST BE NO WRAPPERS AROUND THIS, (React.Fragment only) */}
       <div className="flex justify-between px-4 py-2">
         <h1>{list.title}</h1>
         <div>
@@ -140,6 +141,6 @@ export function List({ list, bookmarks, lists }) {
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
-    </div>
+    </>
   );
 }

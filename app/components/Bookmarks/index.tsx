@@ -64,14 +64,18 @@ export function Bookmarks({ bookmarks, allLists }) {
     // need ResizeObserver for initial render to set height, otherwise 0px
     const resizeObserver = new ResizeObserver((event) => {
       const rawParentHeight = event[0].contentBoxSize[0].blockSize;
+      let measuredElements = [];
 
       // get all children and their heights, except for the list element
       const getRemainderHeightWithoutList = () => {
         let totalHeights = 0;
+        let i = 0;
 
         for (let child of parentContainer.childNodes) {
           if (listRef.current && child !== listRef.current.parentNode) {
             totalHeights += outerHeight(child);
+            measuredElements.push([child, outerHeight(child), i]);
+            i++;
           }
         }
 
@@ -80,13 +84,19 @@ export function Bookmarks({ bookmarks, allLists }) {
 
       const remainder = rawParentHeight - getRemainderHeightWithoutList();
 
-      //remainder < 10 &&
-        //console.log({
-          //parentContainer,
-          //rawParentHeight,
-          //getRemainderHeightWithoutList: getRemainderHeightWithoutList(),
-          //remainder,
-        //});
+      //DEBUG
+      /*
+       * measuredElements = [];
+       * console.log({
+       *   parentContainer,
+       *   rawParentHeight,
+       *   getRemainderHeightWithoutList: getRemainderHeightWithoutList(),
+       *   remainder,
+       *   measuredElements,
+       *   listRef: listRef.current,
+       * });
+       */
+      //DEBUG
 
       setRemainderHeight(remainder);
     });
