@@ -13,7 +13,9 @@ export async function archiveBookmark(id) {
     .set({ archived: 1 })
     .where(eq(bookmarks.id, id));
 
-  revalidatePath("/bookmarks");
+  console.log("archiving", id);
+
+  revalidatePath("/");
   return out;
 }
 
@@ -22,6 +24,8 @@ export async function restoreBookmark(id) {
     .update(bookmarks)
     .set({ archived: 0 })
     .where(eq(bookmarks.id, id));
+
+  console.log("restoring", id);
 
   revalidatePath("/bookmarks", "layout");
   return out;
@@ -37,6 +41,7 @@ export async function upvoteBookmark(id) {
   return out;
 }
 
+// TODO: only set if value >= 0
 export async function downvoteBookmark(id) {
   const out = await dbNew
     .update(bookmarks)
@@ -48,11 +53,15 @@ export async function downvoteBookmark(id) {
 }
 
 export async function saveNote(id, notes, _) {
-  const out = dbNew
+  const out = await dbNew
     .update(bookmarks)
     .set({ notes: notes })
-    .where(eq(bookmarks.id, id));
+    .where(eq(bookmarks.id, id))
+    .returning();
 
+  console.log(id, notes, out);
+
+  revalidatePath("/bookmarks/edit")
   return out;
 }
 

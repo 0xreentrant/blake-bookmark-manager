@@ -18,7 +18,6 @@ import { CachedLink } from "./CachedLink";
 
 import { useAutosave } from "react-autosave";
 import Editor from "@monaco-editor/react";
-import { Entry } from "@/components/Entry";
 import {
   archiveBookmark,
   restoreBookmark,
@@ -28,42 +27,28 @@ import {
 } from "@/actions";
 
 export function Details({ entry }) {
+  const { id, archived, points, href, title, date, notes } = entry;
+  const isArchived = archived == 1;
+
   const [isDialogOpen, setDialogOpen] = useState(false);
-  const [text, setText] = useState(entry.notes);
+  const [text, setText] = useState(notes);
 
   useAutosave({
     data: text,
+    interval: 700,
     onSave: (data) => {
-      saveNote(entry.id, data, null);
+      saveNote(id, data, null);
     },
   });
 
-  const { id, archived, points, href, title, date } = entry;
-  const isArchived = archived == 1;
-
   return (
     <>
-      {/*
-       *<Entry
-       *  id={id}
-       *  isArchived={isArchived}
-       *  points={points}
-       *  href={href}
-       *  title={title}
-       *  date={date}
-       *  handleArchive={archiveBookmark}
-       *  handleRestore={restoreBookmark}
-       *  handleUpvote={upvoteBookmark}
-       *  handleDownvote={downvoteBookmark}
-       * />
-       */}
-
       <div className="flex p-2" style={{}}>
         <div className="flex flex-col items-center">
           {points}
           <div className="flex flex-col">
-            <IconChevronUp onClick={upvoteBookmark} />
-            <IconChevronDown onClick={downvoteBookmark} />
+            <IconChevronUp onClick={() => upvoteBookmark(id)} />
+            <IconChevronDown onClick={() => downvoteBookmark(id)} />
           </div>
         </div>
         <div className="flex flex-col grow max-w-[calc(100%-1.25rem)] pl-2">
@@ -82,8 +67,13 @@ export function Details({ entry }) {
           <Editor
             height="50vh"
             defaultLanguage="markdown"
-            defaultValue={entry.notes}
+            defaultValue={notes}
             onChange={(data) => setText(data)}
+            options={{
+              suggest: {
+                showWords: false,
+              },
+            }}
           />
         </div>
       </div>
