@@ -13,10 +13,10 @@ export function Points({
 }) {
   return (
     <div
-      className={`flex flex-col items-center lg:flex-row lg:pr-1.5 ${className ?? ''}`}
+      className={`flex items-center lg:flex-row lg:pr-1.5 ${className ?? ""}`}
     >
-      {points}
-      <div className="flex flex-col lg:flex-row lg:gap-1.5 lg:pl-2">
+      <span className="text-lg font-light">{points}</span>
+      <div className="flex flex-col h-full justify-between pl-4 lg:flex-row lg:items-center lg:gap-2.5 lg:pl-2">
         <IconChevronUp onClick={handleUpvote} />
         <IconChevronDown onClick={handleDownvote} />
       </div>
