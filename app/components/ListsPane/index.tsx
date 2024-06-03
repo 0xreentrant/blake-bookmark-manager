@@ -1,13 +1,24 @@
 "use client";
 
+import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import { createList } from "../../actions";
 import { IconPlus } from "../Icon/Plus";
 import { Nav } from "./Nav";
 import { ListEntry } from "../ListEntry";
+import { useRouter } from "next/navigation";
 
 export function ListsPane({ lists, totalBookmarks }) {
-  const [, doCreateList] = useFormState(createList);
+  const [listData, doCreateList] = useFormState(createList);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!listData) {
+      return;
+    }
+    const id = listData.id;
+    router.push(`/bookmarks/list/${id}`);
+  }, [listData]);
 
   return (
     <div className="flex flex-col w-48 h-screen overflow-hidden">
@@ -17,7 +28,7 @@ export function ListsPane({ lists, totalBookmarks }) {
 
       <div className="flex justify-between px-2 pb-2">
         <span className="text-muted-foreground">Your Lists</span>
-        <IconPlus  onClick={() => doCreateList()} />
+        <IconPlus onClick={() => doCreateList()} />
       </div>
       <div className="h-full px-2 overflow-y-auto">
         {lists &&

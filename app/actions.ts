@@ -61,16 +61,19 @@ export async function saveNote(id, notes, _) {
 
   console.log(id, notes, out);
 
-  revalidatePath("/bookmarks/edit")
+  revalidatePath("/bookmarks/edit");
   return out;
 }
 
 export async function createList() {
-  const out = dbNew.insert(lists).values({ title: "New List" }).returning();
-  console.log({ out: out.values });
-  //redirect(`/bookmarks/list/${out.get().id}`);
+  const out = await dbNew
+    .insert(lists)
+    .values({ title: "New List" })
+    .returning();
+
+  console.log(out);
   revalidatePath("/");
-  return out;
+  return out[0];
 }
 
 export async function removeFromAllLists(id) {
