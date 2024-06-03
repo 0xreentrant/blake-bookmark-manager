@@ -44,7 +44,7 @@ export function ListsPane({ lists, totalBookmarks }) {
                 pathname,
                 "/bookmarks/list/" + list.id,
                 "font-bold bg-accent"
-              )} px-3 w-full inline-flex items-center whitespace-nowrap text-sm  ring-offset-background transition-colors  hover:bg-accent hover:text-accent-foreground h-9 rounded-md justify-start`}
+              )} w-full px-3 inline-flex items-center whitespace-nowrap text-sm  ring-offset-background transition-colors  hover:bg-accent hover:text-accent-foreground h-8 rounded-md justify-start`}
             >
               <span className="text-xs font-medium pr-2 ">
                 {list.bookmarksCount}
