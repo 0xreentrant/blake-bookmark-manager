@@ -89,7 +89,7 @@ export const Entry = ({
   return (
     <div className="flex justify-center p-4">
       <div
-        className="flex border rounded-lg py-2 px-4 w-full max-w-5xl relative justify-start"
+        className="flex border rounded-lg py-2 px-4 w-full max-w-5xl relative justify-start text-card-foreground"
         style={style}
       >
         <Points
@@ -107,7 +107,7 @@ export const Entry = ({
           >
             {title}
           </Link>
-          <div className="block lg:hidden">
+          <div className="block lg:hidden text-muted-foreground text-sm">
             {/* TODO: user's locale */}
             {/* @ts-ignore */}
             {new Date(date * 1000).toLocaleString("en-US", localeOptions)}
@@ -117,7 +117,7 @@ export const Entry = ({
             <Link className="font-bold truncate" title={title} href={href}>
               {title}
             </Link>
-            <span className="pl-4">
+            <span className="pl-4 text-muted-foreground text-sm">
               {/* @ts-ignore */}
               {new Date(date * 1000).toLocaleString("en-US", localeOptions)}
             </span>
@@ -171,7 +171,7 @@ export const Entry = ({
           {includedInLists && !includedInLists.length ? (
             <IconFolderAdd
               onClick={() => setModifyListsDialogOpen(true)}
-              className="mr-2 h-4 w-4"
+              className="h-4 w-4"
             />
           ) : (
             <IconFolderCheck
