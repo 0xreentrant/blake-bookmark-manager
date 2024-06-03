@@ -113,7 +113,7 @@ export const Entry = ({
             {new Date(date * 1000).toLocaleString("en-US", localeOptions)}
           </div>
 
-          <div className="justify-between w-full hidden lg:flex">
+          <div className="justify-between w-full items-center hidden lg:flex">
             <Link className="font-bold truncate" title={title} href={href}>
               {title}
             </Link>
