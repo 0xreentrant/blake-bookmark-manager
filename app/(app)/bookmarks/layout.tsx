@@ -6,7 +6,16 @@ import { dbNew } from "@/db";
 import { bookmarks } from "@/schema";
 
 export default async function BookmarksLayout({ children }) {
-  const lists = await dbNew.query.lists.findMany({});
+  const lists = await dbNew.query.lists
+    .findMany({
+      with: { bookmarksToLists: { with: { bookmark: true } } },
+    })
+    .then((data) => {
+      return data.map(({ id, title, bookmarksToLists }) => {
+        return { id, title, bookmarksCount: bookmarksToLists.length };
+      });
+    });
+
   const totalBookmarks = dbNew
     .select({ count: count() })
     .from(bookmarks)
