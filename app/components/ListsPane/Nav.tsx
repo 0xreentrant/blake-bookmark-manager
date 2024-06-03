@@ -5,8 +5,8 @@ import { IconHome } from "../Icon/Home";
 export function Nav({ totalBookmarks }) {
   const pathname = usePathname();
   return (
-    <ul className="flex flex-col p-2 font-medium">
-      <li className="mb-4">
+    <ul className="flex flex-col gap-y-3 px-2 pb-6 pt-2 font-medium">
+      <li className="">
         <Link
           className={`${withActiveToggle(
             pathname,
@@ -21,7 +21,7 @@ export function Nav({ totalBookmarks }) {
           <span className="text-black text-xs">{totalBookmarks}</span>
         </Link>
       </li>
-      <li className="mb-4">
+      <li className="">
         <Link
           className={`${withActiveToggle(
             pathname,
@@ -35,7 +35,7 @@ export function Nav({ totalBookmarks }) {
           </div>
         </Link>
       </li>
-      <li className="mb-4">
+      <li className="">
         <Link
           className={`${withActiveToggle(
             pathname,
@@ -49,7 +49,7 @@ export function Nav({ totalBookmarks }) {
           </div>
         </Link>
       </li>
-      <li className="mb-4">
+      <li className="">
         <Link
           className={`${withActiveToggle(
             pathname,
