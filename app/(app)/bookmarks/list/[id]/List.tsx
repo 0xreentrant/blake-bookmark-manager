@@ -69,7 +69,9 @@ export function List({ list, bookmarks, lists }) {
       {bookmarks?.length ? (
         <Bookmarks bookmarks={bookmarks} allLists={lists} />
       ) : (
-        <Nothing />
+        <div className="px-4">
+          <Nothing />
+        </div>
       )}
 
       <Dialog.Root open={isEditDialogOpen} onOpenChange={setEditDialogOpen}>

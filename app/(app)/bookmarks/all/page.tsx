@@ -17,16 +17,16 @@ export default async function Page() {
 
   const allLists = await dbNew.query.lists.findMany();
 
-  console.log(JSON.stringify(list, null, 4));
+  //console.log(JSON.stringify(list, null, 4));
 
   return (
- <>
+    <>
       <h1 className="p-2">All bookmarks</h1>
       {list?.length ? (
- <Bookmarks bookmarks={list} allLists={allLists} />
- ) : (
- <Nothing />
- )}
+        <Bookmarks bookmarks={list} allLists={allLists} />
+      ) : (
+        <Nothing />
+      )}
     </>
   );
 }

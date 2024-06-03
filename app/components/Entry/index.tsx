@@ -98,6 +98,7 @@ export const Entry = ({
           handleDownvote={handleDownvote}
         />
 
+        {/* TODO: merge these doubled title and date elements w/ better tailwind css */}
         <div className="px-4 lg:px-0 lg:pl-2 grow-[5] flex flex-col lg:flex-row min-w-0 w-full whitespace-nowrap">
           <Link
             className="lg:hidden font-bold w-full truncate"
@@ -175,7 +176,7 @@ export const Entry = ({
           ) : (
             <IconFolderCheck
               fill="green"
-              className="mr-2 h-4 w-4"
+              className="h-4 w-4"
               onClick={() => setModifyListsDialogOpen(true)}
             />
           )}
