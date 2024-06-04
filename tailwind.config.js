@@ -23,6 +23,7 @@ module.exports = {
         mono: ["var(--font-geist-mono)"],
       },
       colors: {
+        "notion-hover-bg": "rgba(0,0,0,0.04)",
         "notion-panel": "rgb(247,247,245)",
         "notion-base": "rgb(95,94,91)",
         "notion-heading": "rgb(55,53,47)",

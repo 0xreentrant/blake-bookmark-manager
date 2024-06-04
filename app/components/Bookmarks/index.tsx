@@ -79,7 +79,7 @@ export function Bookmarks({ bookmarks, allLists }) {
       return totalHeights;
     };
 
-    const cb = (event) => {
+    const observationCb = (event) => {
       const rawParentHeight = event[0].contentBoxSize[0].blockSize;
 
       const remainder =
@@ -90,12 +90,24 @@ export function Bookmarks({ bookmarks, allLists }) {
         // @ts-ignore
         listRef?.current?.children[0]?.children[0]?.offsetHeight;
 
+      console.log({
+        parentContainer,
+        listRef: listRef.current,
+        remainderHeightWithoutList: getRemainderHeightWithoutList(
+          parentContainer,
+          listRef
+        ),
+        remainderHeight,
+        rawParentHeight,
+        rawParent: event[0].target,
+      });
+
       setRemainderHeightThrottled(remainder);
       setFirstChildHeightThrottled(firstChildHeight);
     };
 
     // need ResizeObserver for initial render to set height, otherwise 0px
-    const resizeObserver = new ResizeObserver(cb);
+    const resizeObserver = new ResizeObserver(observationCb);
     resizeObserver.observe(parentContainer);
 
     return () => {
@@ -112,7 +124,7 @@ export function Bookmarks({ bookmarks, allLists }) {
       itemCount={bookmarks.length}
       itemSize={firstChildHeight}
       innerRef={listRef}
-      style={{ overflowX: "hidden" }}
+      style={{ overflowX: "hidden", paddingBottom: "2rem" }}
     >
       {Row}
     </List>

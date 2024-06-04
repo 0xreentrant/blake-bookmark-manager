@@ -29,37 +29,46 @@ export function List({ list, bookmarks, lists }) {
     await deleteList(list.id);
   };
 
+  /* @dev THERE MUST BE NO WRAPPERS AROUND THIS FILE'S ENTIRE REACT COMPONENT, (React.Fragment only) */
   return (
     <>
-      {/* @dev THERE MUST BE NO WRAPPERS AROUND THIS FILE'S ENTIRE REACT COMPONENT, (React.Fragment only) */}
-      <PageHeading className="flex w-full justify-between">
-        {list.title}{" "}
-        <IconMenuHorizontal onClick={() => setMenuOpen(!isMenuOpen)} />
-        <div
-          style={{
-            display: isMenuOpen ? "block" : "none",
-          }}
-        >
-          <ul
-            style={{
-              backgroundColor: "white",
-              border: "1px solid black",
-              borderRadius: "1px",
-            }}
-          >
-            <li className="flex items-center p-2" onClick={handleEditMenuItem}>
-              <IconMinusCircle />
-              <span className="pl-2">Edit details</span>
-            </li>
-            <li
-              className="flex items-center p-2"
-              onClick={handleDeleteMenuItem}
+      <PageHeading
+        className="flex w-full justify-between"
+        after={
+          <>
+            <IconMenuHorizontal onClick={() => setMenuOpen(!isMenuOpen)} />
+            <div
+              style={{
+                display: isMenuOpen ? "block" : "none",
+              }}
             >
-              <IconMinusCircle />
-              <span className="pl-2">Delete list</span>
-            </li>
-          </ul>
-        </div>
+              <ul
+                style={{
+                  backgroundColor: "white",
+                  border: "1px solid black",
+                  borderRadius: "1px",
+                }}
+              >
+                <li
+                  className="flex items-center p-2"
+                  onClick={handleEditMenuItem}
+                >
+                  <IconMinusCircle />
+                  <span className="pl-2">Edit details</span>
+                </li>
+                <li
+                  className="flex items-center p-2"
+                  onClick={handleDeleteMenuItem}
+                >
+                  <IconMinusCircle />
+                  <span className="pl-2">Delete list</span>
+                </li>
+              </ul>
+            </div>
+          </>
+        }
+      >
+        {list.title}
       </PageHeading>
 
       {bookmarks?.length ? (

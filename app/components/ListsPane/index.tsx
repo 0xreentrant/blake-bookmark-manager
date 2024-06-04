@@ -11,47 +11,52 @@ import { ListEntry } from "../ListEntry";
 import { withActiveToggle } from "@/utils/ui";
 
 export function ListsPane({ lists, totalBookmarks }) {
-  const [listData, doCreateList] = useFormState(createList);
+  const [newListData, doCreateList] = useFormState(createList);
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!listData) {
+    // TODO: create hook
+    // handle navigating to new list after it's been created w/ doCreateList
+    if (!newListData) {
       return;
     }
-    const id = listData.id;
+    const id = newListData.id;
     router.push(`/bookmarks/list/${id}`);
-  }, [listData]);
+  }, [newListData]);
 
   return (
-    <div className="flex flex-col w-48 px-2 pt-2.5 h-screen overflow-hidden bg-notion-panel">
-      {/* TODO: totalBookmarks */}
-      <Nav totalBookmarks={totalBookmarks} />
-      <hr className="" />
+    <>
+      {/* @dev padding top here for mobile/desktop transition + space for nav toggle icons */}
+      <div className="flex flex-col w-48 pt-2 lg:pt-4 px-2 lg:pt-2.5 h-screen overflow-hidden bg-notion-panel">
+        {/* TODO: totalBookmarks */}
+        <Nav totalBookmarks={totalBookmarks} />
+        <hr className="" />
 
-      <div className="flex justify-between px-3 pt-4 pb-2">
-        <span className="font-medium text-notion-heading">Your Lists</span>
-        <IconPlus onClick={() => doCreateList()} />
+        <div className="flex justify-between px-3 pt-4 pb-2">
+          <span className="font-medium text-notion-heading">Your Lists</span>
+          <IconPlus onClick={() => doCreateList()} />
+        </div>
+        <div className="h-full overflow-y-auto">
+          {lists &&
+            lists.map((list) => (
+              <ListEntry
+                key={list.id}
+                id={list.id}
+                title={list.title}
+                className={`${withActiveToggle(
+                  pathname,
+                  "/bookmarks/list/" + list.id,
+                  "font-bold bg-notion-hover-bg"
+                )} w-full px-3 inline-flex items-center whitespace-nowrap text-sm  ring-offset- transition-colors  text-notion-base hover:bg-notion-hover-bg hover:text-notion-active h-8 rounded-md justify-start`}
+              >
+                <span className="text-xs font-medium pr-2 ">
+                  {list.bookmarksCount}
+                </span>
+              </ListEntry>
+            ))}
+        </div>
       </div>
-      <div className="h-full overflow-y-auto">
-        {lists &&
-          lists.map((list) => (
-            <ListEntry
-              key={list.id}
-              id={list.id}
-              title={list.title}
-              className={`${withActiveToggle(
-                pathname,
-                "/bookmarks/list/" + list.id,
-                "font-bold bg-[rgba(0,0,0,0.04)]"
-              )} w-full px-3 inline-flex items-center whitespace-nowrap text-sm  ring-offset-background transition-colors  text-notion-base hover:bg-[rgba(0,0,0,0.04)] hover:text-notion-active h-8 rounded-md justify-start`}
-            >
-              <span className="text-xs font-medium pr-2 ">
-                {list.bookmarksCount}
-              </span>
-            </ListEntry>
-          ))}
-      </div>
-    </div>
+    </>
   );
 }
