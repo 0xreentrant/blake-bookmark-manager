@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useContext, useRef } from "react";
 import { FixedSizeList as List } from "react-window";
-
+import throttle from "lodash.throttle";
 import { Entry } from "../Entry";
 import { LayoutContext } from "../LayoutContext";
 import {
@@ -26,6 +26,9 @@ export function Bookmarks({ bookmarks, allLists }) {
   const parentRef = useContext(LayoutContext);
   const listRef = useRef<HTMLElement>();
   const [remainderHeight, setRemainderHeight] = useState(0);
+  const [firstChildHeight, setFirstChildHeight] = useState(60);
+  const setRemainderHeightThrottled = throttle(setRemainderHeight, 30);
+  const setFirstChildHeightThrottled = throttle(setFirstChildHeight, 30);
 
   const Row = ({ style, data, index }) => {
     const entry = data[index];
@@ -61,46 +64,38 @@ export function Bookmarks({ bookmarks, allLists }) {
   useEffect(() => {
     const parentContainer = parentRef.current;
 
-    // need ResizeObserver for initial render to set height, otherwise 0px
-    const resizeObserver = new ResizeObserver((event) => {
-      const rawParentHeight = event[0].contentBoxSize[0].blockSize;
-      let measuredElements = [];
+    // get all children and their heights, except for the list element
+    const getRemainderHeightWithoutList = (parentContainer, listRef) => {
+      let totalHeights = 0;
+      let i = 0;
 
-      // get all children and their heights, except for the list element
-      const getRemainderHeightWithoutList = () => {
-        let totalHeights = 0;
-        let i = 0;
-
-        for (let child of parentContainer.childNodes) {
-          if (listRef.current && child !== listRef.current.parentNode) {
-            totalHeights += outerHeight(child);
-            measuredElements.push([child, outerHeight(child), i]);
-            i++;
-          }
+      for (let child of parentContainer.childNodes) {
+        if (listRef.current && child !== listRef.current.parentNode) {
+          totalHeights += outerHeight(child);
+          i++;
         }
+      }
 
-        return totalHeights;
-      };
+      return totalHeights;
+    };
 
-      const remainder = rawParentHeight - getRemainderHeightWithoutList();
+    const cb = (event) => {
+      const rawParentHeight = event[0].contentBoxSize[0].blockSize;
 
-      //DEBUG
-      /*
-       * measuredElements = [];
-       * console.log({
-       *   parentContainer,
-       *   rawParentHeight,
-       *   getRemainderHeightWithoutList: getRemainderHeightWithoutList(),
-       *   remainder,
-       *   measuredElements,
-       *   listRef: listRef.current,
-       * });
-       */
-      //DEBUG
+      const remainder =
+        rawParentHeight -
+        getRemainderHeightWithoutList(parentContainer, listRef);
 
-      setRemainderHeight(remainder);
-    });
+      const firstChildHeight =
+        // @ts-ignore
+        listRef?.current?.children[0]?.children[0]?.offsetHeight;
 
+      setRemainderHeightThrottled(remainder);
+      setFirstChildHeightThrottled(firstChildHeight);
+    };
+
+    // need ResizeObserver for initial render to set height, otherwise 0px
+    const resizeObserver = new ResizeObserver(cb);
     resizeObserver.observe(parentContainer);
 
     return () => {
@@ -115,7 +110,7 @@ export function Bookmarks({ bookmarks, allLists }) {
       height={remainderHeight}
       itemData={bookmarks}
       itemCount={bookmarks.length}
-      itemSize={100}
+      itemSize={firstChildHeight}
       innerRef={listRef}
       style={{ overflowX: "hidden" }}
     >
