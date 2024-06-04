@@ -11,7 +11,7 @@ export function BookmarksLayoutWrapper({ left, right }) {
   return (
     <div className="flex w-full divide-x">
       {left}
-      <div className="flex-1 h-screen overflow-hidden divide-y" ref={parentRef}>
+      <div className="flex flex-col flex-1 h-screen overflow-hidden" ref={parentRef}>
         {/* @dev: for the bookmarks list to measurements (see: resizeObserver in Bookmarks.tsx) */}
         <LayoutContext.Provider value={parentRef}>
           {right}

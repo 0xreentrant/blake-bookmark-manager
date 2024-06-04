@@ -87,7 +87,7 @@ export const Entry = ({
     : handleArchiveByExistenceInLists;
 
   return (
-    <div className="flex justify-center p-4">
+    <div className="flex justify-center px-2 py-1 lg:py-[.15rem]">
       <div
         className="flex border rounded-lg py-2 px-4 w-full max-w-5xl relative justify-start text-card-foreground"
         style={style}
@@ -96,28 +96,35 @@ export const Entry = ({
           points={points}
           handleUpvote={handleUpvote}
           handleDownvote={handleDownvote}
+          className="lg:pr-1.5"
         />
 
         {/* TODO: merge these doubled title and date elements w/ better tailwind css */}
         <div className="px-4 lg:px-0 lg:pl-2 grow-[5] flex flex-col lg:flex-row min-w-0 w-full whitespace-nowrap">
           <Link
-            className="lg:hidden font-bold w-full truncate"
+            className="lg:hidden font-bold w-full truncate text-notion-heading"
             title={title}
             href={href}
+target="_blank" rel="noopener noreferrer"
           >
             {title}
           </Link>
-          <div className="block lg:hidden text-muted-foreground text-sm">
+          <div className="block lg:hidden text-notion-base text-sm">
             {/* TODO: user's locale */}
             {/* @ts-ignore */}
             {new Date(date * 1000).toLocaleString("en-US", localeOptions)}
           </div>
 
           <div className="justify-between w-full items-center hidden lg:flex">
-            <Link className="font-bold truncate" title={title} href={href}>
+            <Link
+              className="font-bold truncate text-notion-heading"
+              title={title}
+              href={href}
+target="_blank" rel="noopener noreferrer"
+            >
               {title}
             </Link>
-            <span className="pl-4 text-muted-foreground text-sm">
+            <span className="pl-4 text-notion-base text-sm">
               {/* @ts-ignore */}
               {new Date(date * 1000).toLocaleString("en-US", localeOptions)}
             </span>
@@ -128,9 +135,11 @@ export const Entry = ({
           {/* TODO: use the portal to extract this from the surrounding layout markup */}
           <DropdownMenu open={isDropdownOpen} onOpenChange={setDropdownOpen}>
             <DropdownMenuTrigger>
-              <IconMenuHorizontal
-                onClick={() => setDropdownOpen(!isDropdownOpen)}
-              />
+              <span className="text-notion-base">
+                <IconMenuHorizontal
+                  onClick={() => setDropdownOpen(!isDropdownOpen)}
+                />
+              </span>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem>
@@ -168,18 +177,20 @@ export const Entry = ({
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {includedInLists && !includedInLists.length ? (
-            <IconFolderAdd
-              onClick={() => setModifyListsDialogOpen(true)}
-              className="h-4 w-4"
-            />
-          ) : (
-            <IconFolderCheck
-              fill="green"
-              className="h-4 w-4"
-              onClick={() => setModifyListsDialogOpen(true)}
-            />
-          )}
+          <span className="text-notion-base">
+            {includedInLists && !includedInLists.length ? (
+              <IconFolderAdd
+                onClick={() => setModifyListsDialogOpen(true)}
+                className="h-4 w-4"
+              />
+            ) : (
+              <IconFolderCheck
+                fill="green"
+                className="h-4 w-4"
+                onClick={() => setModifyListsDialogOpen(true)}
+              />
+            )}
+          </span>
         </div>
       </div>
 

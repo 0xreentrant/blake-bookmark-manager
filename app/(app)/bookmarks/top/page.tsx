@@ -5,6 +5,7 @@ import { dbNew } from "@/db";
 import { Bookmarks } from "@/components/Bookmarks";
 import { bookmarks } from "@/schema";
 import { Nothing } from "@/components/DefaultViews/Nothing";
+import { PageHeading } from "@/components/Type/PageHeading";
 
 export default async function Page() {
   const list = await dbNew.query.bookmarks.findMany({
@@ -14,14 +15,13 @@ export default async function Page() {
 
   const allLists = await dbNew.query.lists.findMany();
   return (
- 
- <>
-      <h1>Top bookmarks</h1>
+    <>
+      <PageHeading>Top bookmarks</PageHeading>
       {list?.length ? (
- <Bookmarks bookmarks={list} allLists={allLists} />
- ) : (
- <Nothing />
- )}
+        <Bookmarks bookmarks={list} allLists={allLists} />
+      ) : (
+        <Nothing />
+      )}
     </>
   );
 }

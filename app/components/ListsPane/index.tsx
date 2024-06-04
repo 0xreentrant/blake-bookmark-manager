@@ -24,13 +24,13 @@ export function ListsPane({ lists, totalBookmarks }) {
   }, [listData]);
 
   return (
-    <div className="flex flex-col w-48 px-2 mt-4 h-screen overflow-hidden">
+    <div className="flex flex-col w-48 px-2 pt-2.5 h-screen overflow-hidden bg-notion-panel">
       {/* TODO: totalBookmarks */}
       <Nav totalBookmarks={totalBookmarks} />
       <hr className="" />
 
       <div className="flex justify-between px-3 pt-4 pb-2">
-        <span className="font-medium">Your Lists</span>
+        <span className="font-medium text-notion-heading">Your Lists</span>
         <IconPlus onClick={() => doCreateList()} />
       </div>
       <div className="h-full overflow-y-auto">
@@ -43,8 +43,8 @@ export function ListsPane({ lists, totalBookmarks }) {
               className={`${withActiveToggle(
                 pathname,
                 "/bookmarks/list/" + list.id,
-                "font-bold bg-accent"
-              )} w-full px-3 inline-flex items-center whitespace-nowrap text-sm  ring-offset-background transition-colors  hover:bg-accent hover:text-accent-foreground h-8 rounded-md justify-start`}
+                "font-bold bg-[rgba(0,0,0,0.04)]"
+              )} w-full px-3 inline-flex items-center whitespace-nowrap text-sm  ring-offset-background transition-colors  text-notion-base hover:bg-[rgba(0,0,0,0.04)] hover:text-notion-active h-8 rounded-md justify-start`}
             >
               <span className="text-xs font-medium pr-2 ">
                 {list.bookmarksCount}

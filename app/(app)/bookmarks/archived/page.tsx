@@ -5,6 +5,7 @@ import { dbNew } from "@/db";
 import { Bookmarks } from "@/components/Bookmarks";
 import { bookmarks } from "@/schema";
 import { Nothing } from "@/components/DefaultViews/Nothing";
+import { PageHeading } from "@/components/Type/PageHeading";
 
 // @invariant Only archived page should show archived bookmarks
 
@@ -17,13 +18,13 @@ export default async function Page() {
   const allLists = await dbNew.query.lists.findMany();
 
   return (
- <>
-<h1>Archived bookmarks</h1>
-{list?.length ? (
- <Bookmarks bookmarks={list} allLists={allLists} />
- ) : (
- <Nothing />
- )}
+    <>
+      <PageHeading>Archived bookmarks</PageHeading>
+      {list?.length ? (
+        <Bookmarks bookmarks={list} allLists={allLists} />
+      ) : (
+        <Nothing />
+      )}
     </>
   );
 }

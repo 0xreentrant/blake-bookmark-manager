@@ -5,20 +5,22 @@ import { IconHome } from "../Icon/Home";
 export function Nav({ totalBookmarks }) {
   const pathname = usePathname();
   return (
-    <ul className="flex flex-col gap-y-3 px-2 pb-6 pt-2 font-medium">
+    <ul className="flex flex-col gap-y-3 px-2 pb-6 pt-2 font-normal text-notion-heading">
       <li className="">
         <Link
           className={`${withActiveToggle(
             pathname,
             "/bookmarks/all"
-          )} flex items-center justify-between`}
+          )} flex items-center justify-between hover:underline`}
           href="/bookmarks/all"
         >
           <div className="flex items-center gap-x-2">
             <IconHome />
-            <span className="hover:underline">All</span>
+            <span className="">All</span>
           </div>
-          <span className="text-black text-xs">{totalBookmarks}</span>
+          <span className="text-black text-xs hover:!no-underline">
+            {totalBookmarks}
+          </span>
         </Link>
       </li>
       <li className="">

@@ -8,6 +8,7 @@ import { IconMinusCircle } from "@/components/Icon/IconMinusCircle";
 import { deleteList } from "@/actions";
 import { editList } from "@/actions";
 import { Nothing } from "@/components/DefaultViews/Nothing";
+import { PageHeading } from "@/components/Type/PageHeading";
 
 export function List({ list, bookmarks, lists }) {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -30,46 +31,41 @@ export function List({ list, bookmarks, lists }) {
 
   return (
     <>
-      {/* @dev THERE MUST BE NO WRAPPERS AROUND THIS, (React.Fragment only) */}
-      <div className="flex justify-between px-4 py-2">
-        <h1>{list.title}</h1>
-        <div>
-          <IconMenuHorizontal onClick={() => setMenuOpen(!isMenuOpen)} />
-          <div
+      {/* @dev THERE MUST BE NO WRAPPERS AROUND THIS FILE'S ENTIRE REACT COMPONENT, (React.Fragment only) */}
+      <PageHeading className="flex w-full justify-between">
+        {list.title}{" "}
+        <IconMenuHorizontal onClick={() => setMenuOpen(!isMenuOpen)} />
+        <div
+          style={{
+            display: isMenuOpen ? "block" : "none",
+          }}
+        >
+          <ul
             style={{
-              display: isMenuOpen ? "block" : "none",
+              backgroundColor: "white",
+              border: "1px solid black",
+              borderRadius: "1px",
             }}
           >
-            <ul
-              style={{
-                backgroundColor: "white",
-                border: "1px solid black",
-                borderRadius: "1px",
-              }}
+            <li className="flex items-center p-2" onClick={handleEditMenuItem}>
+              <IconMinusCircle />
+              <span className="pl-2">Edit details</span>
+            </li>
+            <li
+              className="flex items-center p-2"
+              onClick={handleDeleteMenuItem}
             >
-              <li
-                className="flex items-center p-2"
-                onClick={handleEditMenuItem}
-              >
-                <IconMinusCircle />
-                <span className="pl-2">Edit details</span>
-              </li>
-              <li
-                className="flex items-center p-2"
-                onClick={handleDeleteMenuItem}
-              >
-                <IconMinusCircle />
-                <span className="pl-2">Delete list</span>
-              </li>
-            </ul>
-          </div>
+              <IconMinusCircle />
+              <span className="pl-2">Delete list</span>
+            </li>
+          </ul>
         </div>
-      </div>
+      </PageHeading>
 
       {bookmarks?.length ? (
         <Bookmarks bookmarks={bookmarks} allLists={lists} />
       ) : (
-        <div className="px-4">
+        <div className="px-4 grow-[5]">
           <Nothing />
         </div>
       )}

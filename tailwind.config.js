@@ -1,11 +1,12 @@
+const plugin = require("tailwindcss/plugin");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -18,10 +19,14 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-geist-sans)'],
-        mono: ['var(--font-geist-mono)'],
+        sans: ["var(--font-geist-sans)"],
+        mono: ["var(--font-geist-mono)"],
       },
       colors: {
+        "notion-panel": "rgb(247,247,245)",
+        "notion-base": "rgb(95,94,91)",
+        "notion-heading": "rgb(55,53,47)",
+        "notion-active": "rgb(29,27,22)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -41,6 +46,7 @@ module.exports = {
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
+          //foreground: "hsl(var(--muted-foreground))",
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
@@ -77,5 +83,12 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-}
+  plugins: [
+    require("tailwindcss-animate"),
+    plugin(function ({ addUtilities, theme }) {
+      addUtilities({
+        ".divide-x, .divide-y, hr": { color: theme("colors.notion-heading") },
+      });
+    }),
+  ],
+};

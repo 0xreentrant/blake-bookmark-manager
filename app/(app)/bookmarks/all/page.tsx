@@ -5,6 +5,7 @@ import { dbNew } from "@/db";
 import { Bookmarks } from "@/components/Bookmarks";
 import { bookmarks } from "@/schema";
 import { Nothing } from "@/components/DefaultViews/Nothing";
+import { PageHeading } from "@/components/Type/PageHeading";
 
 // @invariant Non-"Archived" pages should not show archived bookmarks
 
@@ -21,7 +22,7 @@ export default async function Page() {
 
   return (
     <>
-      <h1 className="p-2">All bookmarks</h1>
+          <PageHeading>All bookmarks</PageHeading>
       {list?.length ? (
         <Bookmarks bookmarks={list} allLists={allLists} />
       ) : (
