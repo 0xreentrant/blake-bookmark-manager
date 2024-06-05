@@ -28,7 +28,7 @@ export function ListsPane({ lists, totalBookmarks }) {
   return (
     <>
       {/* @dev padding top here for mobile/desktop transition + space for nav toggle icons */}
-      <div className="flex flex-col w-48 pt-2 lg:pt-4 px-2 lg:pt-2.5 h-screen overflow-hidden bg-notion-panel">
+      <div className="flex flex-col w-52 pt-2 lg:pt-4 px-2 lg:pt-2.5 h-screen overflow-hidden bg-notion-panel">
         {/* TODO: totalBookmarks */}
         <Nav totalBookmarks={totalBookmarks} />
         <hr className="" />

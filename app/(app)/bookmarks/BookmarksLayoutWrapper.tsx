@@ -29,7 +29,7 @@ export function BookmarksLayoutWrapper({ left, right }) {
           <SheetTrigger className="text-notion-heading/75 pr-2">
             <PanelRight />
           </SheetTrigger>
-          <SheetContent side="right" className="w-48 p-0">
+          <SheetContent side="right" className="w-52 p-0">
             <SheetHeader className="flex flex-row items-center p-2 justify-between w-full bg-notion-panel">
               <Logo />
               <SheetClose asChild>

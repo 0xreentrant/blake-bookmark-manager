@@ -1,3 +1,11 @@
+![Blake: Social Bookmarks for 2024](blake.png)
+
+
+## Installing 
+```
+yarn install
+```
+
 ## Importing
 ```
 node utils/convert.js <path to bookmarks.html>
