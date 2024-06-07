@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   SheetClose,
   Sheet,
@@ -14,18 +14,36 @@ import { LayoutContext } from "@/components/LayoutContext";
 import { PanelRightClose, PanelRight } from "lucide-react";
 import { Logo } from "@/components/Logo";
 
-export function BookmarksLayoutWrapper({ left, right }) {
+export function BookmarksLayoutWrapper({ navPanel, content }) {
+const [isNavPanelOpen, setNavPanelOpen] = useState(false)
   const parentRef = useRef();
 
-  /* @invariant "right" must always have top-level children (no wrappers encapsulating
+  useEffect(() => {
+    const parentContainer = parentRef.current;
+    const observationCb = (event) => {
+setNavPanelOpen(false)
+    };
+
+    // need ResizeObserver for initial render to set height, otherwise 0px
+    const resizeObserver = new ResizeObserver(observationCb);
+    resizeObserver.observe(parentContainer);
+
+    return () => {
+      if (parentRef.current) {
+        resizeObserver.unobserve(parentRef.current);
+      }
+    };
+  }, [parentRef]);
+
+  /* @invariant "navPanel" must always have top-level children (no wrappers encapsulating
    * the top-level children) - bookmarks list (or placeholder) and siblings (ex. title)
    * - to prevent resizing from causing flickers */
 
   return (
     <div className="flex flex-col lg:flex-row w-full h-screen divide-x">
-      <div className="hidden lg:block">{left}</div>
+      <div className="hidden lg:block">{navPanel}</div>
       <div className="w-full h-12 flex justify-end items-center bg-notion-panel lg:hidden">
-        <Sheet>
+        <Sheet open={isNavPanelOpen} onOpenChange={setNavPanelOpen}>
           <SheetTrigger className="text-notion-heading/75 pr-2">
             <PanelRight />
           </SheetTrigger>
@@ -36,7 +54,7 @@ export function BookmarksLayoutWrapper({ left, right }) {
                 <PanelRightClose className="!m-0 text-notion-heading/75" />
               </SheetClose>
             </SheetHeader>
-            {left}
+            {navPanel}
           </SheetContent>
         </Sheet>
       </div>
@@ -46,7 +64,7 @@ export function BookmarksLayoutWrapper({ left, right }) {
       >
         {/* @dev: for the bookmarks list to measurements (see: resizeObserver in Bookmarks.tsx) */}
         <LayoutContext.Provider value={parentRef}>
-          {right}
+          {content}
         </LayoutContext.Provider>
       </div>
     </div>

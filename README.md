@@ -18,13 +18,12 @@ yarn run dev
 
 ## TODOs:
 **Navigation**
-  * [ ] filter/sort entries: alpha order, date added, frequency read, frequency suggested, upvotes/downvotes, favorites
-  * [ ] search: fuzzy, strict, title, date range, tag, etc
-  * [ ] supports ctrl-f for searching on page
+  - [ ] filter/sort entries: alpha order, date added, frequency read, frequency suggested, upvotes/downvotes, favorites
+  - [ ] search: fuzzy, strict, title, date range, tag, etc
+  - [ ] supports ctrl-f for searching on page
 
 **Per bookmark**
   Details/Metadata
-  - [ ] rename entries
   - [ ] summarize entries in a couple of sentences (AI?)
   
 **Lists**
@@ -48,6 +47,7 @@ yarn run dev
 
 
 ### DONE
+- [x] rename entries
 - [x] add notes
 - [x] top level "lists" panel
 - [x] 1st-class spotify-style lists modal

@@ -1,4 +1,5 @@
 "use server";
+import { useEffect, useState, useContext, useRef } from "react";
 import { count } from "drizzle-orm";
 import { ListsPane } from "@/components/ListsPane";
 import { BookmarksLayoutWrapper } from "./BookmarksLayoutWrapper";
@@ -23,8 +24,8 @@ export default async function BookmarksLayout({ children }) {
 
   return (
     <BookmarksLayoutWrapper
-      left={<ListsPane totalBookmarks={totalBookmarks} lists={lists} />}
-      right={children}
+      navPanel={<ListsPane totalBookmarks={totalBookmarks} lists={lists} />}
+      content={children}
     />
   );
 }
