@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { cloneElement, useRef, useState, useEffect } from "react";
 import {
   SheetClose,
   Sheet,
@@ -15,13 +15,17 @@ import { PanelRightClose, PanelRight } from "lucide-react";
 import { Logo } from "@/components/Logo";
 
 export function BookmarksLayoutWrapper({ navPanel, content }) {
-const [isNavPanelOpen, setNavPanelOpen] = useState(false)
+  const [isNavPanelOpen, setNavPanelOpen] = useState(false);
   const parentRef = useRef();
+
+  const navPanelWithHandler = cloneElement(navPanel, {
+    handleNavSelection: () => setNavPanelOpen(false),
+  });
 
   useEffect(() => {
     const parentContainer = parentRef.current;
     const observationCb = (event) => {
-setNavPanelOpen(false)
+      setNavPanelOpen(false);
     };
 
     // need ResizeObserver for initial render to set height, otherwise 0px
@@ -41,7 +45,7 @@ setNavPanelOpen(false)
 
   return (
     <div className="flex flex-col lg:flex-row w-full h-screen divide-x">
-      <div className="hidden lg:block">{navPanel}</div>
+      <div className="hidden lg:block">{navPanelWithHandler}</div>
       <div className="w-full h-12 flex justify-end items-center bg-notion-panel lg:hidden">
         <Sheet open={isNavPanelOpen} onOpenChange={setNavPanelOpen}>
           <SheetTrigger className="text-notion-heading/75 pr-2">
@@ -54,7 +58,7 @@ setNavPanelOpen(false)
                 <PanelRightClose className="!m-0 text-notion-heading/75" />
               </SheetClose>
             </SheetHeader>
-            {navPanel}
+            {navPanelWithHandler}
           </SheetContent>
         </Sheet>
       </div>
