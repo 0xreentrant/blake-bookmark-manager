@@ -174,13 +174,24 @@ export async function deleteList(id) {
   redirect("/bookmarks/all");
 }
 
-type List = {
-  title: string;
-};
 export async function editList(id, formData: FormData) {
   const title = formData.get("title").toString();
 
   const out = await dbNew.update(lists).set({ title }).where(eq(lists.id, id));
+
+  revalidatePath("/");
+  return out;
+}
+
+export async function editBookmark(id, formData: FormData) {
+  const title = formData.get("title").toString();
+
+  console.log(title)
+
+  const out = await dbNew
+    .update(bookmarks)
+    .set({ title })
+    .where(eq(bookmarks.id, id));
 
   revalidatePath("/");
   return out;

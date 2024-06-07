@@ -168,7 +168,7 @@ export const Entry = ({
                       className="flex px-2 py-4 text-lg items-center gap-2"
                     >
                       <Pencil size={18} />
-                      <span>Edit bookmark details</span>
+                      <span>Bookmark details</span>
                     </Link>
                   </li>
                   <li>
@@ -229,9 +229,9 @@ export const Entry = ({
                   <IconEdit className="mr-2 h-4 w-4" />
                   <Link
                     href={`/bookmarks/edit/${id}`}
-                    title="Edit bookmark details"
+                    title="Bookmark details"
                   >
-                    Edit bookmark details
+                    Bookmark details
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem

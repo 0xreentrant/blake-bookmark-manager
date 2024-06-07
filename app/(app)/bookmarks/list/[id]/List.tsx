@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
+import { useRouter } from "next/navigation";
 import { Bookmarks } from "@/components/Bookmarks";
 import { deleteList } from "@/actions";
 import { editList } from "@/actions";
@@ -24,7 +25,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Pencil, Trash2, Ellipsis } from "lucide-react";
+import { ArrowLeft, Pencil, Trash2, Ellipsis } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -34,7 +35,8 @@ export function List({ list, bookmarks, lists }) {
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [isEditDialogOpenDesktop, setEditDialogOpenDesktop] = useState(false);
   const [isEditDrawerOpenMobile, setEditDrawerOpenMobile] = useState(false);
-  const [mobileEditTitle, setMobileEditTitle] = useState(list.title);
+  const [newTitle, setNewTitle] = useState(list.title);
+  const router = useRouter();
 
   const handleDeleteMenuItem = (e) => {
     setMenuOpenMobile(false);
@@ -56,77 +58,78 @@ export function List({ list, bookmarks, lists }) {
     await deleteList(list.id);
   };
 
-  /* @dev THERE MUST BE NO WRAPPERS AROUND THIS FILE'S ENTIRE REACT COMPONENT, (React.Fragment only) */
   return (
+    /* @dev THERE MUST BE NO WRAPPERS AROUND THIS FILE'S ENTIRE REACT COMPONENT, (React.Fragment only) */
     <>
-      <PageHeading
-        className="flex w-full justify-between items-start"
-        after={
-          <>
-            <div className="lg:hidden">
-              <Drawer open={isMenuOpenMobile} onOpenChange={setMenuOpenMobile}>
-                <DrawerTrigger className="outline-none pr-4 pt-5 h-min text-notion-heading">
-                  <Ellipsis size={16} />
-                </DrawerTrigger>
-                <DrawerContent className="h-screen">
-                  <DrawerHeader className="flex items-center justify-between">
-                    <DrawerTitle>List Options</DrawerTitle>
-                    <DrawerClose className="flex items-center gap-2 text-lg">
-                      Done
-                    </DrawerClose>
-                  </DrawerHeader>
-                  <hr />
+      <div className="flex lg:justify-center gap-3 lg:items-center">
+        <div className="flex flex-col lg:flex-row w-full max-w-5xl justify-between grow-[5] lg:items-center pl-3 gap-3">
+          <ArrowLeft onClick={() => router.back()} />
+          <div
+            className={`[overflow-wrap:anywhere] max-w-[calc(100%-2rem)] flex-wrap text-wrap text-3xl font-semibold  flex w-full justify-between items-start relative`}
+          >
+            {list.title}
+          </div>
+        </div>
+        <div className="lg:hidden">
+          <Drawer open={isMenuOpenMobile} onOpenChange={setMenuOpenMobile}>
+            <DrawerTrigger className="outline-none text-notion-heading pr-2">
+              <Ellipsis />
+            </DrawerTrigger>
+            <DrawerContent className="h-screen">
+              <DrawerHeader className="flex items-center justify-between">
+                <DrawerTitle>List Options</DrawerTitle>
+                <DrawerClose className="flex items-center gap-2 text-lg">
+                  Done
+                </DrawerClose>
+              </DrawerHeader>
+              <hr />
 
-                  <ul className="divide-y">
-                    <li
-                      className="flex px-2 py-4 text-lg items-center"
-                      onClick={handleEditMenuItemMobile}
-                    >
-                      <Pencil size={18} />
-                      <span className="pl-2">Edit details</span>
-                    </li>
-                    <li
-                      className="flex px-2 py-4 text-lg items-center"
-                      onClick={handleDeleteMenuItem}
-                    >
-                      <Trash2 size={18} />
-                      <span className="pl-2">Delete list</span>
-                    </li>
-                  </ul>
-                  <hr />
-                </DrawerContent>
-              </Drawer>
-            </div>
-            <div className="hidden lg:block">
-              <DropdownMenu
-                open={isMenuOpenDesktop}
-                onOpenChange={setMenuOpenDesktop}
-              >
-                <DropdownMenuTrigger className="outline-none pr-4 pt-5 h-min text-notion-heading">
-                  <Ellipsis size={16} />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="end"
-                  alignOffset={15}
-                  className="text-notion-heading"
+              <ul className="divide-y">
+                <li
+                  className="flex px-2 py-4 text-lg items-center"
+                  onClick={handleEditMenuItemMobile}
                 >
-                  <DropdownMenuLabel>List Options</DropdownMenuLabel>
-                  <DropdownMenuItem onClick={handleEditMenuItemDesktop}>
-                    <Pencil size={16} />
-                    <span className="pl-2">Edit details</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={handleDeleteMenuItem}>
-                    <Trash2 size={16} />
-                    <span className="pl-2">Delete list</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          </>
-        }
-      >
-        {list.title}
-      </PageHeading>
+                  <Pencil size={18} />
+                  <span className="pl-2">Edit details</span>
+                </li>
+                <li
+                  className="flex px-2 py-4 text-lg items-center"
+                  onClick={handleDeleteMenuItem}
+                >
+                  <Trash2 size={18} />
+                  <span className="pl-2">Delete list</span>
+                </li>
+              </ul>
+              <hr />
+            </DrawerContent>
+          </Drawer>
+        </div>
+        <div className="hidden lg:block">
+          <DropdownMenu
+            open={isMenuOpenDesktop}
+            onOpenChange={setMenuOpenDesktop}
+          >
+            <DropdownMenuTrigger className="outline-none text-notion-heading">
+              <Ellipsis size={16} className="relative right-3" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              alignOffset={15}
+              className="text-notion-heading"
+            >
+              <DropdownMenuLabel>List Options</DropdownMenuLabel>
+              <DropdownMenuItem onClick={handleEditMenuItemDesktop}>
+                <Pencil size={16} />
+                <span className="pl-2">Edit details</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={handleDeleteMenuItem}>
+                <Trash2 size={16} />
+                <span className="pl-2">Delete list</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </div>
 
       {bookmarks?.length ? (
         <Bookmarks bookmarks={bookmarks} allLists={lists} />
@@ -141,30 +144,30 @@ export function List({ list, bookmarks, lists }) {
         onOpenChange={setEditDrawerOpenMobile}
       >
         <DrawerContent className="h-screen">
-          <DrawerHeader className="flex items-center justify-between">
-            <DrawerTitle>Edit details</DrawerTitle>
-            <DrawerClose className="flex items-center gap-2 text-lg">
-              Done
-            </DrawerClose>
-          </DrawerHeader>
-          <hr />
+          <form
+            action={editList.bind(null, list.id)}
+            onSubmit={() => setEditDrawerOpenMobile(false)}
+          >
+            <DrawerHeader className="flex items-center justify-between">
+              <DrawerTitle>Edit details</DrawerTitle>
+              <DrawerClose className="flex items-center gap-2 text-lg">
+                Done
+              </DrawerClose>
+            </DrawerHeader>
+            <hr />
 
-          <div className="mt-2 px-2 flex justify-end">
-            <form
-              className="w-full"
-              action={editList.bind(null, list.id)}
-              onSubmit={() => setEditDrawerOpenMobile(false)}
-            >
-              <div>
-                <Label htmlFor="title-mobile">Title</Label>
-                <Input
-                  id="title-mobile"
-                  className="border-2 border-solid"
-                  onChange={(e) => console.log(e.target.value)}
-                />
-              </div>
-            </form>
-          </div>
+            <div className="mt-2 px-2">
+              <Label htmlFor="title">Title</Label>
+              <Input
+                id="title"
+                type="text"
+                name="title"
+                className="border-2 border-solid"
+                defaultValue={list.title}
+                onChange={(e) => setNewTitle(newTitle)}
+              />
+            </div>
+          </form>
         </DrawerContent>
       </Drawer>
 

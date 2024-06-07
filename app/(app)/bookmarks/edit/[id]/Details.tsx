@@ -1,37 +1,47 @@
 "use client";
 
 import { useState } from "react";
-import * as Dialog from "@radix-ui/react-dialog";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { IconEdit } from "@/components/Icon/Edit";
-import { IconChevronDown } from "@/components/Icon/ChevronDown";
-import { IconChevronUp } from "@/components/Icon/ChevronUp";
-import { IconTrash } from "@/components/Icon/Trash";
-import { IconRefresh } from "@/components/Icon/Refresh";
-import { IconFolderAdd } from "@/components/Icon/FolderAdd";
-import { IconFolderCheck } from "@/components/Icon/FolderCheck";
-import { addRemoveFromLists } from "@/actions";
-import { ListEntry } from "./ListEntry";
-import { HNLink } from "./HNLink";
-import { CachedLink } from "./CachedLink";
+import { useRouter } from "next/navigation";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import * as Dialog from "@radix-ui/react-dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 import { useAutosave } from "react-autosave";
 import Editor from "@monaco-editor/react";
-import {
-  archiveBookmark,
-  restoreBookmark,
-  upvoteBookmark,
-  downvoteBookmark,
-  saveNote,
-} from "@/actions";
+import { saveNote, editBookmark } from "@/actions";
+import { Pencil, ArrowLeft, Ellipsis } from "lucide-react";
 
 export function Details({ entry }) {
-  const { id, archived, points, href, title, date, notes } = entry;
-  const isArchived = archived == 1;
-
-  const [isDialogOpen, setDialogOpen] = useState(false);
+  const { id, points, href, title, date, notes } = entry;
+  const [isDesktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
+  const [isMenuOpenMobile, setMenuOpenMobile] = useState(false);
+  const [isEditDialogOpenDesktop, setEditDialogOpenDesktop] = useState(false);
+  const [isEditDrawerOpenMobile, setEditDrawerOpenMobile] = useState(false);
   const [text, setText] = useState(notes);
+  const [newTitle, setNewTitle] = useState(title);
+  const router = useRouter();
+
+  const handleEditMenuItemMobile = (e) => {
+    setMenuOpenMobile(false);
+    setEditDrawerOpenMobile(true);
+  };
 
   useAutosave({
     data: text,
@@ -44,18 +54,64 @@ export function Details({ entry }) {
   return (
     <>
       <div className="flex p-2" style={{}}>
-        <div className="flex flex-col items-center">
-          {points}
-          <div className="flex flex-col">
-            <IconChevronUp onClick={() => upvoteBookmark(id)} />
-            <IconChevronDown onClick={() => downvoteBookmark(id)} />
+        <div className="flex flex-col lg:flex-row grow max-w-[calc(100%-1.25rem)] pl-2 item-center">
+          <div className="flex flex-col lg:flex-row mb-3 lg:mb-2 lg:mr-3 grow-[5] gap-3">
+            <ArrowLeft onClick={() => router.back()} />
+            <div className="flex">
+              <span className="font-bold">{title}</span>
+            </div>
+          </div>
+          <div className="hidden lg:block">
+            <DropdownMenu
+              open={isDesktopDropdownOpen}
+              onOpenChange={setDesktopDropdownOpen}
+            >
+              <DropdownMenuTrigger>
+                <span className="text-notion-base">
+                  <Ellipsis
+                    onClick={() =>
+                      setDesktopDropdownOpen(!isDesktopDropdownOpen)
+                    }
+                  />
+                </span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem
+                  onClick={() => setEditDialogOpenDesktop(true)}
+                >
+                  <Pencil className="mr-2 h-4 w-4" />
+                  <span>Edit title</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
-        <div className="flex flex-col grow max-w-[calc(100%-1.25rem)] pl-2">
-          <span className="font-bold">
-            <Link href={href}>{title}</Link>
-          </span>
-          <div>{new Date(date * 1000).toLocaleString()}</div>
+        <div className="block lg:hidden pr-2">
+          <Drawer open={isMenuOpenMobile} onOpenChange={setMenuOpenMobile}>
+            <DrawerTrigger className="outline-none h-min text-notion-heading">
+              <Ellipsis />
+            </DrawerTrigger>
+            <DrawerContent className="h-screen">
+              <DrawerHeader className="flex items-center justify-between">
+                <DrawerTitle>List Options</DrawerTitle>
+                <DrawerClose className="flex items-center gap-2 text-lg">
+                  Done
+                </DrawerClose>
+              </DrawerHeader>
+              <hr />
+
+              <ul className="divide-y">
+                <li
+                  className="flex px-2 py-4 text-lg items-center"
+                  onClick={handleEditMenuItemMobile}
+                >
+                  <Pencil size={18} />
+                  <span className="pl-2">Edit details</span>
+                </li>
+              </ul>
+              <hr />
+            </DrawerContent>
+          </Drawer>
         </div>
       </div>
 
@@ -77,6 +133,84 @@ export function Details({ entry }) {
           />
         </div>
       </div>
+
+      <Dialog.Root
+        open={isEditDialogOpenDesktop}
+        onOpenChange={setEditDialogOpenDesktop}
+      >
+        <Dialog.Trigger />
+        <Dialog.Portal>
+          <Dialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />
+          <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
+            <Dialog.Title className="m-0  font-medium">
+              Edit details
+            </Dialog.Title>
+
+            <div className="mt-2 flex justify-end">
+              <form
+                className="w-full"
+                action={editBookmark.bind(null, id)}
+                onSubmit={() => setEditDialogOpenDesktop(false)}
+              >
+                <div>
+                  <div>Title</div>
+                  <input
+                    id="title"
+                    type="text"
+                    name="title"
+                    defaultValue={title}
+                    className="border-2 border-solid "
+                  />
+                </div>
+
+                <Dialog.Close asChild>
+                  <button className="border-2 border-solid p-2 mr-4">
+                    Cancel
+                  </button>
+                </Dialog.Close>
+                <button type="submit" className="border-2 border-solid p-2">
+                  Save
+                </button>
+              </form>
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+
+      <Drawer
+        open={isEditDrawerOpenMobile}
+        onOpenChange={setEditDrawerOpenMobile}
+      >
+        <DrawerContent className="h-screen">
+          <DrawerHeader className="flex items-center justify-between">
+            <DrawerTitle>Edit Title</DrawerTitle>
+            <DrawerClose className="flex items-center gap-2 text-lg">
+              Done
+            </DrawerClose>
+          </DrawerHeader>
+          <hr />
+
+          <div className="mt-2 px-2 flex justify-end">
+            <form
+              className="w-full"
+              action={editBookmark.bind(null, id)}
+              onSubmit={() => setEditDrawerOpenMobile(false)}
+            >
+              <div>
+                <Label htmlFor="title">Title</Label>
+                <Input
+                  id="title"
+                  type="text"
+                  name="title"
+                  className="border-2 border-solid"
+                  defaultValue={title}
+                  onChange={(e) => setNewTitle(newTitle)}
+                />
+              </div>
+            </form>
+          </div>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 }
