@@ -8,6 +8,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { IconEdit } from "../Icon/Edit";
@@ -22,6 +32,7 @@ import { useRouter } from "next/navigation";
 import { IconInternetArchive } from "@/components/Icon/InternetArchive";
 import { IconHackerNews } from "@/components/Icon/HackerNews";
 import { Points } from "./Points";
+import { Landmark, RefreshCcw, Pencil, Trash2, Ellipsis } from "lucide-react";
 
 const localeOptions = {
   hour: "2-digit",
@@ -63,18 +74,16 @@ export const Entry = ({
   const router = useRouter();
   const [isModifyListsDialogOpen, setModifyListsDialogOpen] = useState(false);
   const [isArchiveAlertOpen, setArchiveAlertOpen] = useState(false);
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isDesktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
+  const [isMobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const shouldPreventRefresh = usePathname().includes("random");
   const linkInternetArchive = "https://web.archive.org/web/*/" + href;
   const linkAlgolia =
     "https://hn.algolia.com/?dateRange=all&page=0&prefix=true&query=" +
     encodeURIComponent(href);
 
-  const includedListNames = allLists.filter(
-    (list) => includedInLists && includedInLists.includes(list.id)
-  );
-
   const handleArchiveAlert = () => {
+    setMobileDropdownOpen(false);
     setArchiveAlertOpen(true);
   };
 
@@ -135,49 +144,122 @@ export const Entry = ({
 
         <div className="flex flex-col justify-between items-center lg:flex-row lg:gap-4 lg:pl-6">
           {/* TODO: use the portal to extract this from the surrounding layout markup */}
-          <DropdownMenu open={isDropdownOpen} onOpenChange={setDropdownOpen}>
-            <DropdownMenuTrigger>
-              <span className="text-notion-base">
-                <IconMenuHorizontal
-                  onClick={() => setDropdownOpen(!isDropdownOpen)}
-                />
-              </span>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>
-                <IconEdit className="mr-2 h-4 w-4" />
-                <Link
-                  href={`/bookmarks/edit/${id}`}
-                  title="Edit bookmark details"
+          <div className="block lg:hidden">
+            <Drawer
+              open={isMobileDropdownOpen}
+              onOpenChange={setMobileDropdownOpen}
+            >
+              <DrawerTrigger className="outline-none text-notion-heading">
+                <Ellipsis size={16} />
+              </DrawerTrigger>
+              <DrawerContent className="h-screen">
+                <DrawerHeader className="flex items-center justify-between">
+                  <DrawerTitle>List Options</DrawerTitle>
+                  <DrawerClose className="flex items-center gap-2 text-lg">
+                    Done
+                  </DrawerClose>
+                </DrawerHeader>
+                <hr />
+
+                <ul className="divide-y">
+                  <li>
+                    <Link
+                      href={`/bookmarks/edit/${id}`}
+                      className="flex px-2 py-4 text-lg items-center gap-2"
+                    >
+                      <Pencil size={18} />
+                      <span>Edit bookmark details</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="flex px-2 py-4 text-lg items-center gap-2"
+                      href={linkInternetArchive}
+                    >
+                      <Landmark size={18} />
+                      <span>Check the Internet Archive</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="flex px-2 py-4 text-lg items-center gap-2"
+                      href={linkAlgolia}
+                    >
+                      <IconHackerNews className="text-sm" />
+                      <span>Search on HackerNews</span>
+                    </Link>
+                  </li>
+                  <li
+                    className="flex px-2 py-4 text-lg items-center gap-2"
+                    onClick={handleActionByArchivedState}
+                  >
+                    {isArchived ? (
+                      <>
+                        <RefreshCcw size={18} />
+                        <span>Return to your bookmarks</span>
+                      </>
+                    ) : (
+                      <>
+                        <Trash2 size={18} />
+                        <span>Archive this bookmark</span>
+                      </>
+                    )}
+                  </li>
+                </ul>
+                <hr />
+              </DrawerContent>
+            </Drawer>
+          </div>
+          <div className="hidden lg:block">
+            <DropdownMenu
+              open={isDesktopDropdownOpen}
+              onOpenChange={setDesktopDropdownOpen}
+            >
+              <DropdownMenuTrigger>
+                <span className="text-notion-base">
+                  <IconMenuHorizontal
+                    onClick={() =>
+                      setDesktopDropdownOpen(!isDesktopDropdownOpen)
+                    }
+                  />
+                </span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <IconEdit className="mr-2 h-4 w-4" />
+                  <Link
+                    href={`/bookmarks/edit/${id}`}
+                    title="Edit bookmark details"
+                  >
+                    Edit bookmark details
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onSelect={(e) => router.push(linkInternetArchive)}
                 >
-                  Edit bookmark details
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onSelect={(e) => router.push(linkInternetArchive)}
-              >
-                <IconInternetArchive className="mr-2 h-4 w-4" />
-                <span>Check the Internet Archive</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem onSelect={(e) => router.push(linkAlgolia)}>
-                <IconHackerNews className="mr-2 h-4 w-4" />
-                <span>Search on HackerNews</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={handleActionByArchivedState}>
-                {isArchived ? (
-                  <>
-                    <IconRefresh className="mr-2 h-4 w-4" />
-                    <span>Return to your bookmarks</span>
-                  </>
-                ) : (
-                  <>
-                    <IconTrash className="mr-2 h-4 w-4" />
-                    <span>Archive this bookmark</span>
-                  </>
-                )}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                  <IconInternetArchive className="mr-2 h-4 w-4" />
+                  <span>Check the Internet Archive</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={(e) => router.push(linkAlgolia)}>
+                  <IconHackerNews className="mr-2 h-4 w-4" />
+                  <span>Search on HackerNews</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleActionByArchivedState}>
+                  {isArchived ? (
+                    <>
+                      <IconRefresh className="mr-2 h-4 w-4" />
+                      <span>Return to your bookmarks</span>
+                    </>
+                  ) : (
+                    <>
+                      <IconTrash className="mr-2 h-4 w-4" />
+                      <span>Archive this bookmark</span>
+                    </>
+                  )}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
 
           <span className="text-notion-base">
             {includedInLists && !includedInLists.length ? (

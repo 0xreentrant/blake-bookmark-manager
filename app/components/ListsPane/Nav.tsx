@@ -37,20 +37,22 @@ export function Nav({ totalBookmarks }) {
           </div>
         </Link>
       </li>
-      <li className="">
-        <Link
-          className={`${withActiveToggle(
-            pathname,
-            "/bookmarks/random"
-          )} justify-between`}
-          href="/bookmarks/random"
-        >
-          <div className="flex items-center gap-x-2">
-            <IconHome />
-            <span className="hover:underline">Random</span>
-          </div>
-        </Link>
-      </li>
+      {/*
+       *<li className="">
+       *  <Link
+       *    className={`${withActiveToggle(
+       *      pathname,
+       *      "/bookmarks/random"
+       *    )} justify-between`}
+       *    href="/bookmarks/random"
+       *  >
+       *    <div className="flex items-center gap-x-2">
+       *      <IconHome />
+       *      <span className="hover:underline">Random</span>
+       *    </div>
+       *  </Link>
+       *</li>
+       */}
       <li className="">
         <Link
           className={`${withActiveToggle(
