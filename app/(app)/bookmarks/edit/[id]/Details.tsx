@@ -97,9 +97,9 @@ export function Details({ entry }) {
             >
               <Ellipsis />
             </DrawerTrigger>
-            <DrawerContent className="h-screen">
+            <DrawerContent className="h-screen text-notion-heading">
               <DrawerHeader className="flex items-center justify-between">
-                <DrawerTitle>List Options</DrawerTitle>
+                <DrawerTitle>Edit Bookmark Options</DrawerTitle>
                 <DrawerClose className="flex items-center gap-2 text-lg">
                   Done
                 </DrawerClose>
@@ -187,7 +187,7 @@ export function Details({ entry }) {
         open={isEditDrawerOpenMobile}
         onOpenChange={setEditDrawerOpenMobile}
       >
-        <DrawerContent className="h-screen">
+        <DrawerContent className="h-screen text-notion-heading">
           <DrawerHeader className="flex items-center justify-between">
             <DrawerTitle>Edit Title</DrawerTitle>
             <DrawerClose className="flex items-center gap-2 text-lg">

@@ -73,7 +73,7 @@ export function List({ list, bookmarks, lists }) {
             {list.title}
           </div>
         </div>
-        <div className="lg:hidden">
+        <div className="lg:hidden text-notion-base">
           <Drawer open={isMenuOpenMobile} onOpenChange={setMenuOpenMobile}>
             <DrawerTrigger
               className="outline-none text-notion-heading mr-2 p-1 w-10 h-10 rounded-full bg-notion-hover-bg flex justify-center items-center"
@@ -81,8 +81,8 @@ export function List({ list, bookmarks, lists }) {
             >
               <Ellipsis />
             </DrawerTrigger>
-            <DrawerContent className="h-screen">
-              <DrawerHeader className="flex items-center justify-between">
+            <DrawerContent className="h-screen text-notion-heading">
+              <DrawerHeader className="flex items-center  justify-between">
                 <DrawerTitle>List Options</DrawerTitle>
                 <DrawerClose className="flex items-center gap-2 text-lg">
                   Done
@@ -149,7 +149,7 @@ export function List({ list, bookmarks, lists }) {
         open={isEditDrawerOpenMobile}
         onOpenChange={setEditDrawerOpenMobile}
       >
-        <DrawerContent className="h-screen">
+        <DrawerContent className="h-screen text-notion-heading">
           <form
             action={editList.bind(null, list.id)}
             onSubmit={() => setEditDrawerOpenMobile(false)}

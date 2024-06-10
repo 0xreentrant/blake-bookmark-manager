@@ -160,9 +160,9 @@ export const Entry = ({
               <DrawerTrigger className="outline-none text-notion-heading">
                 <Ellipsis size={18} />
               </DrawerTrigger>
-              <DrawerContent className="h-screen">
+              <DrawerContent className="h-screen text-notion-heading">
                 <DrawerHeader className="flex items-center justify-between">
-                  <DrawerTitle>List Options</DrawerTitle>
+                  <DrawerTitle>Bookmark Options</DrawerTitle>
                   <DrawerClose className="flex items-center gap-2 text-lg">
                     Done
                   </DrawerClose>
