@@ -75,7 +75,10 @@ export function List({ list, bookmarks, lists }) {
         </div>
         <div className="lg:hidden">
           <Drawer open={isMenuOpenMobile} onOpenChange={setMenuOpenMobile}>
-            <DrawerTrigger className="outline-none text-notion-heading pr-2">
+            <DrawerTrigger
+              className="outline-none text-notion-heading mr-2 p-1 w-10 h-10 rounded-full bg-notion-hover-bg flex justify-center items-center"
+              asChild
+            >
               <Ellipsis />
             </DrawerTrigger>
             <DrawerContent className="h-screen">

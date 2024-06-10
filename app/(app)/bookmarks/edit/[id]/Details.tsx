@@ -91,7 +91,10 @@ export function Details({ entry }) {
         </div>
         <div className="block lg:hidden pr-2">
           <Drawer open={isMenuOpenMobile} onOpenChange={setMenuOpenMobile}>
-            <DrawerTrigger className="outline-none h-min text-notion-heading">
+            <DrawerTrigger
+              className="outline-none h-min text-notion-heading p-1 w-10 h-10 rounded-full bg-notion-hover-bg"
+              asChild
+            >
               <Ellipsis />
             </DrawerTrigger>
             <DrawerContent className="h-screen">
