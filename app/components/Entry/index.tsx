@@ -32,7 +32,15 @@ import { useRouter } from "next/navigation";
 import { IconInternetArchive } from "@/components/Icon/InternetArchive";
 import { IconHackerNews } from "@/components/Icon/HackerNews";
 import { Points } from "./Points";
-import { Landmark, RefreshCcw, Pencil, Trash2, Ellipsis } from "lucide-react";
+import {
+  FolderPlus,
+  FolderCheck,
+  Landmark,
+  RefreshCcw,
+  Pencil,
+  Trash2,
+  Ellipsis,
+} from "lucide-react";
 
 const localeOptions = {
   hour: "2-digit",
@@ -96,7 +104,7 @@ export const Entry = ({
     : handleArchiveByExistenceInLists;
 
   return (
-    <div className="flex justify-center  py-1 px-3 lg:py-[.15rem]">
+    <div className="flex justify-center  py-[.15rem] px-3 lg:py-[.15rem]">
       <div
         className="flex border rounded-lg py-2 px-4 w-full max-w-7xl relative justify-start text-card-foreground"
         style={style}
@@ -150,7 +158,7 @@ export const Entry = ({
               onOpenChange={setMobileDropdownOpen}
             >
               <DrawerTrigger className="outline-none text-notion-heading">
-                <Ellipsis size={16} />
+                <Ellipsis size={18} />
               </DrawerTrigger>
               <DrawerContent className="h-screen">
                 <DrawerHeader className="flex items-center justify-between">
@@ -260,14 +268,14 @@ export const Entry = ({
 
           <span className="text-notion-base">
             {includedInLists && !includedInLists.length ? (
-              <IconFolderAdd
+              <FolderPlus
+                size={20}
                 onClick={() => setModifyListsDialogOpen(true)}
-                className="h-4 w-4"
               />
             ) : (
-              <IconFolderCheck
-                fill="green"
-                className="h-4 w-4"
+              <FolderCheck
+                stroke="green"
+                size={20}
                 onClick={() => setModifyListsDialogOpen(true)}
               />
             )}
