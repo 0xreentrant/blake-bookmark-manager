@@ -11,7 +11,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { LayoutContext } from "@/components/LayoutContext";
-import { PanelRightClose, PanelRight } from "lucide-react";
+import { X, PanelRightClose, PanelRight } from "lucide-react";
 import { Logo } from "@/components/Logo";
 
 export function BookmarksLayoutWrapper({ navPanel, content }) {
@@ -55,7 +55,7 @@ export function BookmarksLayoutWrapper({ navPanel, content }) {
             <SheetHeader className="flex flex-row items-center p-2 justify-between w-full bg-notion-panel">
               <Logo />
               <SheetClose asChild>
-                <PanelRightClose className="!m-0 text-notion-heading/75" />
+                <X className="!m-0 text-notion-heading/75" />
               </SheetClose>
             </SheetHeader>
             {navPanelWithHandler}
