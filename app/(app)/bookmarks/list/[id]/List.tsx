@@ -61,9 +61,12 @@ export function List({ list, bookmarks, lists }) {
   return (
     /* @dev THERE MUST BE NO WRAPPERS AROUND THIS FILE'S ENTIRE REACT COMPONENT, (React.Fragment only) */
     <>
-<div className="flex justify-center lg:items-center px-3 lg:pb-4 lg:pt-4">
+      <div className="flex justify-center lg:items-center pb-2 px-3 lg:pb-4 lg:pt-4">
         <div className="flex flex-col lg:flex-row   grow-[5] lg:items-center gap-3">
-          <ArrowLeft onClick={() => router.back()} />
+          <div className="flex gap-3" onClick={() => router.back()}>
+            <ArrowLeft />
+            <span className="underline lg:hidden">All bookmarks</span>
+          </div>
           <div
             className={`[overflow-wrap:anywhere] flex flex-wrap text-wrap text-3xl font-semibold`}
           >

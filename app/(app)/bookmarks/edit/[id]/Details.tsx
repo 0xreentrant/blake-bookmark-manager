@@ -56,7 +56,10 @@ export function Details({ entry }) {
       <div className="flex p-2" style={{}}>
         <div className="flex flex-col lg:flex-row grow max-w-[calc(100%-1.25rem)] pl-2 item-center">
           <div className="flex flex-col lg:flex-row mb-3 lg:mb-2 lg:mr-3 grow-[5] gap-3">
-            <ArrowLeft onClick={() => router.back()} />
+            <div className="flex gap-3" onClick={() => router.back()}>
+              <ArrowLeft />
+              <span className="underline lg:hidden">Back to list</span>
+            </div>
             <div className="flex">
               <span className="font-bold">{title}</span>
             </div>
