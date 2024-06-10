@@ -217,14 +217,14 @@ export const Entry = ({
               </DrawerContent>
             </Drawer>
           </div>
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center">
             <DropdownMenu
               open={isDesktopDropdownOpen}
               onOpenChange={setDesktopDropdownOpen}
             >
               <DropdownMenuTrigger>
                 <span className="text-notion-base">
-                  <IconMenuHorizontal
+                  <Ellipsis
                     onClick={() =>
                       setDesktopDropdownOpen(!isDesktopDropdownOpen)
                     }
