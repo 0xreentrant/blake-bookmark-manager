@@ -14,12 +14,12 @@ export function Points({
   return (
     <>
       <div
-        className={`hidden lg:block flex items-center text-notion-base ${
+        className={`hidden lg:flex flex-row items-center pr-1.5 text-notion-base ${
           className ?? ""
         }`}
       >
-        <span className="text-lg font-light">{points}</span>
-        <div className="flex flex-col h-full justify-between pl-4 lg:flex-row lg:items-center lg:gap-2.5 lg:pl-3">
+        <span className="text-sm font-light">{points}</span>
+        <div className="flex items-center gap-2.5 pl-3">
           <IconChevronUp onClick={handleUpvote} />
           <IconChevronDown onClick={handleDownvote} />
         </div>

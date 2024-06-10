@@ -113,7 +113,6 @@ export const Entry = ({
           points={points}
           handleUpvote={handleUpvote}
           handleDownvote={handleDownvote}
-          className="lg:pr-1.5"
         />
 
         {/* TODO: merge these doubled title and date elements w/ better tailwind css */}
