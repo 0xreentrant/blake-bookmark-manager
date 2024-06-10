@@ -22,6 +22,7 @@ export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {
     if (!newListData) {
       return;
     }
+handleNavSelection()
     const id = newListData.id;
     router.push(`/bookmarks/list/${id}`);
   }, [newListData]);
