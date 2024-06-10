@@ -96,9 +96,9 @@ export const Entry = ({
     : handleArchiveByExistenceInLists;
 
   return (
-    <div className="flex justify-center px-2 py-1 lg:py-[.15rem]">
+    <div className="flex justify-center  py-1 px-3 lg:py-[.15rem]">
       <div
-        className="flex border rounded-lg py-2 px-4 w-full max-w-5xl relative justify-start text-card-foreground"
+        className="flex border rounded-lg py-2 px-4 w-full max-w-7xl relative justify-start text-card-foreground"
         style={style}
       >
         <Points
@@ -227,10 +227,7 @@ export const Entry = ({
               <DropdownMenuContent>
                 <DropdownMenuItem>
                   <IconEdit className="mr-2 h-4 w-4" />
-                  <Link
-                    href={`/bookmarks/edit/${id}`}
-                    title="Bookmark details"
-                  >
+                  <Link href={`/bookmarks/edit/${id}`} title="Bookmark details">
                     Bookmark details
                   </Link>
                 </DropdownMenuItem>

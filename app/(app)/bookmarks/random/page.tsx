@@ -5,7 +5,7 @@ import { db, dbNew } from "@/db";
 import { Bookmarks } from "@/components/Bookmarks";
 import { bookmarks, lists, bookmarksToLists } from "@/schema";
 import { Nothing } from "@/components/DefaultViews/Nothing";
-import { PageHeading } from "@/components/Type/PageHeading";
+import { PageHeadingSystemList } from "@/components/Type/PageHeadingSystemList";
 
 export default async function Page() {
   const list = await dbNew.query.bookmarks
@@ -28,7 +28,7 @@ export default async function Page() {
 
   return (
     <>
-      <PageHeading>Random bookmarks</PageHeading>
+      <PageHeadingSystemList>Random bookmarks</PageHeadingSystemList>
       {list?.length ? (
         <Bookmarks bookmarks={list} allLists={allLists} />
       ) : (

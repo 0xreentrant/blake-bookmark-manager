@@ -61,11 +61,11 @@ export function List({ list, bookmarks, lists }) {
   return (
     /* @dev THERE MUST BE NO WRAPPERS AROUND THIS FILE'S ENTIRE REACT COMPONENT, (React.Fragment only) */
     <>
-      <div className="flex lg:justify-center gap-3 lg:items-center">
-        <div className="flex flex-col lg:flex-row w-full max-w-5xl justify-between grow-[5] lg:items-center pl-3 gap-3">
+<div className="flex justify-center lg:items-center px-3 lg:pb-4 lg:pt-4">
+        <div className="flex flex-col lg:flex-row   grow-[5] lg:items-center gap-3">
           <ArrowLeft onClick={() => router.back()} />
           <div
-            className={`[overflow-wrap:anywhere] max-w-[calc(100%-2rem)] flex-wrap text-wrap text-3xl font-semibold  flex w-full justify-between items-start relative`}
+            className={`[overflow-wrap:anywhere] flex flex-wrap text-wrap text-3xl font-semibold`}
           >
             {list.title}
           </div>
@@ -110,7 +110,7 @@ export function List({ list, bookmarks, lists }) {
             onOpenChange={setMenuOpenDesktop}
           >
             <DropdownMenuTrigger className="outline-none text-notion-heading">
-              <Ellipsis size={16} className="relative right-3" />
+              <Ellipsis size={16} />
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
