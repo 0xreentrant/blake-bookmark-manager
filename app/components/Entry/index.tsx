@@ -111,7 +111,7 @@ export const Entry = ({
         {/* TODO: merge these doubled title and date elements w/ better tailwind css */}
         <div className="px-4 lg:px-0 lg:pl-2 grow-[5] flex flex-col lg:flex-row min-w-0 w-full whitespace-nowrap">
           <Link
-            className="lg:hidden font-bold w-full truncate text-notion-heading"
+            className="lg:hidden text-sm font-bold w-full truncate text-notion-heading"
             title={title}
             href={href}
             target="_blank"
