@@ -173,7 +173,7 @@ export const Entry = ({
                   <li>
                     <Link
                       href={`/bookmarks/edit/${id}`}
-                      className="flex px-2 py-4 text-lg items-center gap-2"
+                      className="flex px-4 py-4 text-lg items-center gap-2"
                     >
                       <Pencil size={18} />
                       <span>Bookmark details</span>
@@ -181,7 +181,7 @@ export const Entry = ({
                   </li>
                   <li>
                     <Link
-                      className="flex px-2 py-4 text-lg items-center gap-2"
+                      className="flex px-4 py-4 text-lg items-center gap-2"
                       href={linkInternetArchive}
                     >
                       <Landmark size={18} />
@@ -190,7 +190,7 @@ export const Entry = ({
                   </li>
                   <li>
                     <Link
-                      className="flex px-2 py-4 text-lg items-center gap-2"
+                      className="flex px-4 py-4 text-lg items-center gap-2"
                       href={linkAlgolia}
                     >
                       <IconHackerNews className="text-sm" />
@@ -198,7 +198,7 @@ export const Entry = ({
                     </Link>
                   </li>
                   <li
-                    className="flex px-2 py-4 text-lg items-center gap-2"
+                    className="flex px-4 py-4 text-lg items-center gap-2"
                     onClick={handleActionByArchivedState}
                   >
                     {isArchived ? (

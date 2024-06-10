@@ -108,7 +108,7 @@ export function Details({ entry }) {
 
               <ul className="divide-y">
                 <li
-                  className="flex px-2 py-4 text-lg items-center"
+                  className="flex px-4 py-4 text-lg items-center"
                   onClick={handleEditMenuItemMobile}
                 >
                   <Pencil size={18} />
@@ -196,7 +196,7 @@ export function Details({ entry }) {
           </DrawerHeader>
           <hr />
 
-          <div className="mt-2 px-2 flex justify-end">
+          <div className="mt-2 px-4 flex justify-end">
             <form
               className="w-full"
               action={editBookmark.bind(null, id)}

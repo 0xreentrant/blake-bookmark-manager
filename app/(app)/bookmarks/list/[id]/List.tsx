@@ -92,14 +92,14 @@ export function List({ list, bookmarks, lists }) {
 
               <ul className="divide-y">
                 <li
-                  className="flex px-2 py-4 text-lg items-center"
+                  className="flex px-4 py-4 text-lg items-center"
                   onClick={handleEditMenuItemMobile}
                 >
                   <Pencil size={18} />
                   <span className="pl-2">Edit details</span>
                 </li>
                 <li
-                  className="flex px-2 py-4 text-lg items-center"
+                  className="flex px-4 py-4 text-lg items-center"
                   onClick={handleDeleteMenuItem}
                 >
                   <Trash2 size={18} />
@@ -162,7 +162,7 @@ export function List({ list, bookmarks, lists }) {
             </DrawerHeader>
             <hr />
 
-            <div className="mt-2 px-2">
+            <div className="mt-2 px-4">
               <Label htmlFor="title">Title</Label>
               <Input
                 id="title"
