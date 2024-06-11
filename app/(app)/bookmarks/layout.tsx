@@ -1,5 +1,4 @@
 "use server";
-import { useEffect, useState, useContext, useRef } from "react";
 import { count } from "drizzle-orm";
 import { ListsPane } from "@/components/ListsPane";
 import { BookmarksLayoutWrapper } from "./BookmarksLayoutWrapper";
@@ -24,7 +23,15 @@ export default async function BookmarksLayout({ children }) {
 
   return (
     <BookmarksLayoutWrapper
-      navPanel={<ListsPane totalBookmarks={totalBookmarks} lists={lists} />}
+      navPanel={
+        <ListsPane
+          totalBookmarks={totalBookmarks}
+          lists={lists}
+          // @dev this is handled in BookmarksLayoutWrapper w/ cloneElement, because we can't create
+          // a handler with useState in a server component
+          handleNavSelection={{}}
+        />
+      }
       content={children}
     />
   );
