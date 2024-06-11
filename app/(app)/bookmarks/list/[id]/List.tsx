@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Bookmarks } from "@/components/Bookmarks";
 import { deleteList } from "@/actions";
 import { editList } from "@/actions";
-import { Nothing } from "@/components/DefaultViews/Nothing";
+import { NothingList } from "@/components/DefaultViews/NothingList";
 import { PageHeading } from "@/components/Type/PageHeading";
 import {
   DropdownMenu,
@@ -61,11 +61,11 @@ export function List({ list, bookmarks, lists }) {
   return (
     /* @dev THERE MUST BE NO WRAPPERS AROUND THIS FILE'S ENTIRE REACT COMPONENT, (React.Fragment only) */
     <>
-      <div className="flex justify-center lg:items-center pb-2 px-3 lg:pb-4 lg:pt-4">
+      <div className="flex justify-center lg:items-center pb-2 px-3 lg:pb-4 lg:pt-3">
         <div className="flex flex-col lg:flex-row grow-[5] lg:items-center gap-1 lg:gap-3">
-          <div className="flex gap-3" onClick={() => router.back()}>
+          <div className="flex gap-3 lg:hidden" onClick={() => router.back()}>
             <ArrowLeft />
-            <span className="underline lg:hidden">All bookmarks</span>
+            <span className="underline">All bookmarks</span>
           </div>
           <div
             className={`[overflow-wrap:anywhere] flex flex-wrap text-wrap text-2xl lg:text-3xl font-semibold`}
@@ -137,12 +137,11 @@ export function List({ list, bookmarks, lists }) {
         </div>
       </div>
 
+      {/* TODO: pull up NothingList to page */}
       {bookmarks?.length ? (
         <Bookmarks bookmarks={bookmarks} allLists={lists} />
       ) : (
-        <div className="px-4 grow-[5]">
-          <Nothing />
-        </div>
+          <NothingList />
       )}
 
       <Drawer

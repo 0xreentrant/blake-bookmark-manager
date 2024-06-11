@@ -3,12 +3,12 @@
 import { eq, and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { dbNew } from "./db";
+import { db } from "./db";
 import { bookmarks, lists, bookmarksToLists } from "./schema";
 import { incr, decr } from "./dbUtils";
 
 export async function archiveBookmark(id) {
-  const out = await dbNew
+  const out = await db
     .update(bookmarks)
     .set({ archived: 1 })
     .where(eq(bookmarks.id, id));
@@ -20,7 +20,7 @@ export async function archiveBookmark(id) {
 }
 
 export async function restoreBookmark(id) {
-  const out = await dbNew
+  const out = await db
     .update(bookmarks)
     .set({ archived: 0 })
     .where(eq(bookmarks.id, id));
@@ -32,7 +32,7 @@ export async function restoreBookmark(id) {
 }
 
 export async function upvoteBookmark(id) {
-  const out = dbNew
+  const out = db
     .update(bookmarks)
     .set({ points: incr(bookmarks.points) })
     .where(eq(bookmarks.id, id));
@@ -43,7 +43,7 @@ export async function upvoteBookmark(id) {
 
 // TODO: only set if value >= 0
 export async function downvoteBookmark(id) {
-  const out = await dbNew
+  const out = await db
     .update(bookmarks)
     .set({ points: decr(bookmarks.points) })
     .where(eq(bookmarks.id, id));
@@ -53,7 +53,7 @@ export async function downvoteBookmark(id) {
 }
 
 export async function saveNote(id, notes, _) {
-  const out = await dbNew
+  const out = await db
     .update(bookmarks)
     .set({ notes: notes })
     .where(eq(bookmarks.id, id))
@@ -66,7 +66,7 @@ export async function saveNote(id, notes, _) {
 }
 
 export async function createList() {
-  const out = await dbNew
+  const out = await db
     .insert(lists)
     .values({ title: "New List" })
     .returning();
@@ -77,7 +77,7 @@ export async function createList() {
 }
 
 export async function removeFromAllLists(id) {
-  await dbNew
+  await db
     .delete(bookmarksToLists)
     // @ts-ignore figure this error out
     .where(eq(bookmarksToLists.bookmarkId, id));
@@ -97,7 +97,7 @@ export async function addRemoveFromLists(preventRefresh, bookmarkId, formData) {
     listIdsSubmitted.push(Number(id));
   }
 
-  const listsExistingOn: Array<Number> = dbNew
+  const listsExistingOn: Array<Number> = db
     .select({ listId: lists.id })
     .from(bookmarksToLists)
     .leftJoin(bookmarks, eq(bookmarksToLists.bookmarkId, bookmarks.id))
@@ -130,7 +130,7 @@ export async function addRemoveFromLists(preventRefresh, bookmarkId, formData) {
 
   if (listsToAddTo.length > 0) {
     added.push(
-      dbNew
+      db
         .insert(bookmarksToLists)
         // @ts-ignore figure this error out
         .values(listsToAddTo.map((listId: Number) => ({ listId, bookmarkId })))
@@ -143,7 +143,7 @@ export async function addRemoveFromLists(preventRefresh, bookmarkId, formData) {
     for (let listId of listsToRemoveFrom) {
       removed.push(
         // TODO: extract common operation
-        dbNew
+        db
           .delete(bookmarksToLists)
           // @ts-ignore figure this error out
           .where(
@@ -168,7 +168,7 @@ export async function addRemoveFromLists(preventRefresh, bookmarkId, formData) {
 }
 
 export async function deleteList(id) {
-  await dbNew.delete(lists).where(eq(lists.id, id)).returning();
+  await db.delete(lists).where(eq(lists.id, id)).returning();
   console.log("deleting");
   revalidatePath("/");
   redirect("/bookmarks/all");
@@ -177,7 +177,7 @@ export async function deleteList(id) {
 export async function editList(id, formData: FormData) {
   const title = formData.get("title").toString();
 
-  const out = await dbNew.update(lists).set({ title }).where(eq(lists.id, id));
+  const out = await db.update(lists).set({ title }).where(eq(lists.id, id));
 
   revalidatePath("/");
   return out;
@@ -188,7 +188,7 @@ export async function editBookmark(id, formData: FormData) {
 
   console.log(title)
 
-  const out = await dbNew
+  const out = await db
     .update(bookmarks)
     .set({ title })
     .where(eq(bookmarks.id, id));

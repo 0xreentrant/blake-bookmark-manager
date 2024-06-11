@@ -2,11 +2,11 @@
 import { count } from "drizzle-orm";
 import { ListsPane } from "@/components/ListsPane";
 import { BookmarksLayoutWrapper } from "./BookmarksLayoutWrapper";
-import { dbNew } from "@/db";
+import { db } from "@/db";
 import { bookmarks } from "@/schema";
 
 export default async function BookmarksLayout({ children }) {
-  const lists = await dbNew.query.lists
+  const lists = await db.query.lists
     .findMany({
       with: { bookmarksToLists: { with: { bookmark: true } } },
     })
@@ -16,10 +16,10 @@ export default async function BookmarksLayout({ children }) {
       });
     });
 
-  const totalBookmarks = dbNew
+  const totalBookmarks = await db
     .select({ count: count() })
     .from(bookmarks)
-    .get().count;
+    .then((data) => data[0].count);
 
   return (
     <BookmarksLayoutWrapper

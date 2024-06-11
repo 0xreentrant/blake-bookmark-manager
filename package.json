@@ -28,6 +28,7 @@
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.13",
+    "@vercel/postgres": "^0.8.0",
     "@xstate/inspect": "^0.7.0",
     "@xstate/react": "^3.0.1",
     "better-sqlite3": "^10.0.0",

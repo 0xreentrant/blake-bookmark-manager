@@ -1,13 +1,14 @@
 import { relations } from "drizzle-orm";
+import { integer, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import {
-  text,
-  integer,
+  //text,
+  //integer,
   sqliteTable,
   primaryKey,
 } from "drizzle-orm/sqlite-core";
 
-export const bookmarks = sqliteTable("bookmarks", {
-  id: integer("id").primaryKey({ autoIncrement: true }).notNull(),
+export const bookmarks = pgTable("bookmarks", {
+  id: serial("id").primaryKey().notNull(),
   title: text("title"),
   href: text("href").notNull(),
   date: text("date"),
@@ -23,8 +24,8 @@ export const bookmarksRelations = relations(bookmarks, ({ many }) => ({
 export type InsertBookmark = typeof bookmarks.$inferInsert;
 export type SelectBookmark = typeof bookmarks.$inferSelect;
 
-export const lists = sqliteTable("lists", {
-  id: integer("id").primaryKey({ autoIncrement: true }).notNull(),
+export const lists = pgTable("lists", {
+  id: serial("id").primaryKey().notNull(),
   title: text("title"),
 });
 
@@ -35,17 +36,14 @@ export const listsRelations = relations(lists, ({ many }) => ({
 export type InsertList = typeof lists.$inferInsert;
 export type SelectList = typeof lists.$inferSelect;
 
-export const bookmarksToLists = sqliteTable(
-  "bookmarks_to_lists",
-  {
-    bookmarkId: integer("bookmark_id")
-      .notNull()
-      .references(() => bookmarks.id, { onDelete: "cascade" }),
-    listId: integer("list_id")
-      .notNull()
-      .references(() => lists.id, { onDelete: "cascade" }),
-  },
-);
+export const bookmarksToLists = pgTable("bookmarks_to_lists", {
+  bookmarkId: integer("bookmark_id")
+    .notNull()
+    .references(() => bookmarks.id, { onDelete: "cascade" }),
+  listId: integer("list_id")
+    .notNull()
+    .references(() => lists.id, { onDelete: "cascade" }),
+});
 
 export const bookmarksToListsRelations = relations(
   bookmarksToLists,

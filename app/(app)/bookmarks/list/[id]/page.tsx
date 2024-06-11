@@ -2,7 +2,7 @@
 
 import { eq, desc } from "drizzle-orm";
 import { createSelectSchema } from "drizzle-zod";
-import { dbNew } from "@/db";
+import { db } from "@/db";
 import { bookmarks, lists } from "@/schema";
 import { List } from "./List";
 
@@ -11,9 +11,9 @@ import { List } from "./List";
 export default async function Page({ params }) {
   const { id } = params;
 
-  const allLists = await dbNew.query.lists.findMany();
+  const allLists = await db.query.lists.findMany();
 
-  const listWithBookmarks = await dbNew.query.lists.findFirst({
+  const listWithBookmarks = await db.query.lists.findFirst({
     with: {
       bookmarksToLists: {
         with: {
@@ -36,13 +36,15 @@ export default async function Page({ params }) {
     }))
     .sort((a, b) => Number(b.date) - Number(a.date));
 
-  //console.log(JSON.stringify(listBookmarks, null, 4));
+  let currentList = listWithBookmarks
+    ? { id: listWithBookmarks.id, title: listWithBookmarks.title }
+    : { id: Number.MAX_SAFE_INTEGER, title: "" };
 
   return (
     <List
-      list={{ id: listWithBookmarks.id, title: listWithBookmarks.title }}
-      bookmarks={bookmarksOnList}
-      lists={allLists}
+      list={currentList}
+      bookmarks={bookmarksOnList ?? []}
+      lists={allLists ?? []}
     />
   );
 }

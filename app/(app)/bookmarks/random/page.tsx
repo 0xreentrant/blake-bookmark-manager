@@ -1,7 +1,6 @@
 "use server";
 
 import { eq, desc, sql } from "drizzle-orm";
-import { db, dbNew } from "@/db";
 import { Bookmarks } from "@/components/Bookmarks";
 import { bookmarks, lists, bookmarksToLists } from "@/schema";
 import { Nothing } from "@/components/DefaultViews/Nothing";

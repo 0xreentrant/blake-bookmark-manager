@@ -63,7 +63,7 @@ export function BookmarksLayoutWrapper({ navPanel, content }) {
         </Sheet>
       </div>
       <div
-        className="pt-4 flex flex-col flex-1 h-screen overflow-hidden"
+        className="pt-4 flex flex-col flex-1 h-screen overflow-hidden relative"
         ref={parentRef}
       >
         {/* @dev: for the bookmarks list to measurements (see: resizeObserver in Bookmarks.tsx) */}
