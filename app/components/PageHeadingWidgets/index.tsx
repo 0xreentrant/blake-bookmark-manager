@@ -80,8 +80,8 @@ const AddMenuButton = () => {
             <ChevronDown />
           </span>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem>
+        <DropdownMenuContent align="start">
+          <DropdownMenuItem className="flex gap-2">
             <CloudUpload />
             <Link href="/bookmarks/upload">Upload bookmarks from file</Link>
           </DropdownMenuItem>
