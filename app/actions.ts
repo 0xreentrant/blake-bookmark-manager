@@ -29,7 +29,6 @@ export async function restoreBookmark(id) {
   console.log("restoring", id);
 
   revalidatePath("/bookmarks", "layout");
-  return out;
 }
 
 export async function upvoteBookmark(id) {
@@ -39,7 +38,6 @@ export async function upvoteBookmark(id) {
     .where(eq(bookmarks.id, id));
 
   revalidatePath("/bookmarks", "layout");
-  return out;
 }
 
 // TODO: only set if value >= 0
@@ -50,7 +48,6 @@ export async function downvoteBookmark(id) {
     .where(eq(bookmarks.id, id));
 
   revalidatePath("/", "page");
-  return out;
 }
 
 export async function saveNote(id, notes, _) {
@@ -63,7 +60,6 @@ export async function saveNote(id, notes, _) {
   console.log(id, notes, out);
 
   revalidatePath("/bookmarks/edit");
-  return out;
 }
 
 export async function createList() {
@@ -179,7 +175,6 @@ export async function editList(id, formData: FormData) {
   const out = await db.update(lists).set({ title }).where(eq(lists.id, id));
 
   revalidatePath("/");
-  return out;
 }
 
 export async function editBookmark(id, formData: FormData) {
@@ -193,7 +188,6 @@ export async function editBookmark(id, formData: FormData) {
     .where(eq(bookmarks.id, id));
 
   revalidatePath("/");
-  return out;
 }
 
 export async function saveBookmark(formData: FormData) {
