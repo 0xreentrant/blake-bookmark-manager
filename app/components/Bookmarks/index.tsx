@@ -90,17 +90,19 @@ export function Bookmarks({ bookmarks, allLists }) {
         // @ts-ignore
         listRef?.current?.children[0]?.children[0]?.offsetHeight;
 
-      console.log({
-        parentContainer,
-        listRef: listRef.current,
-        remainderHeightWithoutList: getRemainderHeightWithoutList(
-          parentContainer,
-          listRef
-        ),
-        remainderHeight,
-        rawParentHeight,
-        rawParent: event[0].target,
-      });
+        /*
+         *console.log({
+         *  parentContainer,
+         *  listRef: listRef.current,
+         *  remainderHeightWithoutList: getRemainderHeightWithoutList(
+         *    parentContainer,
+         *    listRef
+         *  ),
+         *  remainderHeight,
+         *  rawParentHeight,
+         *  rawParent: event[0].target,
+         *});
+         */
 
       setRemainderHeightThrottled(remainder);
       setFirstChildHeightThrottled(firstChildHeight);

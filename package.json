@@ -11,7 +11,11 @@
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate"
   },
+  "resolutions": {
+    "@types/react": "^17.0.38"
+  },
   "dependencies": {
+    "@ark-ui/react": "^3.2.1",
     "@emotion/react": "^11.9.0",
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.8.1",
@@ -26,8 +30,10 @@
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-scroll-area": "^1.0.5",
+    "@radix-ui/react-slot": "^1.0.2",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.13",
+    "@types/react": "^18.3.3",
     "@vercel/postgres": "^0.8.0",
     "@xstate/inspect": "^0.7.0",
     "@xstate/react": "^3.0.1",
@@ -58,6 +64,7 @@
     "react-autosave": "^0.4.4",
     "react-dom": "^18.3.1",
     "react-easy-edit": "^1.17.2",
+    "react-hook-form": "^7.51.5",
     "react-window": "^1.8.8",
     "reading-time": "^1.5.0",
     "remark-gfm": "^4.0.0",
@@ -73,7 +80,15 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "~7.6.10",
+    "@types/eslint": "~8.56.10",
+    "@types/lint-staged": "~13.3.0",
+    "@types/lodash.debounce": "~4.0.9",
+    "@types/lodash.throttle": "~4.1.9",
     "@types/node": "^17.0.33",
+    "@types/prettier": "~3.0.0",
+    "@types/react-dom": "~18.3.0",
+    "@types/react-window": "~1.8.8",
     "autoprefixer": "^10.4.19",
     "daisyui": "^4.11.1",
     "drizzle-kit": "^0.21.4",

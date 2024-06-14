@@ -6,12 +6,23 @@
 yarn install
 ```
 
-## Importing
+## Configuration
+
+Get Postgres-related env vars from Vercel:
+
 ```
-node utils/convert.js <path to bookmarks.html>
+POSTGRES_DATABASE=""
+POSTGRES_HOST=""
+POSTGRES_PASSWORD=""
+POSTGRES_PRISMA_URL=""
+POSTGRES_URL=""
+POSTGRES_URL_NON_POOLING=""
+POSTGRES_URL_NO_SSL=""
+POSTGRES_USER=""
 ```
 
 ## Running
+
 ```
 yarn run dev
 ```

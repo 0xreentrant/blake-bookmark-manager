@@ -1,11 +1,13 @@
 "use server";
 
+import fs from "node:fs/promises";
 import { eq, and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { db } from "./db";
 import { bookmarks, lists, bookmarksToLists } from "./schema";
 import { incr, decr } from "./dbUtils";
+import { timestampSeconds } from "./utils/ui";
 
 export async function archiveBookmark(id) {
   const out = await db
@@ -66,10 +68,7 @@ export async function saveNote(id, notes, _) {
 }
 
 export async function createList() {
-  const out = await db
-    .insert(lists)
-    .values({ title: "New List" })
-    .returning();
+  const out = await db.insert(lists).values({ title: "New List" }).returning();
 
   console.log(out);
   revalidatePath("/");
@@ -97,14 +96,15 @@ export async function addRemoveFromLists(preventRefresh, bookmarkId, formData) {
     listIdsSubmitted.push(Number(id));
   }
 
-  const listsExistingOn: Array<Number> = db
+  const listsExistingOn: Array<Number> = await db
     .select({ listId: lists.id })
     .from(bookmarksToLists)
     .leftJoin(bookmarks, eq(bookmarksToLists.bookmarkId, bookmarks.id))
     .leftJoin(lists, eq(bookmarksToLists.listId, lists.id))
     .where(eq(bookmarks.id, bookmarkId))
-    .all()
-    .map(({ listId }) => listId);
+    .then((data) => {
+      return data.map(({ listId }) => listId);
+    });
 
   const setIntersect = (a, b) => a.filter((e) => b.includes(e));
   const setSubtract = (m, s) => m.filter((e) => !s.includes(e));
@@ -130,12 +130,11 @@ export async function addRemoveFromLists(preventRefresh, bookmarkId, formData) {
 
   if (listsToAddTo.length > 0) {
     added.push(
-      db
+      await db
         .insert(bookmarksToLists)
         // @ts-ignore figure this error out
         .values(listsToAddTo.map((listId: Number) => ({ listId, bookmarkId })))
         .returning()
-        .get()
     );
   }
 
@@ -143,17 +142,18 @@ export async function addRemoveFromLists(preventRefresh, bookmarkId, formData) {
     for (let listId of listsToRemoveFrom) {
       removed.push(
         // TODO: extract common operation
-        db
+        await db
           .delete(bookmarksToLists)
           // @ts-ignore figure this error out
           .where(
             and(
+              // @ts-ignore figure this error out
               eq(bookmarksToLists.listId, listId),
+              // @ts-ignore figure this error out
               eq(bookmarksToLists.bookmarkId, bookmarkId)
             )
           )
           .returning()
-          .get()
       );
     }
   }
@@ -186,7 +186,7 @@ export async function editList(id, formData: FormData) {
 export async function editBookmark(id, formData: FormData) {
   const title = formData.get("title").toString();
 
-  console.log(title)
+  console.log(title);
 
   const out = await db
     .update(bookmarks)
@@ -195,4 +195,17 @@ export async function editBookmark(id, formData: FormData) {
 
   revalidatePath("/");
   return out;
+}
+
+export async function saveBookmark(formData: FormData) {
+  const href = formData.get("href").toString();
+  const title = formData.get("title").toString();
+
+  await db.insert(bookmarks).values({
+    title,
+    href,
+    date: timestampSeconds().toString(),
+  });
+
+  revalidatePath("/");
 }

@@ -4,11 +4,16 @@ import { Details } from "./Details";
 import { bookmarks } from "@/schema";
 
 export default async function DetailsPage({ params }) {
-  const bookmark = db
+  const bookmark = await db
     .select()
     .from(bookmarks)
     .where(eq(bookmarks.id, params.id))
-    .get();
+    .then((data) => data[0]);
 
-  return <Details entry={bookmark} />;
+// TODO: create an error widget and show appropriately
+  return bookmark ? (
+    <Details entry={bookmark} />
+  ) : (
+    "There was an error loading your bookmark"
+  );
 }
