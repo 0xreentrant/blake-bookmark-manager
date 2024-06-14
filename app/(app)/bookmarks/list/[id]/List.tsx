@@ -28,6 +28,7 @@ import {
 import { ArrowLeft, Pencil, Trash2, Ellipsis } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 export function List({ list, bookmarks, lists }) {
   const [isMenuOpenDesktop, setMenuOpenDesktop] = useState(false);
@@ -141,7 +142,7 @@ export function List({ list, bookmarks, lists }) {
       {bookmarks?.length ? (
         <Bookmarks bookmarks={bookmarks} allLists={lists} />
       ) : (
-          <NothingList />
+        <NothingList />
       )}
 
       <Drawer
@@ -228,22 +229,21 @@ export function List({ list, bookmarks, lists }) {
               Are you sure?
             </Dialog.Title>
             This will delete your list &quot;{list.title}&quot;
-            <div className="mt-2 flex justify-end">
-              <button
-                className="border-2 border-solid p-2 mr-4"
+            <div className="mt-2 flex justify-end gap-3">
+              <Button
+                variant="outline"
                 onClick={() => setDeleteDialogOpen(false)}
               >
                 Cancel
-              </button>
-              <button
-                className="border-2 border-solid p-2"
+              </Button>
+              <Button
                 onClick={() => {
                   setDeleteDialogOpen(false);
                   handlePerformDelete();
                 }}
               >
                 Delete
-              </button>
+              </Button>
             </div>
           </Dialog.Content>
         </Dialog.Portal>
