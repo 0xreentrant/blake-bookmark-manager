@@ -6,8 +6,11 @@ import { X } from "lucide-react";
 import { useState } from "react";
 import { uploadBookmarksFile } from "@/actions/upload";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 
 export default function Upload() {
+  const  router  = useRouter();
   const { register, handleSubmit } = useForm();
   const [file, setFile] = useState<File>();
 
@@ -25,10 +28,20 @@ export default function Upload() {
   return (
     <div className="p-3">
       <div className="flex flex-col w-full items-start">
-        <div className="text-2xl lg:text-3xl font-semibold">Upload your bookmarks</div>
-        <p className="text-md text-muted-foreground">
-          Upload your exported bookmarks here
-        </p>
+        <div className="flex flex-col gap-3">
+          <div className="flex gap-3 lg:hidden" onClick={() => router.back()}>
+            <ArrowLeft />
+            <span className="underline">All bookmarks</span>
+          </div>
+          <div>
+            <h1 className="text-2xl lg:text-3xl font-semibold">
+              Upload your bookmarks
+            </h1>
+            <p className="text-md text-muted-foreground">
+              Upload your exported bookmarks here
+            </p>
+          </div>
+        </div>
         <form
           onSubmit={handleSubmit(handleUpload)}
           className="w-full flex flex-col w-full items-center"
