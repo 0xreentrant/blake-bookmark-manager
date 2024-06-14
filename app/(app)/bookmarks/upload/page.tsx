@@ -12,8 +12,8 @@ export default function Upload() {
   const [file, setFile] = useState<File>();
 
   type FieldValues = {
-    files: File[]
-  }
+    files: File[];
+  };
 
   const handleUpload = (data: FieldValues) => {
     const formData = new FormData();
@@ -23,9 +23,9 @@ export default function Upload() {
   };
 
   return (
-    <div>
-      <div className="flex flex-col w-full items-center">
-        <div className="text-3xl font-semibold">Upload your bookmarks</div>
+    <div className="p-3">
+      <div className="flex flex-col w-full items-start">
+        <div className="text-2xl lg:text-3xl font-semibold">Upload your bookmarks</div>
         <p className="text-md text-muted-foreground">
           Upload your exported bookmarks here
         </p>
@@ -38,13 +38,13 @@ export default function Upload() {
             className="w-full flex flex-col w-full items-center pt-6"
             onFileAccept={({ files }) => setFile(files[0])}
           >
-            <FileUpload.Dropzone className="flex flex-col items-center gap-3 p-12 w-full max-w-[50%] border-dashed border-2 rounded-md">
+            <FileUpload.Dropzone className="flex flex-col items-center gap-3 p-12 w-full max-w-[85%] lg:max-w-[65%] border-dashed border-2 rounded-md">
               Drag your file here
               <FileUpload.Trigger asChild>
                 <Button>Browse files</Button>
               </FileUpload.Trigger>
             </FileUpload.Dropzone>
-            <FileUpload.ItemGroup className="w-full max-w-[50%] pt-3">
+            <FileUpload.ItemGroup className="w-full max-w-[85%] lg:max-w-[65%] pt-3">
               {/* @ts-ignore TODO: why is this getting an error? */}
               <FileUpload.Context>
                 {({ acceptedFiles }) =>
@@ -54,14 +54,16 @@ export default function Upload() {
                       file={file}
                       className="flex items-center justify-between gap-3 w-full  border-solid border-2 rounded-md p-4"
                     >
-                      <FileUpload.ItemPreview type="image/*">
-                        <FileUpload.ItemPreviewImage />
-                      </FileUpload.ItemPreview>
-                      <FileUpload.ItemPreview type=".*">
-                        <FileIcon />
-                      </FileUpload.ItemPreview>
-                      <FileUpload.ItemName />
-                      <FileUpload.ItemSizeText />
+                      <div className="flex items-center justify-between gap-3">
+                        <FileUpload.ItemPreview
+                          type=".htm*"
+                          className="hidden lg:block"
+                        >
+                          <FileIcon />
+                        </FileUpload.ItemPreview>
+                        <FileUpload.ItemName className="[overflow-wrap:anywhere] flex-wrap text-wrap text-sm md:text-base" />
+                        <FileUpload.ItemSizeText className="hidden md:block" />
+                      </div>
                       <FileUpload.ItemDeleteTrigger>
                         <X />
                       </FileUpload.ItemDeleteTrigger>

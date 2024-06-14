@@ -18,7 +18,6 @@ export async function archiveBookmark(id) {
   console.log("archiving", id);
 
   revalidatePath("/");
-  return out;
 }
 
 export async function restoreBookmark(id) {
