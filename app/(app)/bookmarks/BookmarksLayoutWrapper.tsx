@@ -16,7 +16,7 @@ import { Logo } from "@/components/Logo";
 
 export function BookmarksLayoutWrapper({ navPanel, content }) {
   const [isNavPanelOpen, setNavPanelOpen] = useState(false);
-  const parentRef = useRef();
+  const parentRef = useRef(null);
 
   const navPanelWithHandler = cloneElement(navPanel, {
     handleNavSelection: () => setNavPanelOpen(false),

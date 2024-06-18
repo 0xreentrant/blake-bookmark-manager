@@ -12,7 +12,6 @@ const IconTrash = forwardRef(function IconTrash(
       height="1em"
       width="1em"
       {...props}
-      ref={ref}
     >
       <path d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z" />
       <path

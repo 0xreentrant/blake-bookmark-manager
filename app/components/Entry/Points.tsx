@@ -1,5 +1,4 @@
-import { IconChevronDown } from "../Icon/ChevronDown";
-import { IconChevronUp } from "../Icon/ChevronUp";
+import { ChevronUp, ChevronDown } from "lucide-react";
 export function Points({
   points,
   handleUpvote,
@@ -20,8 +19,8 @@ export function Points({
       >
         <span className="text-sm font-light">{points}</span>
         <div className="flex items-center gap-2.5 pl-3">
-          <IconChevronUp onClick={handleUpvote} />
-          <IconChevronDown onClick={handleDownvote} />
+          <ChevronUp onClick={handleUpvote} strokeWidth={1} />
+          <ChevronDown onClick={handleDownvote} strokeWidth={1} />
         </div>
       </div>
       <div
@@ -29,9 +28,9 @@ export function Points({
           className ?? ""
         }`}
       >
-        <IconChevronUp onClick={handleUpvote} />
+        <ChevronUp onClick={handleUpvote} strokeWidth={1} />
         <span className="text-xs font-light">{points}</span>
-        <IconChevronDown onClick={handleDownvote} />
+        <ChevronDown onClick={handleDownvote} strokeWidth={1} />
       </div>
     </>
   );

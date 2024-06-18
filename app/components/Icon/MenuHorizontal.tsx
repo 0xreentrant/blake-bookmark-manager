@@ -12,7 +12,6 @@ const IconMenuHorizontal = forwardRef(function IconMenuHorizontal(
       height="1em"
       width="1em"
       {...props}
-      ref={ref}
     >
       <g fill="currentColor" fillRule="evenodd">
         <path d="M11.5 10.5 A1 1 0 0 1 10.5 11.5 A1 1 0 0 1 9.5 10.5 A1 1 0 0 1 11.5 10.5 z" />

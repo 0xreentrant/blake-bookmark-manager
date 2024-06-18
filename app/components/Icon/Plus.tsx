@@ -12,7 +12,6 @@ const IconPlus = forwardRef(function IconPlus(
       height="1em"
       width="1em"
       {...props}
-      ref={ref}
     >
       <defs>
         <style />

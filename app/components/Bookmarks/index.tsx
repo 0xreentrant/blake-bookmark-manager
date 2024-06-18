@@ -24,7 +24,7 @@ function outerHeight(element: HTMLElement) {
 
 export function Bookmarks({ bookmarks, allLists }) {
   const parentRef = useContext(LayoutContext);
-  const listRef = useRef<HTMLElement>();
+  const listRef = useRef(null);
   const [remainderHeight, setRemainderHeight] = useState(0);
   const [firstChildHeight, setFirstChildHeight] = useState(60);
   const setRemainderHeightThrottled = throttle(setRemainderHeight, 30);
@@ -90,19 +90,19 @@ export function Bookmarks({ bookmarks, allLists }) {
         // @ts-ignore
         listRef?.current?.children[0]?.children[0]?.offsetHeight;
 
-        /*
-         *console.log({
-         *  parentContainer,
-         *  listRef: listRef.current,
-         *  remainderHeightWithoutList: getRemainderHeightWithoutList(
-         *    parentContainer,
-         *    listRef
-         *  ),
-         *  remainderHeight,
-         *  rawParentHeight,
-         *  rawParent: event[0].target,
-         *});
-         */
+      /*
+       *console.log({
+       *  parentContainer,
+       *  listRef: listRef.current,
+       *  remainderHeightWithoutList: getRemainderHeightWithoutList(
+       *    parentContainer,
+       *    listRef
+       *  ),
+       *  remainderHeight,
+       *  rawParentHeight,
+       *  rawParent: event[0].target,
+       *});
+       */
 
       setRemainderHeightThrottled(remainder);
       setFirstChildHeightThrottled(firstChildHeight);
@@ -120,6 +120,7 @@ export function Bookmarks({ bookmarks, allLists }) {
   }, [parentRef, listRef]);
 
   return (
+    // @ts-ignore todo: fix this type error
     <List
       height={remainderHeight}
       itemData={bookmarks}

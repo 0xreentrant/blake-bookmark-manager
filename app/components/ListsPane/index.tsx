@@ -12,7 +12,7 @@ import { ListEntry } from "../ListEntry";
 import { withActiveToggle } from "@/utils/ui";
 
 export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {
-  const [newListData, doCreateList] = useFormState(createList);
+  const [newListData, doCreateList] = useFormState(createList, null);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -22,7 +22,7 @@ export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {
     if (!newListData) {
       return;
     }
-handleNavSelection()
+    handleNavSelection();
     const id = newListData.id;
     router.push(`/bookmarks/list/${id}`);
   }, [newListData]);
