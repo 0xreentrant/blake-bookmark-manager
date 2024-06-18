@@ -10,39 +10,28 @@ import { incr, decr } from "./dbUtils";
 import { timestampSeconds } from "./utils/ui";
 
 export async function archiveBookmark(id) {
-  const out = await db
-    .update(bookmarks)
-    .set({ archived: 1 })
-    .where(eq(bookmarks.id, id));
-
-  console.log("archiving", id);
+  await db.update(bookmarks).set({ archived: 1 }).where(eq(bookmarks.id, id));
 
   revalidatePath("/");
 }
 
 export async function restoreBookmark(id) {
-  const out = await db
-    .update(bookmarks)
-    .set({ archived: 0 })
-    .where(eq(bookmarks.id, id));
+  await db.update(bookmarks).set({ archived: 0 }).where(eq(bookmarks.id, id));
 
-  console.log("restoring", id);
-
-  revalidatePath("/bookmarks", "layout");
+  revalidatePath("/");
 }
 
 export async function upvoteBookmark(id) {
-  const out = db
-    .update(bookmarks)
+  db.update(bookmarks)
     .set({ points: incr(bookmarks.points) })
     .where(eq(bookmarks.id, id));
 
-  revalidatePath("/bookmarks", "layout");
+  revalidatePath("/");
 }
 
 // TODO: only set if value >= 0
 export async function downvoteBookmark(id) {
-  const out = await db
+  await db
     .update(bookmarks)
     .set({ points: decr(bookmarks.points) })
     .where(eq(bookmarks.id, id));
@@ -51,22 +40,16 @@ export async function downvoteBookmark(id) {
 }
 
 export async function saveNote(id, notes, _) {
-  const out = await db
-    .update(bookmarks)
-    .set({ notes: notes })
-    .where(eq(bookmarks.id, id))
-    .returning();
+  await db.update(bookmarks).set({ notes: notes }).where(eq(bookmarks.id, id));
 
-  console.log(id, notes, out);
-
-  revalidatePath("/bookmarks/edit");
+  revalidatePath("/");
 }
 
 export async function createList() {
   const out = await db.insert(lists).values({ title: "New List" }).returning();
 
-  console.log(out);
   revalidatePath("/");
+  // send back list data for the redirect
   return out[0];
 }
 
@@ -153,26 +136,22 @@ export async function addRemoveFromLists(preventRefresh, bookmarkId, formData) {
     }
   }
 
-  console.log({ added, removed });
-
   // NOTE: this is for the Random page, so it doesn't refresh after adding/removing bookmarks from lists
-  console.log({ preventRefresh });
   if (!preventRefresh) {
-    revalidatePath("/bookmarks");
+    revalidatePath("/");
   }
 }
 
 export async function deleteList(id) {
   await db.delete(lists).where(eq(lists.id, id)).returning();
-  console.log("deleting");
   revalidatePath("/");
-  redirect("/bookmarks/all");
+  redirect("/");
 }
 
 export async function editList(id, formData: FormData) {
   const title = formData.get("title").toString();
 
-  const out = await db.update(lists).set({ title }).where(eq(lists.id, id));
+  await db.update(lists).set({ title }).where(eq(lists.id, id));
 
   revalidatePath("/");
 }
@@ -182,10 +161,7 @@ export async function editBookmark(id, formData: FormData) {
 
   console.log(title);
 
-  const out = await db
-    .update(bookmarks)
-    .set({ title })
-    .where(eq(bookmarks.id, id));
+  await db.update(bookmarks).set({ title }).where(eq(bookmarks.id, id));
 
   revalidatePath("/");
 }
