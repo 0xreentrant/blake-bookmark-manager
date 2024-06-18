@@ -1,4 +1,5 @@
 "use server";
+import { unstable_noStore as noStore } from "next/cache";
 import { count } from "drizzle-orm";
 import { ListsPane } from "@/components/ListsPane";
 import { BookmarksLayoutWrapper } from "./BookmarksLayoutWrapper";
@@ -6,6 +7,8 @@ import { db } from "@/db";
 import { bookmarks } from "@/schema";
 
 export default async function BookmarksLayout({ children }) {
+  noStore(); // this part of the site is very dynamic, do not cache data
+
   const lists = await db.query.lists
     .findMany({
       with: { bookmarksToLists: { with: { bookmark: true } } },
