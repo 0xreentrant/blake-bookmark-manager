@@ -9,6 +9,11 @@ const nextConfig = {
         source: '/bookmarks',
         destination: '/bookmarks/all',
         permanent: true
+      },
+      {
+        source: '/',
+        destination: '/bookmarks/all',
+        permanent: true
       }
     ]
   }
