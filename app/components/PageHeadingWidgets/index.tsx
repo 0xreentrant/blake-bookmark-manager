@@ -51,12 +51,12 @@ const AddMenuButton = () => {
           >
             <div className="flex flex-col justify-center gap-3">
               <div className="grid flex-1 gap-2">
-                <Label htmlFor="href">URL</Label>
-                <Input id="href" name="href" defaultValue="" />
-              </div>
-              <div className="grid flex-1 gap-2">
                 <Label htmlFor="title">Title</Label>
                 <Input id="title" name="title" defaultValue="" />
+              </div>
+              <div className="grid flex-1 gap-2">
+                <Label htmlFor="href">URL</Label>
+                <Input id="href" name="href" defaultValue="" />
               </div>
             </div>
             <DialogFooter className="pt-6 sm:justify-start">
