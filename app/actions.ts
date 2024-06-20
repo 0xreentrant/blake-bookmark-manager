@@ -22,9 +22,10 @@ export async function restoreBookmark(id) {
 }
 
 export async function upvoteBookmark(id) {
-  db.update(bookmarks)
+  await db
+    .update(bookmarks)
     .set({ points: incr(bookmarks.points) })
-    .where(eq(bookmarks.id, id));
+    .where(eq(bookmarks.id, id))
 
   revalidatePath("/");
 }
@@ -34,7 +35,7 @@ export async function downvoteBookmark(id) {
   await db
     .update(bookmarks)
     .set({ points: decr(bookmarks.points) })
-    .where(eq(bookmarks.id, id));
+    .where(eq(bookmarks.id, id))
 
   revalidatePath("/", "page");
 }

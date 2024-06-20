@@ -30,7 +30,11 @@ export function Points({
       >
         <ChevronUp onClick={handleUpvote} strokeWidth={1} />
         <span className="text-xs font-light">{points}</span>
-        <ChevronDown onClick={handleDownvote} strokeWidth={1} />
+        {points > 0 ? (
+          <ChevronDown onClick={handleDownvote} strokeWidth={1} />
+        ) : (
+          <ChevronDown strokeWidth={1} color="#ccc" />
+        )}
       </div>
     </>
   );
