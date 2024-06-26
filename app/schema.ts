@@ -55,8 +55,8 @@ export const bookmarksToListsRelations = relations(
 
 export const users = pgTable("user", {
   id: text("id").primaryKey().notNull(),
-  githubId: text("github_id"),
-  username: text('username')
+  googleId: text("google_id"),
+  googleUsername: text("google_username"),
 });
 
 export const sessions = pgTable("session", {

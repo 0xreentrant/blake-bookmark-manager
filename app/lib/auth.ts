@@ -4,7 +4,7 @@ import { cache } from "react";
 
 import type { Session, User } from "lucia";
 import { Lucia } from "lucia";
-import { GitHub } from "arctic";
+import { Google } from "arctic";
 
 import * as schema from "@/schema";
 import { db } from "@/db";
@@ -20,8 +20,8 @@ export const lucia = new Lucia(adapter, {
   },
   getUserAttributes: (attributes: DatabaseUserAttributes) => {
     return {
-      githubId: attributes.github_id,
-      username: attributes.username,
+      googleId: attributes.google_id,
+      googleUsername: attributes.username,
     };
   },
 });
@@ -34,13 +34,14 @@ declare module "lucia" {
 }
 
 interface DatabaseUserAttributes {
-  github_id: number;
+  google_id: number;
   username: string;
 }
 
-export const github = new GitHub(
-  process.env.GITHUB_CLIENT_ID!,
-  process.env.GITHUB_CLIENT_SECRET!
+export const google = new Google(
+  process.env.GOOGLE_CLIENT_ID!,
+  process.env.GOOGLE_CLIENT_SECRET!,
+  process.env.GOOGLE_CLIENT_CALLBACK!
 );
 
 export const validateRequest = cache(

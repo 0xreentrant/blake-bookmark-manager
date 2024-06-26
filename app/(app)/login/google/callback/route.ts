@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { github, lucia } from "@/lib/auth";
+import { google, lucia } from "@/lib/auth";
 import { eq, and } from "drizzle-orm";
 import { users, sessions } from "@/schema";
 import { cookies } from "next/headers";
@@ -10,7 +10,8 @@ export async function GET(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
-  const storedState = cookies().get("github_oauth_state")?.value ?? null;
+  const storedState = cookies().get("google_oauth_state")?.value ?? null;
+  const storedVerifier = cookies().get("google_code_verifier")?.value ?? null;
   if (!code || !state || !storedState || state !== storedState) {
     return new Response(null, {
       status: 400,
@@ -18,19 +19,26 @@ export async function GET(request: Request): Promise<Response> {
   }
 
   try {
-    const tokens = await github.validateAuthorizationCode(code);
-    const githubUserResponse = await fetch("https://api.github.com/user", {
-      headers: {
-        Authorization: `Bearer ${tokens.accessToken}`,
-      },
-    });
-    const githubUser: GitHubUser = await githubUserResponse.json();
+    const tokens = await google.validateAuthorizationCode(code, storedVerifier);
+    const response = await fetch(
+      "https://openidconnect.googleapis.com/v1/userinfo",
+      {
+        headers: {
+          Authorization: `Bearer ${tokens.accessToken}`,
+        },
+      }
+    );
+    const googleUser: GoogleUser = await response.json();
 
     // Replace this with your own DB client.
     const existingUser = await db
       .select()
       .from(users)
-      .where(eq(users.id, githubUser.id))?.[0];
+      .where(eq(users.id, googleUser.id))?.[0];
+
+    /*
+     * Existing user
+     */
 
     if (existingUser) {
       const session = await lucia.createSession(existingUser.id, {});
@@ -48,13 +56,17 @@ export async function GET(request: Request): Promise<Response> {
       });
     }
 
+    /*
+     * New User
+     */
+
     const userId = generateIdFromEntropySize(10); // 16 characters long
 
     // Replace this with your own DB client.
     await db.insert(users).values({
       id: userId,
-      githubId: githubUser.id,
-      githubUsername: githubUser.login,
+      googleId: googleUser.id,
+      googleUsername: googleUser.login,
     });
 
     const session = await lucia.createSession(userId, {});
@@ -86,7 +98,7 @@ export async function GET(request: Request): Promise<Response> {
   }
 }
 
-interface GitHubUser {
+interface GoogleUser {
   id: string;
   login: string;
 }
