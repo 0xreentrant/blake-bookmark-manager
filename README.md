@@ -10,9 +10,7 @@ yarn install
 
 NOTE: 
 - Get Postgres-related env vars from your Vercel project under "Project Settings" -> "Environment Variables"
-- Github and Google OAuth vars from your account
-  - Github: https://github.com/settings/developers
-  - Google: https://console.cloud.google.com/apis/dashboard
+- Get Google OAuth vars from your account: https://console.cloud.google.com/apis/dashboard
 
 ```
 POSTGRES_DATABASE=""
@@ -23,8 +21,6 @@ POSTGRES_URL=""
 POSTGRES_URL_NON_POOLING=""
 POSTGRES_URL_NO_SSL=""
 POSTGRES_USER=""
-GITHUB_CLIENT_ID=""
-GITHUB_CLIENT_SECRET=""
 GOOGLE_CLIENT_ID=""
 GOOGLE_CLIENT_SECRET=""
 ```
