@@ -1,4 +1,5 @@
-import { github, lucia, db } from "@/db";
+import { db } from '@/db'
+import { github, lucia } from "@/lib/auth";
 import { eq, and } from "drizzle-orm";
 import { users, sessions } from "@/schema";
 import { cookies } from "next/headers";
@@ -71,8 +72,8 @@ export async function GET(request: Request): Promise<Response> {
     });
   } catch (e) {
     // the specific error message depends on the provider
-    console.log("Error")
-    console.error(e)
+    console.log("Error");
+    console.error(e);
     if (e instanceof OAuth2RequestError) {
       // invalid code
       return new Response(null, {
