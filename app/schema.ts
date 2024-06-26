@@ -52,3 +52,20 @@ export const bookmarksToListsRelations = relations(
     }),
   })
 );
+
+export const users = pgTable("user", {
+  id: text("id").primaryKey().notNull(),
+  githubId: text("github_id"),
+  username: text('username')
+});
+
+export const sessions = pgTable("session", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id),
+  expiresAt: timestamp("expires_at", {
+    withTimezone: true,
+    mode: "date",
+  }).notNull(),
+});

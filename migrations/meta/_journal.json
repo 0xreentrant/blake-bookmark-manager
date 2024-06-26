@@ -8,6 +8,13 @@
       "when": 1718073499690,
       "tag": "0000_serious_frightful_four",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1719424118129,
+      "tag": "0001_clumsy_mentor",
+      "breakpoints": true
     }
   ]
 }

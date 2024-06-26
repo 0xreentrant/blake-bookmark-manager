@@ -5,9 +5,17 @@ import { ListsPane } from "@/components/ListsPane";
 import { BookmarksLayoutWrapper } from "./BookmarksLayoutWrapper";
 import { db } from "@/db";
 import { bookmarks } from "@/schema";
+import { redirect } from "next/navigation";
+import { validateRequest } from "@/db";
 
 export default async function BookmarksLayout({ children }) {
-  noStore(); // this part of the site is very dynamic, do not cache data
+  // @dev it's important that all pages with dynamic data derive from a layout with `noStore()`
+  noStore();
+
+  const { user } = await validateRequest();
+  if (!user) {
+    return redirect("/login");
+  }
 
   const lists = await db.query.lists
     .findMany({
