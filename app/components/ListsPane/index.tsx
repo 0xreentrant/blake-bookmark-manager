@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useFormState } from "react-dom";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
@@ -10,22 +10,12 @@ import Link from "next/link";
 import { IconHome } from "../Icon/Home";
 import { ListEntry } from "../ListEntry";
 import { withActiveToggle } from "@/utils/ui";
+import { UserContext } from "@/components/UserContext";
 
 export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {
-  const [newListData, doCreateList] = useFormState(createList, null);
+  const user = useContext(UserContext);
   const router = useRouter();
   const pathname = usePathname();
-
-  useEffect(() => {
-    // TODO: create hook
-    // handle navigating to new list after it's been created w/ doCreateList
-    if (!newListData) {
-      return;
-    }
-    handleNavSelection();
-    const id = newListData.id;
-    router.push(`/bookmarks/list/${id}`);
-  }, [newListData]);
 
   return (
     <>
@@ -87,7 +77,13 @@ export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {
 
         <div className="flex justify-between px-3 pt-4 pb-2">
           <span className="font-medium text-notion-heading">Your Lists</span>
-          <IconPlus onClick={() => doCreateList()} />
+          <IconPlus
+            onClick={async () => {
+              const listId = await createList("New List", user.id);
+              handleNavSelection();
+              router.push(`/bookmarks/list/${listId}`);
+            }}
+          />
         </div>
         <div className="h-full overflow-y-auto">
           {lists &&

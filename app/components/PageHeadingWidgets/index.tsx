@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Dialog,
   DialogContent,
@@ -22,9 +22,10 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { saveBookmark } from "@/actions";
-import { timestampSeconds } from "@/utils/ui";
+import { UserContext } from "@/components/UserContext";
 
 const AddMenuButton = () => {
+  const {user} = useContext(UserContext);
   const [isDialogOpen, setDialogOpen] = useState(false);
   return (
     <div className="flex items-center">
@@ -45,7 +46,7 @@ const AddMenuButton = () => {
             onSubmit={async (e) => {
               e.preventDefault();
               const formData = new FormData(e.currentTarget);
-              await saveBookmark(formData);
+              saveBookmark(user.id, formData);
               setDialogOpen(false);
             }}
           >

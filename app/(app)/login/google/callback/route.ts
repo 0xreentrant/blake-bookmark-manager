@@ -12,6 +12,7 @@ export async function GET(request: Request): Promise<Response> {
   const state = url.searchParams.get("state");
   const storedState = cookies().get("google_oauth_state")?.value ?? null;
   const storedVerifier = cookies().get("google_code_verifier")?.value ?? null;
+
   if (!code || !state || !storedState || state !== storedState) {
     return new Response(null, {
       status: 400,

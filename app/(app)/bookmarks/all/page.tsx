@@ -1,18 +1,20 @@
 "use server";
 
-import { eq, desc } from "drizzle-orm";
+import { and, eq, desc } from "drizzle-orm";
 import { db } from "@/db";
 import { Bookmarks } from "@/components/Bookmarks";
 import { bookmarks } from "@/schema";
 import { Nothing } from "@/components/DefaultViews/Nothing";
 import { PageHeading } from "@/components/Type/PageHeading";
+import { validateRequest } from "@/lib/auth";
 
 // @invariant Non-"Archived" pages should not show archived bookmarks
 
 export default async function Page() {
+  const {user} = await validateRequest();
   const list = await db.query.bookmarks.findMany({
     with: { bookmarksToLists: { with: { list: true } } },
-    where: eq(bookmarks.archived, 0),
+    where: and(eq(bookmarks.archived, 0), eq(bookmarks.userId, user.id)),
     orderBy: [desc(bookmarks.date)],
   });
 
@@ -22,7 +24,7 @@ export default async function Page() {
 
   return (
     <>
-          <PageHeading>All bookmarks</PageHeading>
+      <PageHeading>All bookmarks</PageHeading>
       {list?.length ? (
         <Bookmarks bookmarks={list} allLists={allLists} />
       ) : (

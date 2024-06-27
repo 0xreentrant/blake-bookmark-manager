@@ -4,10 +4,11 @@ import fs from "node:fs/promises";
 import { eq, and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { db } from "./db";
-import { bookmarks, lists, bookmarksToLists } from "./schema";
-import { incr, decr } from "./dbUtils";
-import { timestampSeconds } from "./utils/ui";
+import { db } from "@/db";
+import { bookmarks, lists, bookmarksToLists } from "@/schema";
+import type { InsertList } from "@/schema";
+import { incr, decr } from "@/dbUtils";
+import { timestampSeconds } from "@/utils/ui";
 
 export async function archiveBookmark(id) {
   await db.update(bookmarks).set({ archived: 1 }).where(eq(bookmarks.id, id));
@@ -25,7 +26,7 @@ export async function upvoteBookmark(id) {
   await db
     .update(bookmarks)
     .set({ points: incr(bookmarks.points) })
-    .where(eq(bookmarks.id, id))
+    .where(eq(bookmarks.id, id));
 
   revalidatePath("/");
 }
@@ -35,7 +36,7 @@ export async function downvoteBookmark(id) {
   await db
     .update(bookmarks)
     .set({ points: decr(bookmarks.points) })
-    .where(eq(bookmarks.id, id))
+    .where(eq(bookmarks.id, id));
 
   revalidatePath("/", "page");
 }
@@ -46,12 +47,15 @@ export async function saveNote(id, notes, _) {
   revalidatePath("/");
 }
 
-export async function createList() {
-  const out = await db.insert(lists).values({ title: "New List" }).returning();
+export async function createList(title: string, userId: string) {
+  const out: InsertList[] = await db
+    .insert(lists)
+    .values({ title, userId })
+    .returning();
 
   revalidatePath("/");
   // send back list data for the redirect
-  return out[0];
+  return out[0].id;
 }
 
 export async function removeFromAllLists(id) {
@@ -167,11 +171,12 @@ export async function editBookmark(id, formData: FormData) {
   revalidatePath("/");
 }
 
-export async function saveBookmark(formData: FormData) {
+export async function saveBookmark(userId: string, formData: FormData) {
   const href = formData.get("href").toString();
   const title = formData.get("title").toString();
 
   await db.insert(bookmarks).values({
+    userId,
     title,
     href,
     date: timestampSeconds().toString(),

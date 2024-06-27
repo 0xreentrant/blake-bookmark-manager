@@ -10,6 +10,6 @@ import * as schema from "@/schema";
  */
 
 config({ path: ".env.development.local" });
-const db = drizzlePostgres(sql, { schema });
+const db = drizzlePostgres(sql, { schema, logger: true });
 
 export { db };
