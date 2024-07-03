@@ -12,7 +12,13 @@ export default function Login() {
             <h1 className="text-3xl font-bold">Login</h1>
           </div>
           <div className="grid gap-4">
-            <Link className={buttonVariants({ variant: "outline" })} href="/login/google">
+            <Link
+              className={buttonVariants({ variant: "outline" })}
+              href="/login/google"
+            >
+              <span className="w-[24px] h-[24px] mr-2">
+                <img src="/google.svg" alt="login with google" />
+              </span>
               Login with Google
             </Link>
           </div>
@@ -26,11 +32,11 @@ export default function Login() {
       </div>
       <div className="hidden bg-muted lg:block">
         <Image
-          src="/placeholder.svg"
+          src="/alegria.png"
           alt="Image"
           width="1920"
           height="1080"
-          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          className="h-full w-full object-cover"
         />
       </div>
     </div>
