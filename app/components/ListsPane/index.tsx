@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect } from "react";
+import { useContext, useState } from "react";
 import { useFormState } from "react-dom";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
@@ -19,9 +19,8 @@ export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {
 
   return (
     <>
-      {/* @dev padding top here for mobile/desktop transition + space for nav toggle icons */}
+      {/* @dev padding top is here for mobile/desktop transition + space for nav toggle icons */}
       <div className="flex flex-col w-52 pt-2 lg:pt-4 px-2 lg:pt-2.5 h-screen overflow-hidden bg-notion-panel">
-        {/* TODO: totalBookmarks */}
         <ul className="flex flex-col gap-y-3 px-2 pb-6 pt-2 font-normal text-notion-heading">
           <li className="">
             <Link

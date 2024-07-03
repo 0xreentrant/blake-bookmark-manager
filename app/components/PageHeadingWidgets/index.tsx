@@ -1,100 +1,85 @@
 "use client";
-import { useState, useContext } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogFooter,
-  DialogTitle,
-  DialogClose,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { useState } from "react";
+import * as Dialog from "@radix-ui/react-dialog";
+import Link from "next/link";
+import { AddMenuButton } from "@/components/PageHeadingWidgets/AddMenuButton";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown, Plus, CloudUpload } from "lucide-react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { saveBookmark } from "@/actions";
-import { UserContext } from "@/components/UserContext";
+import { useRouter } from "next/navigation";
 
-const AddMenuButton = () => {
-  const {user} = useContext(UserContext);
-  const [isDialogOpen, setDialogOpen] = useState(false);
-  return (
-    <div className="flex items-center">
-      <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
-        <DialogTrigger asChild>
-          <div className="p-2 flex items-center rounded-md [border-top-right-radius:0px] [border-bottom-right-radius:0px] [border-right-width:1px] [border-right-color:white] px-3 text-notion-heading bg-notion-hover-bg hover:bg-slate-200">
-            <Plus size={16} />
-            <span className="pl-1 font-semibold">Add</span>
-          </div>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogDescription>
-              Paste the URL and title for a new bookmark here.
-            </DialogDescription>
-          </DialogHeader>
-          <form
-            onSubmit={async (e) => {
-              e.preventDefault();
-              const formData = new FormData(e.currentTarget);
-              saveBookmark(user.id, formData);
-              setDialogOpen(false);
-            }}
-          >
-            <div className="flex flex-col justify-center gap-3">
-              <div className="grid flex-1 gap-2">
-                <Label htmlFor="title">Title</Label>
-                <Input id="title" name="title" defaultValue="" />
-              </div>
-              <div className="grid flex-1 gap-2">
-                <Label htmlFor="href">URL</Label>
-                <Input id="href" name="href" defaultValue="" />
-              </div>
-            </div>
-            <DialogFooter className="pt-6 sm:justify-start">
-              <DialogClose asChild>
-                <Button type="button" variant="secondary">
-                  Cancel
-                </Button>
-              </DialogClose>
-              <Button type="submit">Save</Button>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
-
-      <DropdownMenu>
-        <DropdownMenuTrigger
-          asChild
-          className="p-2 rounded-md [border-top-left-radius:0px] [border-bottom-left-radius:0px] px-2 text-notion-heading bg-notion-hover-bg hover:bg-slate-200"
-        >
-          <span className="text-notion-base">
-            <ChevronDown />
-          </span>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
-          <DropdownMenuItem className="flex gap-2">
-            <CloudUpload />
-            <Link href="/bookmarks/upload">Upload bookmarks from file</Link>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
-  );
-};
 export function PageHeadingWidgets() {
+  const [isDesktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
+  const [isLogoutDialogOpen, setLogoutDialogOpen] = useState(false);
+  const router = useRouter();
+
   return (
-    <div className="flex">
-      <AddMenuButton />
-    </div>
+    <>
+      <div className="flex justify-between">
+        <AddMenuButton />
+        <div className="hidden lg:block">
+          <DropdownMenu
+            open={isDesktopDropdownOpen}
+            onOpenChange={setDesktopDropdownOpen}
+          >
+            <DropdownMenuTrigger>
+              {/* TODO: actual user avatar */}
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem>
+                {/* TODO: account details */}
+                <Link href={`/bookmarks/account`} title="Bookmark details">
+                  Account
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => setLogoutDialogOpen(true)}>
+                {/* TODO: logout */}
+                <span>Logout</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </div>
+
+      <Dialog.Root open={isLogoutDialogOpen} onOpenChange={setLogoutDialogOpen}>
+        <Dialog.Trigger />
+        <Dialog.Portal>
+          <Dialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />
+          <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
+            <Dialog.Title className="m-0  font-medium">
+              Are you sure?
+            </Dialog.Title>
+            This will log you out of your account
+            <div className="mt-2 flex justify-end gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setLogoutDialogOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => {
+                  setLogoutDialogOpen(false);
+                  router.push("/logout");
+                }}
+              >
+                Log me out
+              </Button>
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+    </>
   );
 }
