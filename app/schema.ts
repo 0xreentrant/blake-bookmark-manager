@@ -4,7 +4,9 @@ import { integer, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 export const users = pgTable("users", {
   id: text("id").primaryKey().notNull(),
   googleId: text("google_id"),
-  googleUsername: text("google_username"),
+  googleAvatar: text("google_avatar"),
+  givenName: text("given_name"),
+  familyName: text("family_name"),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
@@ -37,7 +39,7 @@ export const bookmarks = pgTable("bookmarks", {
   notes: text("notes"),
   archived: integer("archived").default(0),
   userId: text("user_id")
-  .notNull()
+    .notNull()
     .references(() => users.id, {
       onDelete: "cascade",
     }),

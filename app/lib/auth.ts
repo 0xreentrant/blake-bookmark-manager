@@ -21,7 +21,7 @@ export const lucia = new Lucia(adapter, {
   getUserAttributes: (attributes: DatabaseUserAttributes) => {
     return {
       googleId: attributes.google_id,
-      googleUsername: attributes.username,
+      googleAvatar: attributes.google_avatar,
     };
   },
 });
@@ -34,8 +34,10 @@ declare module "lucia" {
 }
 
 interface DatabaseUserAttributes {
-  google_id: number;
-  username: string;
+  google_id: string;
+  google_avatar: string;
+  given_name: string;
+  family_name: string;
 }
 
 export const google = new Google(
@@ -44,9 +46,10 @@ export const google = new Google(
   process.env.GOOGLE_CLIENT_CALLBACK!
 );
 
+export type UserCookie = { user: User; session: Session } | { user: null; session: null }
 export const validateRequest = cache(
   async (): Promise<
-    { user: User; session: Session } | { user: null; session: null }
+   UserCookie 
   > => {
     const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
     if (!sessionId) {
@@ -79,4 +82,3 @@ export const validateRequest = cache(
     return result;
   }
 );
-
