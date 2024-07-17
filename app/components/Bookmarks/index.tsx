@@ -10,7 +10,7 @@ import {
   restoreBookmark,
   upvoteBookmark,
   downvoteBookmark,
-} from "../../actions";
+} from "../../lib/actions";
 
 function outerHeight(element: HTMLElement) {
   // from: https://stackoverflow.com/a/54095466

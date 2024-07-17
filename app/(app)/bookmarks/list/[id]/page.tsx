@@ -2,8 +2,8 @@
 
 import { eq, desc } from "drizzle-orm";
 import { createSelectSchema } from "drizzle-zod";
-import { db } from "@/db";
-import { bookmarks, lists } from "@/schema";
+import { db } from "@/lib/db";
+import { bookmarks, lists } from "@/lib/schema";
 import { List } from "./List";
 
 // @invariant Lists should not show archived bookmarks

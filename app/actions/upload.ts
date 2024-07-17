@@ -3,14 +3,14 @@ import fs from "node:fs/promises";
 import { eq, and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { db } from "@/db";
+import { db } from "@/lib/db";
 import {
   bookmarks,
   type InsertBookmark,
   lists,
   bookmarksToLists,
-} from "@/schema";
-import { incr, decr } from "@/dbUtils";
+} from "@/lib/schema";
+import { incr, decr } from "@/lib/dbUtils";
 import cheerio from "cheerio";
 
 export async function uploadBookmarksFile(userId: string, formData: FormData) {

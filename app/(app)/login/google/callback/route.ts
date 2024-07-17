@@ -1,7 +1,7 @@
-import { db } from "@/db";
+import { db } from "@/lib/db";
 import { google, lucia } from "@/lib/auth";
 import { eq, and } from "drizzle-orm";
-import { users, sessions } from "@/schema";
+import { users, sessions } from "@/lib/schema";
 import { cookies } from "next/headers";
 import { OAuth2RequestError } from "arctic";
 import { generateIdFromEntropySize } from "lucia";

@@ -25,7 +25,7 @@ import { Label } from "@/components/ui/label";
 
 import { useAutosave } from "react-autosave";
 import Editor from "@monaco-editor/react";
-import { saveNote, editBookmark } from "@/actions";
+import { saveNote, editBookmark } from "@/lib/actions";
 import { Pencil, ArrowLeft, Ellipsis } from "lucide-react";
 
 export function Details({ entry }) {

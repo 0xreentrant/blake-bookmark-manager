@@ -23,7 +23,7 @@ import { usePathname } from "next/navigation";
 import { IconEdit } from "../Icon/Edit";
 import { IconTrash } from "../Icon/Trash";
 import { IconRefresh } from "../Icon/Refresh";
-import { addRemoveFromLists, removeFromAllLists } from "../../actions";
+import { addRemoveFromLists, removeFromAllLists } from "../../lib/actions";
 import { ListEntry } from "./ListEntry";
 import { useRouter } from "next/navigation";
 import { IconInternetArchive } from "@/components/Icon/InternetArchive";

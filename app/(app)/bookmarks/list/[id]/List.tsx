@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useRouter } from "next/navigation";
 import { Bookmarks } from "@/components/Bookmarks";
-import { deleteList } from "@/actions";
-import { editList } from "@/actions";
+import { deleteList } from "@/lib/actions";
+import { editList } from "@/lib/actions";
 import { NothingList } from "@/components/DefaultViews/NothingList";
 import { PageHeading } from "@/components/Type/PageHeading";
 import {

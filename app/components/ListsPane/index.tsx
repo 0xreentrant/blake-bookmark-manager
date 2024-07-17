@@ -4,12 +4,12 @@ import { useContext, useState } from "react";
 import { useFormState } from "react-dom";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import { createList } from "../../actions";
+import { createList } from "../../lib/actions";
 import { IconPlus } from "../Icon/Plus";
 import Link from "next/link";
 import { IconHome } from "../Icon/Home";
 import { ListEntry } from "../ListEntry";
-import { withActiveToggle } from "@/utils/ui";
+import { withActiveToggle } from "@/lib/ui";
 import { UserContext } from "@/components/UserContext";
 
 export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {

@@ -4,11 +4,11 @@ import fs from "node:fs/promises";
 import { eq, and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { db } from "@/db";
-import { bookmarks, lists, bookmarksToLists } from "@/schema";
-import type { InsertList } from "@/schema";
-import { incr, decr } from "@/dbUtils";
-import { timestampSeconds } from "@/utils/ui";
+import { db } from "@/lib/db";
+import { bookmarks, lists, bookmarksToLists } from "@/lib/schema";
+import type { InsertList } from "@/lib/schema";
+import { incr, decr } from "@/lib/dbUtils";
+import { timestampSeconds } from "@/lib/ui";
 
 export async function archiveBookmark(id) {
   await db.update(bookmarks).set({ archived: 1 }).where(eq(bookmarks.id, id));

@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
-import { db } from "@/db";
+import { db } from "@/lib/db";
 import { Details } from "./Details";
-import { bookmarks } from "@/schema";
+import { bookmarks } from "@/lib/schema";
 
 export default async function DetailsPage({ params }) {
   const bookmark = await db
@@ -10,7 +10,7 @@ export default async function DetailsPage({ params }) {
     .where(eq(bookmarks.id, params.id))
     .then((data) => data[0]);
 
-// TODO: create an error widget and show appropriately
+  // TODO: create an error widget and show appropriately
   return bookmark ? (
     <Details entry={bookmark} />
   ) : (

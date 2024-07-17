@@ -4,8 +4,8 @@ import { unstable_noStore as noStore } from "next/cache";
 import { count, eq } from "drizzle-orm";
 import { ListsPane } from "@/components/ListsPane";
 import { BookmarksLayoutWrapper } from "./BookmarksLayoutWrapper";
-import { db } from "@/db";
-import { bookmarks, lists, users } from "@/schema";
+import { db } from "@/lib/db";
+import { bookmarks, lists, users } from "@/lib/schema";
 import { redirect } from "next/navigation";
 import { validateRequest, BlakeUser } from "@/lib/auth";
 

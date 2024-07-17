@@ -1,7 +1,7 @@
 import { eq, desc } from "drizzle-orm";
-import { db } from "@/db";
+import { db } from "@/lib/db";
 import { Bookmarks } from "@/components/Bookmarks";
-import { bookmarks } from "@/schema";
+import { bookmarks } from "@/lib/schema";
 import { Nothing } from "@/components/DefaultViews/Nothing";
 import { PageHeading } from "@/components/Type/PageHeading";
 

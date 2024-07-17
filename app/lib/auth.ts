@@ -6,8 +6,8 @@ import type { Session, User } from "lucia";
 import { Lucia } from "lucia";
 import { Google } from "arctic";
 
-import * as schema from "@/schema";
-import { db } from "@/db";
+import * as schema from "@/lib/schema";
+import { db } from "@/lib/db";
 
 const adapter = new DrizzlePostgreSQLAdapter(db, schema.sessions, schema.users);
 

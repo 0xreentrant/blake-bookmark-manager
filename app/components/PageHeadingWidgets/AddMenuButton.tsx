@@ -21,7 +21,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { saveBookmark } from "@/actions";
+import { saveBookmark } from "@/lib/actions";
 import { UserContext } from "@/components/UserContext";
 
 export const AddMenuButton = () => {
