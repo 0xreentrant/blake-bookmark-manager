@@ -33,36 +33,17 @@ declare module "lucia" {
   }
 }
 
-interface DatabaseUserAttributes {
+export type DatabaseUserAttributes = {
   google_id: string;
   google_avatar: string;
   given_name: string;
   family_name: string;
-}
-
-export type BlakeUser = {
-  username: string;
-  givenName: string;
-  familyName: string;
-  avatar: string;
 };
-
-export type GoogleUser = {
-  picture: string;
-  email: string;
-  given_name: string;
-  family_name: string;
-};
-
-export const google = new Google(
-  process.env.GOOGLE_CLIENT_ID!,
-  process.env.GOOGLE_CLIENT_SECRET!,
-  process.env.GOOGLE_CLIENT_CALLBACK!
-);
 
 export type UserCookie =
   | { user: User; session: Session }
   | { user: null; session: null };
+
 export const validateRequest = cache(async (): Promise<UserCookie> => {
   const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
   if (!sessionId) {
@@ -94,3 +75,31 @@ export const validateRequest = cache(async (): Promise<UserCookie> => {
   } catch {}
   return result;
 });
+
+/*
+ * Google account
+ */
+
+export type GoogleUser = {
+  picture: string;
+  email: string;
+  given_name: string;
+  family_name: string;
+};
+
+export const google = new Google(
+  process.env.GOOGLE_CLIENT_ID!,
+  process.env.GOOGLE_CLIENT_SECRET!,
+  process.env.GOOGLE_CLIENT_CALLBACK!
+);
+
+/*
+ * Blake user
+ */
+
+export type BlakeUser = {
+  username: string;
+  givenName: string;
+  familyName: string;
+  avatar: string;
+};
