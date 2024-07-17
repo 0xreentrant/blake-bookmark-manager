@@ -32,8 +32,6 @@ export async function GET(request: Request): Promise<Response> {
     );
     const googleUser: GoogleUser = await response.json();
 
-    console.log("googleUser", googleUser);
-
     // Replace this with your own DB client.
     const existingUser = await db
       .select()
@@ -66,9 +64,6 @@ export async function GET(request: Request): Promise<Response> {
 
     const userId = generateIdFromEntropySize(10); // 16 characters long
 
-    console.log({ googleUser, userId });
-
-    // Replace this with your own DB client.
     await db.insert(users).values({
       id: userId,
       googleId: googleUser.email,

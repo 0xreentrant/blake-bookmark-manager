@@ -7,7 +7,7 @@ import { BookmarksLayoutWrapper } from "./BookmarksLayoutWrapper";
 import { db } from "@/db";
 import { bookmarks, lists, users } from "@/schema";
 import { redirect } from "next/navigation";
-import { validateRequest, DatabaseUserAttributes, BlakeUser } from "@/lib/auth";
+import { validateRequest, BlakeUser } from "@/lib/auth";
 
 export default async function BookmarksLayout({ children }) {
   // @dev it's imperative that all pages with dynamic data derive from a layout with `noStore()`
