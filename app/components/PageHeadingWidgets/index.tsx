@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import Link from "next/link";
 import { AddMenuButton } from "@/components/PageHeadingWidgets/AddMenuButton";
@@ -13,8 +13,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { UserContext } from "@/components/UserContext";
 
 export function PageHeadingWidgets() {
+  const user = useContext(UserContext);
   const [isDesktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
   const [isLogoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const router = useRouter();
@@ -29,10 +31,11 @@ export function PageHeadingWidgets() {
             onOpenChange={setDesktopDropdownOpen}
           >
             <DropdownMenuTrigger>
-              {/* TODO: actual user avatar */}
               <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarImage src={user.avatar} />
+                <AvatarFallback>
+                  {user.givenName[0] + user.familyName[0]}
+                </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">

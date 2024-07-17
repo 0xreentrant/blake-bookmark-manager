@@ -5,23 +5,39 @@ import { count, eq } from "drizzle-orm";
 import { ListsPane } from "@/components/ListsPane";
 import { BookmarksLayoutWrapper } from "./BookmarksLayoutWrapper";
 import { db } from "@/db";
-import { bookmarks, lists } from "@/schema";
+import { bookmarks, lists, users } from "@/schema";
 import { redirect } from "next/navigation";
-import { validateRequest } from "@/lib/auth";
+import { validateRequest, DatabaseUserAttributes, BlakeUser } from "@/lib/auth";
 
 export default async function BookmarksLayout({ children }) {
   // @dev it's imperative that all pages with dynamic data derive from a layout with `noStore()`
   noStore();
 
-  const { user } = await validateRequest();
-  if (!user) {
+  const { user: userCookieId } = await validateRequest();
+  if (!userCookieId) {
     return redirect("/login");
   }
+
+  const user: BlakeUser = await db.query.users
+    .findFirst({
+      where: eq(users.id, userCookieId.id),
+    })
+    .then((user) => {
+      if (!user) {
+        throw new Error("User not found");
+      }
+      return {
+        username: user.googleId,
+        givenName: user.givenName,
+        familyName: user.familyName,
+        avatar: user.googleAvatar,
+      };
+    });
 
   const userLists = await db.query.lists
     .findMany({
       with: { bookmarksToLists: { with: { bookmark: true } } },
-      where: eq(lists.userId, user.id),
+      where: eq(lists.userId, userCookieId.id),
     })
     .then((data) => {
       return data.map(({ id, title, bookmarksToLists }) => {
@@ -32,11 +48,11 @@ export default async function BookmarksLayout({ children }) {
   const totalBookmarks = await db
     .select({ count: count() })
     .from(bookmarks)
-    .where(eq(bookmarks.userId, user.id))
+    .where(eq(bookmarks.userId, userCookieId.id))
     .then((data) => data[0].count);
 
   const pagesWithUser = cloneElement(children, {
-    user,
+    user: userCookieId,
   });
 
   return (

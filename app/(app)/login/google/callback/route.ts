@@ -5,6 +5,7 @@ import { users, sessions } from "@/schema";
 import { cookies } from "next/headers";
 import { OAuth2RequestError } from "arctic";
 import { generateIdFromEntropySize } from "lucia";
+import { GoogleUser } from "@/lib/auth";
 
 export async function GET(request: Request): Promise<Response> {
   const url = new URL(request.url);
@@ -31,11 +32,13 @@ export async function GET(request: Request): Promise<Response> {
     );
     const googleUser: GoogleUser = await response.json();
 
+    console.log("googleUser", googleUser);
+
     // Replace this with your own DB client.
     const existingUser = await db
       .select()
       .from(users)
-      .where(eq(users.id, googleUser.id))?.[0];
+      .where(eq(users.googleId, googleUser.email))?.[0];
 
     /*
      * Existing user
@@ -63,11 +66,15 @@ export async function GET(request: Request): Promise<Response> {
 
     const userId = generateIdFromEntropySize(10); // 16 characters long
 
+    console.log({ googleUser, userId });
+
     // Replace this with your own DB client.
     await db.insert(users).values({
       id: userId,
-      googleId: googleUser.id,
-      googleUsername: googleUser.login,
+      googleId: googleUser.email,
+      googleAvatar: googleUser.picture,
+      givenName: googleUser.given_name,
+      familyName: googleUser.family_name,
     });
 
     const session = await lucia.createSession(userId, {});
@@ -97,9 +104,4 @@ export async function GET(request: Request): Promise<Response> {
       status: 500,
     });
   }
-}
-
-interface GoogleUser {
-  id: string;
-  login: string;
 }

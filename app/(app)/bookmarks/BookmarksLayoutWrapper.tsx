@@ -30,8 +30,17 @@ import {
 } from "@/components/ui/drawer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
+import { BlakeUser } from "@/lib/auth";
 
-export function BookmarksLayoutWrapper({ navPanel, content, user }) {
+export function BookmarksLayoutWrapper({
+  navPanel,
+  content,
+  user,
+}: {
+  navPanel: any;
+  content: any;
+  user: BlakeUser;
+}) {
   const [isNavPanelOpen, setNavPanelOpen] = useState(false);
   const [isMobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const [isLogoutDialogOpen, setLogoutDialogOpen] = useState(false);
@@ -59,7 +68,8 @@ export function BookmarksLayoutWrapper({ navPanel, content, user }) {
     };
   }, [parentRef]);
 
-  /* @invariant "navPanel" must always have top-level children (no wrappers encapsulating
+  /* @dev
+   * @invariant "navPanel" must always have top-level children (no wrappers encapsulating
    * the top-level children) - bookmarks list (or placeholder) and siblings (ex. title)
    * - to prevent resizing from causing flickers */
 
@@ -73,10 +83,11 @@ export function BookmarksLayoutWrapper({ navPanel, content, user }) {
             onOpenChange={setMobileDropdownOpen}
           >
             <DrawerTrigger className="outline-none text-notion-heading">
-              {/* TODO: actual user avatar */}
               <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarImage src={user.avatar} />
+                <AvatarFallback>
+                  {user.givenName[0] + user.familyName[0]}
+                </AvatarFallback>
               </Avatar>
             </DrawerTrigger>
             <DrawerContent className="h-screen text-notion-heading">
@@ -98,10 +109,13 @@ export function BookmarksLayoutWrapper({ navPanel, content, user }) {
                     <span>Account</span>
                   </Link>
                 </li>
-                <li className="flex px-4 py-4 text-lg items-center gap-2" onClick={() => {
-                  setMobileDropdownOpen(false)
-                  setLogoutDialogOpen(true)
-                }}>
+                <li
+                  className="flex px-4 py-4 text-lg items-center gap-2"
+                  onClick={() => {
+                    setMobileDropdownOpen(false);
+                    setLogoutDialogOpen(true);
+                  }}
+                >
                   {/* TODO: logout */}
                   Logout
                 </li>
