@@ -68,15 +68,18 @@ export function BookmarksLayoutWrapper({
     };
   }, [parentRef]);
 
-  /* @dev
+  /*
+   * @dev
    * @invariant "navPanel" must always have top-level children (no wrappers encapsulating
    * the top-level children) - bookmarks list (or placeholder) and siblings (ex. title)
-   * - to prevent resizing from causing flickers */
+   * - to prevent resizing from causing flickers
+   */
 
   return (
     <UserContext.Provider value={user}>
       <div className="flex flex-col lg:flex-row w-full h-screen divide-x">
         <div className="hidden lg:block">{navPanelWithHandler}</div>
+        {/* @dev this is the mobile version of page heading widgets */}
         <div className="w-full h-12 flex justify-between items-center px-2 bg-notion-panel lg:hidden">
           <Drawer
             open={isMobileDropdownOpen}
@@ -100,8 +103,8 @@ export function BookmarksLayoutWrapper({
               <hr />
 
               <ul className="divide-y">
+                {/* TODO: account details 
                 <li>
-                  {/* TODO: account details */}
                   <Link
                     href={`/bookmarks/account`}
                     className="flex px-4 py-4 text-lg items-center gap-2"
@@ -109,6 +112,7 @@ export function BookmarksLayoutWrapper({
                     <span>Account</span>
                   </Link>
                 </li>
+                */}
                 <li
                   className="flex px-4 py-4 text-lg items-center gap-2"
                   onClick={() => {

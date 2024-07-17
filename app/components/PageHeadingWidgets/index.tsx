@@ -21,6 +21,10 @@ export function PageHeadingWidgets() {
   const [isLogoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const router = useRouter();
 
+  /*
+   * @dev This is the desktop version of the page heading widgets
+   */
+
   return (
     <>
       <div className="flex justify-between">
@@ -39,13 +43,14 @@ export function PageHeadingWidgets() {
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+              {/* TODO: account page 
               <DropdownMenuItem>
-                {/* TODO: account details */}
-                <Link href={`/bookmarks/account`} title="Bookmark details">
+                <Link href={`/bookmarks/account`} title="Bookmark details">n
                   Account
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
+              */ }
               <DropdownMenuItem onClick={() => setLogoutDialogOpen(true)}>
                 {/* TODO: logout */}
                 <span>Logout</span>
