@@ -102,6 +102,7 @@ export const google = new Google(
  */
 
 export type BlakeUser = {
+  userId: string;
   username: string;
   givenName: string;
   familyName: string;
@@ -112,7 +113,11 @@ export type BlakeUser = {
 // Helpers //
 /////////////
 
-export const useUserCookie = async () => {
+/*
+ * @dev intentionally validate the cookie. if this ever becomes non-performant, add a flag or optionally call "cookie()" directly
+ * @dev server components only
+ */
+export const getUserCookie = async () => {
   const { user }: { user: User } = await validateRequest();
   return user;
 };

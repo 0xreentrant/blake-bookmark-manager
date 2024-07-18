@@ -3,15 +3,15 @@
 import { Bookmarks } from "@/components/Bookmarks";
 import { Nothing } from "@/components/DefaultViews/Nothing";
 import { PageHeading } from "@/components/Type/PageHeading";
-import { useUserCookie } from "@/lib/auth";
+import { getUserCookie } from "@/lib/auth";
 import { archivedBookmarks, allLists } from "@/lib/queries";
 
 // @invariant Only archived page should show archived bookmarks
 
 export default async function Page() {
-  const user = await useUserCookie();
+  const user = await getUserCookie();
   const userBookmarks = await archivedBookmarks(user);
-  const userLists = await allLists(user)
+  const userLists = await allLists(user);
 
   return (
     <>

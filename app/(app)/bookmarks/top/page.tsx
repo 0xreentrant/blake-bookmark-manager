@@ -5,11 +5,11 @@ import { db } from "@/lib/db";
 import { Bookmarks } from "@/components/Bookmarks";
 import { Nothing } from "@/components/DefaultViews/Nothing";
 import { PageHeading } from "@/components/Type/PageHeading";
-import { useUserCookie } from "@/lib/auth";
+import { getUserCookie } from "@/lib/auth";
 import { topBookmarks, allLists } from "@/lib/queries";
 
 export default async function Page() {
-  const user = await useUserCookie();
+  const user = await getUserCookie();
   const userBookmarks = await topBookmarks(user);
   const userLists = await allLists(user);
 
