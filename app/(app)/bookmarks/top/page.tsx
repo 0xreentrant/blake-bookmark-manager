@@ -3,23 +3,21 @@
 import { eq, desc } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { Bookmarks } from "@/components/Bookmarks";
-import { bookmarks } from "@/lib/schema";
 import { Nothing } from "@/components/DefaultViews/Nothing";
 import { PageHeading } from "@/components/Type/PageHeading";
+import { useUserCookie } from "@/lib/auth";
+import { topBookmarks, allLists } from "@/lib/queries";
 
 export default async function Page() {
-  const list = await db.query.bookmarks.findMany({
-    where: eq(bookmarks.archived, 0),
-    orderBy: [desc(bookmarks.points)],
-  });
-
-  const allLists = await db.query.lists.findMany();
+  const user = await useUserCookie();
+  const userBookmarks = await topBookmarks(user);
+  const userLists = await allLists(user);
 
   return (
     <>
       <PageHeading>Top bookmarks</PageHeading>
-      {list?.length ? (
-        <Bookmarks bookmarks={list} allLists={allLists} />
+      {userBookmarks?.length ? (
+        <Bookmarks bookmarks={userBookmarks} allLists={userLists} />
       ) : (
         <Nothing />
       )}

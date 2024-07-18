@@ -76,6 +76,10 @@ export const validateRequest = cache(async (): Promise<UserCookie> => {
   return result;
 });
 
+///////////
+// Types //
+///////////
+
 /*
  * Google account
  */
@@ -102,4 +106,13 @@ export type BlakeUser = {
   givenName: string;
   familyName: string;
   avatar: string;
+};
+
+/////////////
+// Helpers //
+/////////////
+
+export const useUserCookie = async () => {
+  const { user }: { user: User } = await validateRequest();
+  return user;
 };

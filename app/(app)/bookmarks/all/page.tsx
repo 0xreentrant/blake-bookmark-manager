@@ -6,27 +6,21 @@ import { Bookmarks } from "@/components/Bookmarks";
 import { bookmarks } from "@/lib/schema";
 import { Nothing } from "@/components/DefaultViews/Nothing";
 import { PageHeading } from "@/components/Type/PageHeading";
-import { validateRequest } from "@/lib/auth";
+import { useUserCookie } from "@/lib/auth";
+import { allBookmarks, allLists } from "@/lib/queries";
 
 // @invariant Non-"Archived" pages should not show archived bookmarks
 
 export default async function Page() {
-  const { user } = await validateRequest();
-  const list = await db.query.bookmarks.findMany({
-    with: { bookmarksToLists: { with: { list: true } } },
-    where: and(eq(bookmarks.archived, 0), eq(bookmarks.userId, user.id)),
-    orderBy: [desc(bookmarks.date)],
-  });
-
-  const allLists = await db.query.lists.findMany();
-
-  //console.log(JSON.stringify(list, null, 4));
+  const user = await useUserCookie();
+  const userBookmarks = await allBookmarks(user);
+  const userLists = await allLists(user);
 
   return (
     <>
       <PageHeading>All bookmarks</PageHeading>
-      {list?.length ? (
-        <Bookmarks bookmarks={list} allLists={allLists} />
+      {userBookmarks?.length ? (
+        <Bookmarks bookmarks={userBookmarks} allLists={userLists} />
       ) : (
         <Nothing />
       )}

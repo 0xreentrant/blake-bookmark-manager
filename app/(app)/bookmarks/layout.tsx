@@ -27,6 +27,7 @@ export default async function BookmarksLayout({ children }) {
         throw new Error("User not found");
       }
       return {
+        userId: userCookieId,
         username: user.googleId,
         givenName: user.givenName,
         familyName: user.familyName,
