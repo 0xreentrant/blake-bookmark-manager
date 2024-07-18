@@ -74,9 +74,10 @@ export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {
 
         <hr className="" />
 
-        <div className="flex justify-between px-3 pt-4 pb-2">
+        <div className="flex justify-between items-center px-3 pt-4 pb-2">
           <span className="font-medium text-notion-heading">Your Lists</span>
           <IconPlus
+            className="hover:cursor-pointer"
             onClick={async () => {
               const listId = await createList("New List", user.id);
               handleNavSelection();
