@@ -9,9 +9,10 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { UserContext } from "@/components/UserContext";
+import { BlakeUser } from "@/lib/auth";
 
 export default function Upload() {
-  const { user } = useContext(UserContext);
+  const user = useContext<BlakeUser>(UserContext);
   const router = useRouter();
   const { register, handleSubmit } = useForm();
   const [file, setFile] = useState<File>();
@@ -20,13 +21,12 @@ export default function Upload() {
     files: File[];
   };
 
-  console.log({user});
-
-  const handleUpload = (data: FieldValues) => {
+  const handleUpload = async (data: FieldValues) => {
     const formData = new FormData();
     const file = data.files[0];
     formData.append("file", file);
-    uploadBookmarksFile(user.id, formData);
+    await uploadBookmarksFile(user.userId, formData);
+    router.push('/bookmarks/all')
   };
 
   return (

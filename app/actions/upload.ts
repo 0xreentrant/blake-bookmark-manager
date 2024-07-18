@@ -31,8 +31,15 @@ export async function uploadBookmarksFile(userId: string, formData: FormData) {
     });
   });
 
-  const insertedBookmarks = await db.insert(bookmarks).values(list).returning();
-
+  try {
+    const insertedBookmarks = await db
+      .insert(bookmarks)
+      .values(list)
+      .returning();
   console.log(insertedBookmarks);
+  } catch (e) {
+    throw new Error(e);
+  }
+
   revalidatePath("/");
 }
