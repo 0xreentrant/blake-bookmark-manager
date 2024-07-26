@@ -11,9 +11,10 @@ import { IconHome } from "../Icon/Home";
 import { ListEntry } from "../ListEntry";
 import { withActiveToggle } from "@/lib/ui";
 import { UserContext } from "@/components/UserContext";
+import { BlakeUser } from '@/lib/auth'
 
 export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {
-  const user = useContext(UserContext);
+  const user = useContext<BlakeUser>(UserContext);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -79,7 +80,8 @@ export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {
           <IconPlus
             className="hover:cursor-pointer"
             onClick={async () => {
-              const listId = await createList("New List", user.id);
+              console.log({ user });
+              const listId = await createList("New List", user.userId);
               handleNavSelection();
               router.push(`/bookmarks/list/${listId}`);
             }}
