@@ -1,5 +1,15 @@
 ![Blake: Social Bookmarks for 2024](blake.png)
 
+## Modern Web Engineering in 2024
+While it's still a Work-in-Progress, Blake is being built on a tech stack that reflects a fast, feature-rich, mobile-first and responsive web application. 
+The stack:
+- Next.js - Quickly build for the frontend and backend using the best of Node.js and React.js, with server-side rendering and reactive state management
+- PostgreSQL - Highly-scalable and performant data storage that can run anywhere
+- Drizzle ORM - Fully Typescript-typed database schemas and querying, without a special configuration language
+- TailwindCSS - Industry-standard styles and theming, built for a mobile-first, without the runtime overhead
+- Vercel - Cloud application hosting trusted by Adobe, Meta, Nintendo, and Zapier
+
+Learn more about why I am building Blake: https://www.linkedin.com/feed/update/urn:li:ugcPost:7203974407055183872/
 
 ## Installing 
 ```
