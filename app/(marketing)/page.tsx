@@ -57,7 +57,7 @@ export default function Page() {
         <h1>Make Sense of What You Bookmark</h1>
         <p>
           Your personal lists get AI-powered summaries and suggestions, so
-          you'll get a sense of what interests you
+          you&apos;ll get a sense of what interests you
         </p>
       </div>
 
@@ -65,7 +65,7 @@ export default function Page() {
         <h1>Join the Journey</h1>
         <p>
           Blake is built with Love by Alex Perez. Join the mailing list to get
-          updates on Blake and what's going on in the software developer world.
+          updates on Blake and what&apos;s going on in the software developer world.
         </p>
       </div>
 
