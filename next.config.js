@@ -1,4 +1,4 @@
-const { withContentlayer } = require('next-contentlayer')
+const { withContentlayer } = require("next-contentlayer");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -6,17 +6,12 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/bookmarks',
-        destination: '/bookmarks/all',
-        permanent: true
+        source: "/bookmarks",
+        destination: "/bookmarks/all",
+        permanent: false,
       },
-      {
-        source: '/',
-        destination: '/bookmarks/all',
-        permanent: true
-      }
-    ]
-  }
-}
+    ];
+  },
+};
 
-module.exports = withContentlayer(nextConfig)
+module.exports = withContentlayer(nextConfig);
