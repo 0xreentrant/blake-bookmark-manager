@@ -9,7 +9,7 @@ export default function Login() {
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Login</h1>
+            <h1 className="text-3xl font-bold">Login or Sign Up</h1>
           </div>
           <div className="grid gap-4">
             <Link
@@ -19,13 +19,7 @@ export default function Login() {
               <span className="w-[24px] h-[24px] mr-2">
                 <img src="/google.svg" alt="login with google" />
               </span>
-              Login with Google
-            </Link>
-          </div>
-          <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{" "}
-            <Link href="#" className="underline">
-              Sign up
+              Login or Sign Up with Google
             </Link>
           </div>
         </div>
