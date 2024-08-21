@@ -21,6 +21,7 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-geist-sans)"],
         mono: ["var(--font-geist-mono)"],
+        playfair: ["var(--font-playfair-display)"],
       },
       colors: {
         "notion-hover-bg": "rgba(0,0,0,0.04)",

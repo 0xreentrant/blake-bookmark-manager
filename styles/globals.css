@@ -154,3 +154,7 @@ a {
 .round input[type="checkbox"]:checked + label:after {
   opacity: 1;
 }
+
+.playfair {
+  font-family: var(--font-playfair-display);
+}
