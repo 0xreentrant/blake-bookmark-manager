@@ -9,6 +9,8 @@ export async function GET(): Promise<Response> {
     scopes: ["profile", "email"],
   });
 
+  console.log({url})
+
   cookies().set("google_oauth_state", state, {
     path: "/",
     secure: process.env.NODE_ENV === "production",
