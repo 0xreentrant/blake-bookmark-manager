@@ -1,14 +1,68 @@
 "use client";
 import Link from "next/link";
-
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { CloudUpload, List, ExternalLink, Heart } from "lucide-react";
 
+import { QuadStar } from "./assets/QuadStar";
+import { OctoStar } from "./assets/OctoStar";
+import { BigSquare } from "./assets/BigSquare";
+import { SmallSquare } from "./assets/SmallSquare";
+
+gsap.registerPlugin(useGSAP);
+
 export default function Page() {
+  const page = useRef();
+  const container = useRef();
+
+  useGSAP(
+    (context, contextSafe) => {
+      console.log("starting");
+      const speed = 0.5;
+
+      const items = gsap.utils.toArray(".movable").map((element) => {
+        return {
+          element,
+          shiftValue: element.getAttribute("data-value") / 300,
+          xSet: gsap.quickSetter(element, "x", "%"),
+          ySet: gsap.quickSetter(element, "y", "%"),
+        };
+      });
+
+      const mouse = {
+        x: 0,
+        y: 0,
+      };
+
+      page.current.parentNode.addEventListener(
+        "mousemove",
+        contextSafe((e) => {
+          const rect = container.current.getBoundingClientRect();
+          mouse.x = e.x - rect.left;
+          mouse.y = e.y - rect.top;
+          console.log("moved");
+        })
+      );
+
+      gsap.ticker.fps(30);
+      gsap.ticker.add(() => {
+        const dt = 0.5 - Math.pow(0.5 - speed, gsap.ticker.deltaRatio());
+
+        items.forEach((item) => {
+          item.xSet(item.shiftValue * mouse.x * dt);
+          item.ySet(item.shiftValue * mouse.y * dt);
+        });
+      });
+    },
+    { scope: container }
+  );
+
   return (
-    <div className="w-full">
+    <div className="w-full" ref={page}>
       <div className="flex flex-col items-center w-full pb-28 gap-28 bg-white">
         {/* Hero */}
-        <div className="flex items-center w-full max-w-screen-xl">
+        <div className="flex items-center gap-w-full max-w-screen-xl h-[778px]">
           <div className="flex flex-col w-1/2 gap-[32px]">
             <h1 className="playfair  font-bold text-[#050505] w-full max-w-[15ch] text-[64px] tracking-[0] leading-[80px]">
               Create Community with Your Bookmarks
@@ -19,12 +73,35 @@ export default function Page() {
             </p>
             <Link
               href="/login"
-              className="w-max px-20 py-6 bg-[#050505] hover:bg-[#303030] transition duration-300 rounded-2xl font-medium text-white text-2xl tracking-[0] leading-[18px]"
+              className="w-max px-20 py-6 bg-[#050505] hover:bg-[#303030] hover:active:bg-[#050505] transition duration-300 rounded-2xl font-medium text-white text-2xl tracking-[0] leading-[18px]"
             >
               Try Blake Now
             </Link>
           </div>
-          <img className="w-1/2" src="hero.png" />
+
+          {/* WIP: animation */}
+          <div ref={container} className="relative w-1/2 h-full">
+            <BigSquare
+              data-value="1"
+              className="movable absolute top-[4%] left-[10%]"
+            />
+            <SmallSquare
+              data-value="1.5"
+              className="movable absolute bottom-[3.5%] right-0"
+            />
+
+            <OctoStar className="movable absolute " />
+
+            <img
+              src="/home-blake2.png"
+              data-value="2.5"
+              className="movable absolute top-1/2 translate-y-[-50%] left-[15%] w-[75%] h-[80%] object-cover rounded-3xl"
+            />
+
+            <QuadStar className="movable absolute bottom-[15%] left-[22.5%]" />
+
+            <QuadStar className="movable absolute bottom-[20%] right-[10%]" />
+          </div>
         </div>
 
         {/* Blurb */}

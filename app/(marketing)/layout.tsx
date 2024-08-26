@@ -47,7 +47,7 @@ export default function Layout({ children }) {
              */}
             <Link
               href="/login"
-              className="w-max px-8 py-2.5 bg-[#050505] hover:bg-[#303030] transition duration-300 rounded-xl font-medium text-white text-l tracking-[0] leading-[18px]"
+              className="w-max px-8 py-2.5 bg-[#050505] hover:bg-[#303030] hover:active:bg-[#050505] transition duration-300 rounded-xl font-medium text-white text-l tracking-[0] leading-[18px]"
             >
               Login/Sign Up
             </Link>
@@ -73,7 +73,7 @@ export default function Layout({ children }) {
                */}
               <Link
                 href="/login"
-                className="w-max px-8 py-2.5 border-2 border-solid border-white hover:border-white hover:bg-white hover:text-black transition duration-300 rounded-xl font-medium text-white text-l tracking-[0] leading-[18px]"
+                className="w-max px-8 py-2.5 border-2 border-solid border-white hover:border-white hover:bg-white hover:text-black hover:active:bg-[#050505] hover:active:text-white transition duration-300 rounded-xl font-medium text-white text-l tracking-[0] leading-[18px]"
               >
                 Login/Sign Up
               </Link>
