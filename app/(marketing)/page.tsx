@@ -172,7 +172,7 @@ export default function Page() {
           </div>
           <Link
             href="/login"
-            className="w-max px-20 py-6 bg-[#050505] hover:bg-[#303030] transition duration-300 rounded-2xl font-medium text-white text-2xl tracking-[0] leading-[18px]"
+            className="w-max px-20 py-6 bg-[#050505] hover:bg-[#303030] hover:active:bg-[#050505] transition duration-300 rounded-2xl font-medium text-white text-2xl tracking-[0] leading-[18px]"
           >
             Start Here
           </Link>
