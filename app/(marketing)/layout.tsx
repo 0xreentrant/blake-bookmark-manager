@@ -54,10 +54,10 @@ export default function Layout({ children }) {
           </div>
         </div>
 
-        <div className="px-12">{children}</div>
+        <div className="">{children}</div>
 
         {/* footer */}
-        <div className="flex flex-col w-full px-[51px] py-[42px] gap-[32px] bg-[#050505]">
+        <div className="flex flex-col w-full px-[51px] py-[18px] gap-[32px] bg-[#050505]">
           <div
             className="flex justify-between items-center
           "

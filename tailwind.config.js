@@ -24,6 +24,7 @@ module.exports = {
         playfair: ["var(--font-playfair-display)"],
       },
       colors: {
+        "blake-yellow": "#fcb64d",
         "notion-hover-bg": "rgba(0,0,0,0.04)",
         "notion-panel": "rgb(247,247,245)",
         "notion-base": "rgb(95,94,91)",
@@ -87,9 +88,36 @@ module.exports = {
   },
   plugins: [
     require("tailwindcss-animate"),
+    // set colors for horizontal rules and dividers
     plugin(function ({ addUtilities, theme }) {
       addUtilities({
         ".divide-x, .divide-y, hr": { color: theme("colors.notion-heading") },
+      });
+    }),
+    // get screen values in css vars
+    plugin(function ({ addBase, theme }) {
+      const screens = theme("screens");
+      const cssVariables = {};
+
+      Object.keys(screens).forEach((key) => {
+        cssVariables[`--screen-${key}`] = screens[key];
+      });
+
+      addBase({
+        ":root": cssVariables,
+      });
+    }),
+    // get padding values in css variables
+    plugin(function ({ addBase, theme }) {
+      const padding = theme("padding");
+      const cssVariables = {};
+
+      Object.keys(padding).forEach((key) => {
+        cssVariables[`--padding-${key}`] = padding[key];
+      });
+
+      addBase({
+        ":root": cssVariables,
       });
     }),
   ],
