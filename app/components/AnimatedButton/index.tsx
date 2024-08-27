@@ -1,5 +1,15 @@
 import Link from "next/link";
-export function AnimatedButton({ variant, href, className, children }) {
+export function AnimatedButton({
+  variant,
+  href,
+  className,
+  children,
+}: {
+  variant?: string;
+  className?: string;
+  href?: string;
+  children?;
+}) {
   const classes =
     variant == "lg"
       ? `px-20 py-6 text-2xl [box-shadow:7px_7px_7px_#999999] hover:[box-shadow:6px_6px_8px_#aaaaaa] hover:active:[box-shadow:4px_4px_7px_#cccccc] rounded-2xl`
