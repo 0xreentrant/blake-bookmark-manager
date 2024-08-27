@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
@@ -27,17 +28,17 @@ import hero from "@/public/home-blake2.png";
 gsap.registerPlugin(useGSAP);
 
 export default function Page() {
-  const page = useRef();
-  const container = useRef();
+  const page = useRef<HTMLDivElement>(null);
+  const container = useRef<HTMLDivElement>(null);
 
   useGSAP((context, contextSafe) => {
     // Hero interaction
     const speed = 0.5;
 
-    const items = gsap.utils.toArray(".movable").map((element) => {
+    const items = gsap.utils.toArray(".movable").map((element: HTMLElement) => {
       return {
         element,
-        shiftValue: element.getAttribute("data-value") / 1500,
+        shiftValue: parseFloat(element.getAttribute("data-value")) / 1500,
         xSet: gsap.quickSetter(element, "x", "%"),
         ySet: gsap.quickSetter(element, "y", "%"),
       };
