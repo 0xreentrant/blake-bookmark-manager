@@ -75,13 +75,13 @@ export default function Layout({ children }) {
               <div className="text-white flex gap-[32px]">
                 Socials:
                 <Link
-                  alt="Github"
+                  
                   href="https://github.com/0xreentrant/blake-bookmark-manager"
                 >
                   <Github color="#ffffff" />
                 </Link>
                 {/* TODO: link to blake linkedin */}
-                <Link alt="LinkedIn" href="https://linkedin/in/alexanderlperez">
+                <Link  href="https://linkedin/in/alexanderlperez">
                   <Linkedin color="#ffffff" />
                 </Link>
                 {/* TODO: link to blake twitter */}
