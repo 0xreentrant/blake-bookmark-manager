@@ -1,17 +1,28 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { CloudUpload, List, ExternalLink, Heart } from "lucide-react";
 import Typewriter from "typewriter-effect";
 
+import { AnimatedButton } from "@/components/AnimatedButton";
 import { QuadStar } from "./assets/QuadStar";
 import { OctoStar } from "./assets/OctoStar";
 import { BigSquare } from "./assets/BigSquare";
 import { SmallSquare } from "./assets/SmallSquare";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import slide1 from "@/public/slide1.png";
+import slide2 from "@/public/slide2.png";
+import slide3 from "@/public/slide3.png";
+import slide4 from "@/public/slide4.png";
+import slide5 from "@/public/slide5.png";
+import slide6 from "@/public/slide6.png";
+import slide7 from "@/public/slide7.png";
+import slide8 from "@/public/slide8.png";
+import slide9 from "@/public/slide9.png";
+import slide10 from "@/public/slide10.png";
+import hero from "@/public/home-blake2.png";
 
 gsap.registerPlugin(useGSAP);
 
@@ -19,51 +30,62 @@ export default function Page() {
   const page = useRef();
   const container = useRef();
 
-  useGSAP(
-    (context, contextSafe) => {
-      console.log("starting");
-      const speed = 0.5;
+  useGSAP((context, contextSafe) => {
+    // Hero interaction
+    const speed = 0.5;
 
-      const items = gsap.utils.toArray(".movable").map((element) => {
-        return {
-          element,
-          shiftValue: element.getAttribute("data-value") / 850,
-          xSet: gsap.quickSetter(element, "x", "%"),
-          ySet: gsap.quickSetter(element, "y", "%"),
-        };
-      });
-
-      const mouse = {
-        x: 0,
-        y: 0,
+    const items = gsap.utils.toArray(".movable").map((element) => {
+      return {
+        element,
+        shiftValue: element.getAttribute("data-value") / 1500,
+        xSet: gsap.quickSetter(element, "x", "%"),
+        ySet: gsap.quickSetter(element, "y", "%"),
       };
+    });
 
-      page.current.parentNode.addEventListener(
-        "mousemove",
-        contextSafe((e) => {
-          const rect = container.current.getBoundingClientRect();
-          mouse.x = e.x - rect.left;
-          mouse.y = e.y - rect.top;
-          console.log("moved");
-        })
-      );
+    const mouse = { x: 0, y: 0 };
 
-      gsap.ticker.fps(30);
-      gsap.ticker.add(() => {
-        const dt = 0.5 - Math.pow(0.5 - speed, gsap.ticker.deltaRatio());
+    page.current.parentNode.addEventListener(
+      "mousemove",
+      contextSafe((e) => {
+        const rect = container.current.getBoundingClientRect();
+        mouse.x = e.x - rect.left;
+        mouse.y = e.y - rect.top;
+      })
+    );
 
-        items.forEach((item) => {
-          item.xSet(item.shiftValue * mouse.x * dt);
-          item.ySet(item.shiftValue * mouse.y * dt);
-        });
+    gsap.ticker.fps(30);
+    gsap.ticker.add(() => {
+      const dt = 0.5 - Math.pow(0.5 - speed, gsap.ticker.deltaRatio());
+
+      items.forEach((item) => {
+        item.xSet(item.shiftValue * mouse.x * dt);
+        item.ySet(item.shiftValue * mouse.y * dt);
       });
-    },
-    { scope: container }
-  );
+    });
+
+    // slideshow
+    const duration = 1;
+    const delay = 0.75;
+    gsap.set("#slide-start", { opacity: 1, objectFit: "fill" });
+    gsap.set(".slide", { opacity: 0, objectFit: "fill" });
+
+    gsap
+      .timeline({ repeat: -1 })
+      .to("#slide3", { opacity: 1, delay, duration, ease: "power1.inOut" })
+      .to("#slide4", { opacity: 1, delay, duration, ease: "power1.inOut" })
+      .to("#slide5", { opacity: 1, delay, duration, ease: "power1.inOut" })
+      .to("#slide6", { opacity: 1, delay, duration, ease: "power1.inOut" })
+      .to("#slide7", { opacity: 1, delay, duration, ease: "power1.inOut" })
+      .to("#slide8", { opacity: 1, delay, duration, ease: "power1.inOut" })
+      .to("#slide9", { opacity: 1, delay, duration, ease: "power1.inOut" })
+      .to("#slide10", { opacity: 1, delay, duration, ease: "power1.inOut" })
+      .to(".slide", { opacity: 0, delay, duration, ease: "power1.inOut" });
+  });
 
   return (
     <div className="w-full">
-      <div className="flex flex-col items-center w-full pb-28 gap-32 bg-white">
+      <div className="flex flex-col items-center w-full pb-28 gap-48 bg-white">
         {/* Hero */}
         <div
           ref={page}
@@ -84,12 +106,10 @@ export default function Page() {
               Create online communities with your own collection of bookmarks
               using Blake, the social bookmarks platform.
             </p>
-            <Link
-              href="/login"
-              className="w-max px-20 py-6  hover:[box-shadow:6px_6px_8px_#aaaaaa] hover:active:[box-shadow:4px_4px_7px_#cccccc] bg-[#050505] hover:bg-[#303030] hover:active:bg-[#050505] hover:scale-110 hover:active:scale-105 transition duration-290 rounded-2xl font-medium text-white text-2xl tracking-[0] leading-[18px]"
-            >
+
+            <AnimatedButton variant="lg" href="/login">
               Try Blake Now
-            </Link>
+            </AnimatedButton>
           </div>
 
           {/* animation */}
@@ -103,9 +123,10 @@ export default function Page() {
               className="movable absolute bottom-[3.5%] right-0"
             />
 
-            <img
-              src="/home-blake2.png"
+            <Image
+              src={hero}
               data-value="2.5"
+              alt=""
               className="movable absolute top-1/2 translate-y-[-50%] left-[15%] w-[75%] h-[80%] object-cover rounded-3xl [box-shadow:1px_1px_10px_#999999]"
             />
 
@@ -121,11 +142,63 @@ export default function Page() {
         <div className="w-full max-w-screen-xl">
           <h2 className="pb-12 font-bold text-[28px]">What can I do?</h2>
           <div className="flex gap-[99px]">
-            <img
-              className="w-[50%] h-[445px] object-cover"
-              alt="Image"
-              src="screenshot.png"
-            />
+            <div className="relative w-1/2">
+              <Image
+                className="border-4 rounded-3xl absolute"
+                id="slide-start"
+                alt=""
+                src={slide2}
+              />
+              <Image
+                className="border-4 rounded-3xl slide absolute"
+                id="slide3"
+                alt=""
+                src={slide3}
+              />
+              <Image
+                className="border-4 rounded-3xl slide absolute"
+                id="slide4"
+                alt=""
+                src={slide9}
+              />
+              <Image
+                className="border-4 rounded-3xl slide absolute"
+                id="slide5"
+                alt=""
+                src={slide10}
+              />
+              <Image
+                className="border-4 rounded-3xl slide absolute"
+                id="slide6"
+                alt=""
+                src={slide4}
+              />
+              <Image
+                className="border-4 rounded-3xl slide absolute"
+                id="slide7"
+                alt=""
+                src={slide6}
+              />
+              <Image
+                className="border-4 rounded-3xl slide absolute"
+                id="slide8"
+                alt=""
+                src={slide5}
+              />
+              <Image
+                className="border-4 rounded-3xl slide absolute"
+                id="slide9"
+                alt=""
+                src={slide7}
+              />
+              <Image
+                className="border-4 rounded-3xl slide absolute"
+                id="slide10"
+                alt=""
+                src={slide8}
+              />
+            </div>
+
             <div className="flex flex-col w-[50%] gap-[28px]">
               <h1 className="playfair  font-bold text-[#050505] text-[64px] tracking-[0] leading-[80px]">
                 Create a List, and Now You Have a Gathering Space
@@ -138,52 +211,12 @@ export default function Page() {
           </div>
         </div>
 
-        {/* how it works */}
-        {/*
-         *<div className="flex flex-col gap-12 w-full max-w-screen-xl">
-         *  <h1 className="playfair font-bold text-[64px] text-center tracking-[0] leading-[80px]">
-         *    How does it work?
-         *  </h1>
-         *  <div className="flex gap-6">
-         *    <div className="flex flex-col items-center gap-6">
-         *      <CloudUpload className="w-[33.71px] h-[33.71px]" />
-         *      <h2 className="playfair font-semibold text-black text-[34px] text-center tracking-[0] leading-[normal]">
-         *        1. Import
-         *      </h2>
-         *      <p className="text-black text-2xl tracking-[0] leading-[normal]">
-         *        Import your Chrome bookmarks into Blake using the app.
-         *      </p>
-         *    </div>
-         *    <div className="flex flex-col items-center gap-6">
-         *      <List className=" w-[33.71px] h-[33.71px]  top-[-4.00px]" />
-         *      <h2 className="playfair font-semibold text-black text-[34px] text-center tracking-[0] leading-[normal]">
-         *        2. List
-         *      </h2>
-         *      <p className="text-black text-2xl tracking-[0] leading-[normal]">
-         *        Your list is where people can comment, upvote, and share with
-         *        their friends.
-         *      </p>
-         *    </div>
-         *    <div className="flex flex-col items-center gap-6">
-         *      <ExternalLink className=" w-[33.71px] h-[33.71px]" />
-         *      <h2 className="playfair  font-semibold text-black text-[34px] text-center tracking-[0] leading-[normal]">
-         *        3. Share
-         *      </h2>
-         *      <p className="text-black text-2xl tracking-[0] leading-[normal]">
-         *        Share with your audience, your newsletter, your social media
-         *        followers.
-         *      </p>
-         *    </div>
-         *  </div>
-         *</div>
-         */}
-
         {/* newsletter */}
         <div className="w-full max-w-screen-xl">
           <h2 className="pb-12 font-bold text-[28px]">Why use Blake?</h2>
           <div className="flex gap-6">
             <h1 className="playfair font-bold text-[#050505] text-[64px]  tracking-[0] leading-[80px]">
-              A new way to make communities
+              It&apos;s the new way to make communities
             </h1>
             <div className="flex flex-col items-center">
               <p className="max-w-xl pb-8 font-normal text-[#333333] text-2xl tracking-[0] leading-[30px]">
@@ -211,12 +244,9 @@ export default function Page() {
               Your bookmarks, your community
             </div>
           </div>
-          <Link
-            href="/login"
-            className="w-max px-20 py-6 [box-shadow:10px_10px_10px_#999999] hover:active:[box-shadow:9px_9px_9px_#aaaaaa] bg-[#050505] hover:bg-[#303030] hover:active:bg-[#050505] transition duration-300 rounded-2xl font-medium text-white text-2xl tracking-[0] leading-[18px]"
-          >
+          <AnimatedButton variant="lg" href="/login">
             Start Here
-          </Link>
+          </AnimatedButton>
         </div>
       </div>
     </div>

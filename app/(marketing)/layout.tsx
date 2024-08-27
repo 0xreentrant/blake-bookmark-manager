@@ -12,6 +12,8 @@ import {
   Twitter,
 } from "lucide-react";
 
+import { AnimatedButton } from "@/components/AnimatedButton";
+
 const playfair = Playfair_Display({
   subsets: ["latin"],
   display: "swap",
@@ -45,12 +47,8 @@ export default function Layout({ children }) {
              *  Our Story
              *</div>
              */}
-            <Link
-              href="/login"
-              className="w-max px-8 [box-shadow:10px_10px_10px_#999999] hover:active:[box-shadow:9px_9px_9px_#aaaaaa] py-2.5 bg-[#050505] hover:bg-[#303030] hover:active:bg-[#050505] transition duration-300 shadow-2xl rounded-xl font-medium text-white text-l tracking-[0] leading-[18px]"
-            >
-              Login/Sign Up
-            </Link>
+
+            <AnimatedButton href="/login">Login/Sign Up</AnimatedButton>
           </div>
         </div>
 
