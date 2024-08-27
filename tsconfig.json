@@ -20,7 +20,8 @@
       "react": [ "./node_modules/@types/react" ],
       "@/contentlayer": ["./.contentlayer/generated"],
       "@/components/*": ["./app/components/*"],
-      "@/*": ["./app/*"]
+      "@/*": ["./app/*"],
+      "@/public/*": ["./public/*"]
     },
     "plugins": [
       {
