@@ -47,7 +47,7 @@ export default function Layout({ children }) {
              */}
             <Link
               href="/login"
-              className="w-max px-8 py-2.5 bg-[#050505] hover:bg-[#303030] hover:active:bg-[#050505] transition duration-300 rounded-xl font-medium text-white text-l tracking-[0] leading-[18px]"
+              className="w-max px-8 [box-shadow:10px_10px_10px_#999999] hover:active:[box-shadow:9px_9px_9px_#aaaaaa] py-2.5 bg-[#050505] hover:bg-[#303030] hover:active:bg-[#050505] transition duration-300 shadow-2xl rounded-xl font-medium text-white text-l tracking-[0] leading-[18px]"
             >
               Login/Sign Up
             </Link>
@@ -58,8 +58,11 @@ export default function Layout({ children }) {
 
         {/* footer */}
         <div className="flex flex-col w-full px-[51px] py-[42px] gap-[32px] bg-[#050505]">
-          <div className="flex justify-between">
-            <div className=" font-normal text-white text-base tracking-[0] leading-[30px] whitespace-nowrap">
+          <div
+            className="flex justify-between items-center
+          "
+          >
+            <div className=" font-normal text-white text-base tracking-[0]  whitespace-nowrap">
               Copyright 2024 Alex Perez
             </div>
             <div className="flex items-center  gap-[29px]">
@@ -71,26 +74,29 @@ export default function Layout({ children }) {
                *  Our Story
                *</div>
                */}
+              <div className="text-white flex gap-[32px]">
+                Socials:
+                <Link
+                  alt="Github"
+                  href="https://github.com/0xreentrant/blake-bookmark-manager"
+                >
+                  <Github color="#ffffff" />
+                </Link>
+                {/* TODO: link to blake linkedin */}
+                <Link alt="LinkedIn" href="https://linkedin/in/alexanderlperez">
+                  <Linkedin color="#ffffff" />
+                </Link>
+                {/* TODO: link to blake twitter */}
+                {/*
+                 *<Twitter color="#ffffff" />
+                 */}
+              </div>
               <Link
                 href="/login"
                 className="w-max px-8 py-2.5 border-2 border-solid border-white hover:border-white hover:bg-white hover:text-black hover:active:bg-[#050505] hover:active:text-white transition duration-300 rounded-xl font-medium text-white text-l tracking-[0] leading-[18px]"
               >
                 Login/Sign Up
               </Link>
-            </div>
-          </div>
-          <hr className="border-[#333333]" />
-          <div className="flex justify-end">
-            <div className="flex gap-[32px]">
-              <Link href="https://github.com/0xreentrant/blake-bookmark-manager">
-                <Github color="#ffffff" />
-              </Link>
-              {/* TODO: link to blake linkedin */}
-              <Link href="https://linkedin/in/alexanderlperez">
-                <Linkedin color="#ffffff" />
-              </Link>
-              {/* TODO: link to blake twitter */}
-              <Twitter color="#ffffff" />
             </div>
           </div>
         </div>

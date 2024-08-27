@@ -9,6 +9,8 @@ import { QuadStar } from "./assets/QuadStar";
 import { OctoStar } from "./assets/OctoStar";
 import { BigSquare } from "./assets/BigSquare";
 import { SmallSquare } from "./assets/SmallSquare";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 gsap.registerPlugin(useGSAP);
 
@@ -24,7 +26,7 @@ export default function Page() {
       const items = gsap.utils.toArray(".movable").map((element) => {
         return {
           element,
-          shiftValue: element.getAttribute("data-value") / 300,
+          shiftValue: element.getAttribute("data-value") / 500,
           xSet: gsap.quickSetter(element, "x", "%"),
           ySet: gsap.quickSetter(element, "y", "%"),
         };
@@ -73,7 +75,7 @@ export default function Page() {
             </p>
             <Link
               href="/login"
-              className="w-max px-20 py-6 bg-[#050505] hover:bg-[#303030] hover:active:bg-[#050505] transition duration-300 rounded-2xl font-medium text-white text-2xl tracking-[0] leading-[18px]"
+              className="w-max px-20 py-6 [box-shadow:10px_10px_10px_#999999] hover:active:[box-shadow:9px_9px_9px_#aaaaaa] bg-[#050505] hover:bg-[#303030] hover:active:bg-[#050505] transition duration-300 rounded-2xl font-medium text-white text-2xl tracking-[0] leading-[18px]"
             >
               Try Blake Now
             </Link>
@@ -90,13 +92,13 @@ export default function Page() {
               className="movable absolute bottom-[3.5%] right-0"
             />
 
-            <OctoStar className="movable absolute " />
-
             <img
               src="/home-blake2.png"
               data-value="2.5"
-              className="movable absolute top-1/2 translate-y-[-50%] left-[15%] w-[75%] h-[80%] object-cover rounded-3xl"
+              className="movable absolute top-1/2 translate-y-[-50%] left-[15%] w-[75%] h-[80%] object-cover rounded-3xl [box-shadow:1px_1px_10px_#999999]"
             />
+
+            <OctoStar className="movable absolute top-0" />
 
             <QuadStar className="movable absolute bottom-[15%] left-[22.5%]" />
 
@@ -172,7 +174,7 @@ export default function Page() {
           </div>
           <Link
             href="/login"
-            className="w-max px-20 py-6 bg-[#050505] hover:bg-[#303030] hover:active:bg-[#050505] transition duration-300 rounded-2xl font-medium text-white text-2xl tracking-[0] leading-[18px]"
+            className="w-max px-20 py-6 [box-shadow:10px_10px_10px_#999999] hover:active:[box-shadow:9px_9px_9px_#aaaaaa] bg-[#050505] hover:bg-[#303030] hover:active:bg-[#050505] transition duration-300 rounded-2xl font-medium text-white text-2xl tracking-[0] leading-[18px]"
           >
             Start Here
           </Link>
@@ -183,10 +185,15 @@ export default function Page() {
           <h1 className="playfair font-bold text-[#050505] text-[64px] text-center tracking-[0] leading-[80px]">
             A new way to make communities
           </h1>
-          <p className=" self-stretch h-[90px]  font-normal text-[#333333] text-2xl tracking-[0] leading-[30px]">
-            Blake is built with Love by Alex Perez. Join the mailing list to get
-            updates on Blake and what&#39;s going on in the software developer
-            world.
+          <p className=" self-stretch font-normal text-[#333333] text-2xl tracking-[0] leading-[30px]">
+            Blake is built with Love by Alex Perez.{" "}
+            <Link
+              href="https://forms.gle/THRneSrxpQHbgath7"
+              className="underline font-medium"
+            >
+              Join the mailing list
+            </Link>{" "}
+            to get updates on Blake and and its author.
           </p>
           <Heart className=" w-[47px] h-[38.96px]" />
         </div>
