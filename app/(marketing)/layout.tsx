@@ -30,7 +30,7 @@ export default function Layout({ children }) {
     <html className={`${playfair.variable} ${worksans.className}`}>
       <body className="!pointer-events-auto pt-4">
         {/* Header nav */}
-        <div className="flex justify-between px-12 pb-8">
+        <div className="flex justify-between lg:px-12 px-5 pb-8">
           <img
             className="w-[35px]"
             alt="Blake logo removebg"
@@ -55,47 +55,39 @@ export default function Layout({ children }) {
         <div className="">{children}</div>
 
         {/* footer */}
-        <div className="flex flex-col w-full px-[51px] py-[18px] gap-[32px] bg-[#050505]">
-          <div
-            className="flex justify-between items-center
-          "
-          >
-            <div className=" font-normal text-white text-base tracking-[0]  whitespace-nowrap">
-              Copyright 2024 Alex Perez
-            </div>
-            <div className="flex items-center  gap-[29px]">
-              {/*
-               *<div className=" w-fit  font-normal text-white text-l tracking-[0] leading-[30px] whitespace-nowrap">
-               *  Blog
-               *</div>
-               *<div className=" w-fit  font-normal text-white text-l tracking-[0] leading-[30px] whitespace-nowrap">
-               *  Our Story
-               *</div>
-               */}
-              <div className="text-white flex gap-[32px]">
-                Socials:
-                <Link
-                  
-                  href="https://github.com/0xreentrant/blake-bookmark-manager"
-                >
-                  <Github color="#ffffff" />
-                </Link>
-                {/* TODO: link to blake linkedin */}
-                <Link  href="https://linkedin/in/alexanderlperez">
-                  <Linkedin color="#ffffff" />
-                </Link>
-                {/* TODO: link to blake twitter */}
-                {/*
-                 *<Twitter color="#ffffff" />
-                 */}
-              </div>
-              <Link
-                href="/login"
-                className="w-max px-8 py-2.5 border-2 border-solid border-white hover:border-white hover:bg-white hover:text-black hover:active:bg-[#050505] hover:active:text-white transition duration-300 rounded-xl font-medium text-white text-l tracking-[0] leading-[18px]"
-              >
-                Login/Sign Up
+        <div className="flex md:flex-row flex-col-reverse justify-between items-center w-full px-[51px] md:py-[18px] py-10 gap-[32px] bg-[#050505]">
+          <div className="font-normal text-white text-base tracking-[0] whitespace-nowrap">
+            Copyright 2024 Alex Perez
+          </div>
+          <div className="flex md:flex-row flex-col-reverse items-center md:gap-[29px] gap-5">
+            {/*
+             *<div className=" w-fit  font-normal text-white text-l tracking-[0] leading-[30px] whitespace-nowrap">
+             *  Blog
+             *</div>
+             *<div className=" w-fit  font-normal text-white text-l tracking-[0] leading-[30px] whitespace-nowrap">
+             *  Our Story
+             *</div>
+             */}
+            <div className="text-white flex gap-[32px]">
+              Socials:
+              <Link href="https://github.com/0xreentrant/blake-bookmark-manager">
+                <Github color="#ffffff" />
               </Link>
+              {/* TODO: link to blake linkedin */}
+              <Link href="https://linkedin/in/alexanderlperez">
+                <Linkedin color="#ffffff" />
+              </Link>
+              {/* TODO: link to blake twitter */}
+              {/*
+               *<Twitter color="#ffffff" />
+               */}
             </div>
+            <Link
+              href="/login"
+              className="w-max px-8 py-2.5 border-2 border-solid border-white hover:border-white hover:bg-white hover:text-black hover:active:bg-[#050505] hover:active:text-white transition duration-300 rounded-xl font-medium text-white text-l tracking-[0] leading-[18px]"
+            >
+              Login/Sign Up
+            </Link>
           </div>
         </div>
       </body>

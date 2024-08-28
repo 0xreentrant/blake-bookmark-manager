@@ -86,14 +86,14 @@ export default function Page() {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col items-center w-full pb-28 gap-48 bg-white">
+      <div className="flex flex-col items-center w-full pb-28 xl:gap-38 gap-32 bg-white">
         {/* Hero */}
         <div
           ref={page}
-          className="flex items-center gap-w-full max-w-screen-xl h-[calc(1280px/2*1.25)]"
+          className="lg:px-12 px-5 flex xl:flex-row flex-col xl:justify-center xl:items-center xl:h-[calc(1280px/2*1.25)] max-w-screen-xl"
         >
-          <div className="flex flex-col w-1/2 gap-[32px]">
-            <h1 className="playfair  font-bold text-[#050505] w-full max-w-[15ch] h-[6ch] text-[64px] tracking-[0] leading-[80px]">
+          <div className="flex flex-col xl:w-1/2 gap-9">
+            <h1 className="playfair w-full xl:max-w-[15ch] xl:h-[4em] font-bold text-[#050505] lg:text-[64px] text-5xl tracking-[0] lg:leading-[80px] leading-[60px]">
               Create Community with Your{" "}
               <Typewriter
                 options={{
@@ -103,7 +103,7 @@ export default function Page() {
                 }}
               />
             </h1>
-            <p className="font-normal text-[#333333] text-2xl tracking-[0] leading-[30px]">
+            <p className="xl:w-full w-3/4 font-normal text-[#333333] text-2xl tracking-[0] leading-[30px]">
               Create online communities with your own collection of bookmarks
               using Blake, the social bookmarks platform.
             </p>
@@ -114,7 +114,10 @@ export default function Page() {
           </div>
 
           {/* animation */}
-          <div ref={container} className="relative w-1/2 h-full">
+          <div
+            ref={container}
+            className="relative xl:w-1/2 xl:block hidden h-full"
+          >
             <BigSquare
               data-value="1"
               className="movable absolute top-[4%] left-[10%] w-[80%] h-[70%]"
@@ -140,68 +143,68 @@ export default function Page() {
         </div>
 
         {/* Blurb */}
-        <div className="w-full max-w-screen-xl">
-          <h2 className="pb-12 font-bold text-[28px]">What can I do?</h2>
-          <div className="flex gap-[99px]">
-            <div className="relative w-1/2">
+        <div className="lg:px-12 px-5 flex items-center w-full max-w-screen-xl">
+          <div className="flex lg:flex-row flex-col-reverse items-center xl:gap-[99px] gap-12">
+            <div className="relative grid grid-cols-1 xl:w-1/2 w-full">
               <Image
-                className="border-4 rounded-3xl absolute"
+                className="w-full col-start-1 col-end-1 border-4 rounded-3xl"
                 id="slide-start"
                 alt=""
                 src={slide2}
               />
               <Image
-                className="border-4 rounded-3xl slide absolute"
+                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
                 id="slide3"
                 alt=""
                 src={slide3}
               />
               <Image
-                className="border-4 rounded-3xl slide absolute"
+                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
                 id="slide4"
                 alt=""
                 src={slide9}
               />
               <Image
-                className="border-4 rounded-3xl slide absolute"
+                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
                 id="slide5"
                 alt=""
                 src={slide10}
               />
               <Image
-                className="border-4 rounded-3xl slide absolute"
+                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
                 id="slide6"
                 alt=""
                 src={slide4}
               />
               <Image
-                className="border-4 rounded-3xl slide absolute"
+                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
                 id="slide7"
                 alt=""
                 src={slide6}
               />
               <Image
-                className="border-4 rounded-3xl slide absolute"
+                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
                 id="slide8"
                 alt=""
                 src={slide5}
               />
               <Image
-                className="border-4 rounded-3xl slide absolute"
+                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
                 id="slide9"
                 alt=""
                 src={slide7}
               />
               <Image
-                className="border-4 rounded-3xl slide absolute"
+                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
                 id="slide10"
                 alt=""
                 src={slide8}
               />
             </div>
 
-            <div className="flex flex-col w-[50%] gap-[28px]">
-              <h1 className="playfair  font-bold text-[#050505] text-[64px] tracking-[0] leading-[80px]">
+            <div className="flex flex-col xl:w-1/2 w-full gap-[28px]">
+              <h2 className="font-bold text-[28px]">What can I do?</h2>
+              <h1 className="playfair  font-bold text-[#050505] lg:text-[64px] text-5xl tracking-[0] lg:leading-[80px] leading-[60px]">
                 Create a List, and Now You Have a Gathering Space
               </h1>
               <p className="top-[268px] left-0 font-normal text-[#333333] text-2xl tracking-[0] leading-[30px]">
@@ -213,14 +216,14 @@ export default function Page() {
         </div>
 
         {/* newsletter */}
-        <div className="w-full max-w-screen-xl">
-          <h2 className="pb-12 font-bold text-[28px]">Why use Blake?</h2>
-          <div className="flex gap-6">
-            <h1 className="playfair font-bold text-[#050505] text-[64px]  tracking-[0] leading-[80px]">
+        <div className="lg:px-12 px-5 flex flex-col items-center w-full max-w-screen-xl">
+          <div className="flex flex-col gap-6 lg:w-3/4 w-full">
+            <h2 className="font-bold text-[28px]">Why use Blake?</h2>
+            <h1 className="playfair font-bold w-full text-[#050505] lg:text-[64px] text-5xl tracking-[0] lg:leading-[80px] leading-[60px]">
               It&apos;s the new way to make communities
             </h1>
-            <div className="flex flex-col items-center">
-              <p className="max-w-xl pb-8 font-normal text-[#333333] text-2xl tracking-[0] leading-[30px]">
+            <div className="flex flex-col w-full">
+              <p className="pb-8 w-full font-normal text-[#333333] text-2xl tracking-[0] leading-[30px]">
                 Blake is built with Love by Alex Perez. To get updates on Blake
                 and and its author,{" "}
                 <Link
@@ -230,24 +233,26 @@ export default function Page() {
                   join the mailing list
                 </Link>
               </p>
-              <Heart className="w-[47px] h-[38.96px]" />
+              <Heart className="w-[47px] h-[38.96px] self-center" />
             </div>
           </div>
         </div>
 
         {/* try now */}
-        <div className="flex flex-wrap w-full max-w-screen-xl  items-center justify-between px-[81px] py-[52px] bg-[#f7f7f5] rounded-[52px]">
-          <div className="">
-            <h1 className="playfair font-bold text-black text-[64px] tracking-[0] leading-[80px] whitespace-nowrap">
-              Try Blake now
-            </h1>
-            <div className="font-normal text-black text-2xl tracking-[0] leading-[30px] whitespace-nowrap">
-              Your bookmarks, your community
+        <div className="lg:px-12 px-5 w-full max-w-screen-xl">
+          <div className="flex md:flex-row flex-col  w-full items-center md:justify-between justify-center lg:px-[81px] lg:py-[52px] md:px-9 md:py-9 md:bg-[#f7f7f5] lg:rounded-[52px] md:rounded-[32px] lg:gap-12 gap-8">
+            <div className="flex flex-col md:gap-2 gap-4 w-full">
+              <h1 className="playfair font-bold text-black lg:text-[64px] text-5xl tracking-[0] lg:leading-[80px] leading-[60px] md:text-left text-center">
+                Try Blake now
+              </h1>
+              <div className="font-normal text-black text-2xl tracking-[0] leading-[30px] md:text-left text-center">
+                Your bookmarks, your community
+              </div>
             </div>
+            <AnimatedButton variant="lg" href="/login" className="text-nowrap">
+              Start Here
+            </AnimatedButton>
           </div>
-          <AnimatedButton variant="lg" href="/login">
-            Start Here
-          </AnimatedButton>
         </div>
       </div>
     </div>
