@@ -96,7 +96,7 @@ export default function Page() {
           className="lg:px-12 px-5 flex xl:flex-row flex-col xl:justify-center xl:items-center xl:h-[calc(1280px/2*1.25)] max-w-screen-xl"
         >
           <div className="flex flex-col xl:w-1/2 gap-9">
-            <h1 className="playfair w-full xl:max-w-[15ch] xl:h-[4em] font-bold text-[#050505] lg:text-[64px] text-5xl tracking-[0] lg:leading-[80px] leading-[60px]">
+            <h1 className="playfair w-full xl:max-w-[15ch] xl:h-[4em] font-bold text-[#050505] lg:text-[64px] text-5xl tracking-tightish lg:leading-[80px] leading-[60px]">
               Create Community with Your{" "}
               <Typewriter
                 options={{
@@ -106,7 +106,7 @@ export default function Page() {
                 }}
               />
             </h1>
-            <p className="xl:w-full w-3/4 font-normal text-[#333333] text-2xl tracking-[0] leading-[30px]">
+            <p className="xl:w-full w-3/4 font-normal text-[#333333] text-2xl tracking-tight leading-[30px]">
               Create online communities with your own collection of bookmarks
               using Blake, the social bookmarks platform.
             </p>
@@ -149,57 +149,57 @@ export default function Page() {
         <div className="w-full flex py-28 lg:px-12 px-5 bg-black justify-center ">
           <div className="flex items-center w-full max-w-screen-xl">
             <div className="flex lg:flex-row flex-col-reverse items-center xl:gap-[99px] gap-12">
-              <div className="relative grid grid-cols-1 xl:w-1/2 w-full">
+              <div className="relative grid grid-cols-1 xl:w-1/2 w-full xl:max-w-[500px]">
                 <Image
-                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl"
+                  className="w-full col-start-1 col-end-1 border-3 rounded-3xl"
                   id="slide-start"
                   alt=""
                   src={slide2}
                 />
                 <Image
-                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  className="w-full col-start-1 col-end-1 border-3 rounded-3xl slide absolute"
                   id="slide3"
                   alt=""
                   src={slide3}
                 />
                 <Image
-                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  className="w-full col-start-1 col-end-1 border-3 rounded-3xl slide absolute"
                   id="slide4"
                   alt=""
                   src={slide9}
                 />
                 <Image
-                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  className="w-full col-start-1 col-end-1 border-3 rounded-3xl slide absolute"
                   id="slide5"
                   alt=""
                   src={slide10}
                 />
                 <Image
-                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  className="w-full col-start-1 col-end-1 border-3 rounded-3xl slide absolute"
                   id="slide6"
                   alt=""
                   src={slide4}
                 />
                 <Image
-                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  className="w-full col-start-1 col-end-1 border-3 rounded-3xl slide absolute"
                   id="slide7"
                   alt=""
                   src={slide6}
                 />
                 <Image
-                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  className="w-full col-start-1 col-end-1 border-3 rounded-3xl slide absolute"
                   id="slide8"
                   alt=""
                   src={slide5}
                 />
                 <Image
-                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  className="w-full col-start-1 col-end-1 border-3 rounded-3xl slide absolute"
                   id="slide9"
                   alt=""
                   src={slide7}
                 />
                 <Image
-                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  className="w-full col-start-1 col-end-1 border-3 rounded-3xl slide absolute"
                   id="slide10"
                   alt=""
                   src={slide8}
@@ -210,10 +210,10 @@ export default function Page() {
                 <h2 className="font-bold text-[32px] text-burntsienna tracking-tight">
                   What can I do?
                 </h2>
-                <h1 className="playfair  font-bold text-lightgray lg:text-[64px] text-5xl tracking-[0] lg:leading-[80px] leading-[60px]">
+                <h1 className="playfair  font-bold text-lightgray lg:text-[64px] text-5xl tracking-tightish lg:leading-[80px] leading-[60px]">
                   Create a List, and Now You Have a Gathering Space
                 </h1>
-                <p className="top-[268px] left-0 font-normal text-lightgray text-2xl tracking-[0] leading-[30px]">
+                <p className="top-[268px] left-0 font-normal text-lightgray text-2xl tracking-tight leading-[30px]">
                   Share your list, and people can comment, upvote and downvote
                   links, add to their own lists.
                 </p>
@@ -226,10 +226,10 @@ export default function Page() {
         <div className="lg:px-12 px-5 w-full max-w-screen-xl">
           <div className="flex md:flex-row flex-col  w-full items-center md:justify-between justify-center lg:px-[81px] lg:py-[52px] md:px-9 md:py-9 md:bg-tan lg:rounded-[52px] md:rounded-[32px] lg:gap-12 gap-8">
             <div className="flex flex-col md:gap-2 gap-4 w-full">
-              <h1 className="playfair font-bold text-black lg:text-[64px] text-5xl tracking-[0] lg:leading-[80px] leading-[60px] md:text-left text-center">
+              <h1 className="playfair font-bold text-black lg:text-[64px] text-5xl tracking-tightish lg:leading-[80px] leading-[60px] md:text-left text-center">
                 Try Blake now
               </h1>
-              <div className="font-normal text-black text-2xl tracking-[0] leading-[30px] md:text-left text-center">
+              <div className="font-normal text-black text-2xl tracking-tight leading-[30px] md:text-left text-center">
                 Your bookmarks, your community
               </div>
             </div>
@@ -245,11 +245,11 @@ export default function Page() {
             <h2 className="font-bold text-[32px] tracking-tight text-burntsienna">
               Why use Blake?
             </h2>
-            <h1 className="playfair font-bold w-full text-[#050505] lg:text-[64px] text-5xl tracking-[0] lg:leading-[80px] leading-[60px]">
+            <h1 className="playfair font-bold w-full text-[#050505] lg:text-[64px] text-5xl tracking-tightish lg:leading-[80px] leading-[60px]">
               It&apos;s the new way to make communities
             </h1>
             <div className="flex flex-col w-full">
-              <p className="pb-8 w-full font-normal text-[#333333] text-2xl tracking-[0] leading-[30px]">
+              <p className="pb-8 w-full font-normal text-[#333333] text-2xl tracking-tight leading-[30px]">
                 Blake is built with Love by Alex Perez. To get updates on Blake
                 and and its author,{" "}
                 <Link

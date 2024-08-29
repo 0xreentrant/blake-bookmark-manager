@@ -18,6 +18,9 @@ module.exports = {
       },
     },
     extend: {
+      letterSpacing: {
+        tightish: "-.015em",
+      },
       fontFamily: {
         sans: ["var(--font-geist-sans)"],
         mono: ["var(--font-geist-mono)"],

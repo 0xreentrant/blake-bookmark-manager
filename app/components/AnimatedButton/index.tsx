@@ -18,7 +18,7 @@ export function AnimatedButton({
   return (
     <Link
       href={href}
-      className={`w-max bg-burntsienna hover:bg-burntsienna-dark hover:active:bg-burntsienna hover:scale-[1.01] hover:active:scale-100 transition duration-290  font-medium text-white  tracking-[0] leading-[18px] ${classes} ${className}`}
+      className={`w-max bg-burntsienna hover:bg-burntsienna-dark hover:active:bg-burntsienna hover:scale-[1.01] hover:active:scale-100 transition duration-290  font-medium text-white  tracking-tight leading-[18px] ${classes} ${className}`}
     >
       {children}
     </Link>

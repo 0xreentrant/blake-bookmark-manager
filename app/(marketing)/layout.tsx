@@ -9,6 +9,7 @@ import {
   Heart,
   Linkedin,
   Github,
+  Globe,
   Twitter,
 } from "lucide-react";
 
@@ -56,7 +57,7 @@ export default function Layout({ children }) {
 
         {/* footer */}
         <div className="flex md:flex-row flex-col-reverse justify-between items-center w-full px-[51px] md:py-[28px] py-10 gap-[32px] bg-tan">
-          <div className="font-normal text-black  tracking-[0] whitespace-nowrap">
+          <div className="font-normal text-black  tracking-tight whitespace-nowrap">
             Copyright 2024 Alex Perez
           </div>
           <div className="flex md:flex-row flex-col-reverse items-center md:gap-[29px] gap-5">
@@ -70,6 +71,9 @@ export default function Layout({ children }) {
              */}
             <div className="text-black flex gap-[32px]">
               Socials:
+              <Link href="https://gitresethard.com">
+                <Globe color="#050505" />
+              </Link>
               <Link href="https://github.com/0xreentrant/blake-bookmark-manager">
                 <Github color="#050505" />
               </Link>
@@ -84,7 +88,7 @@ export default function Layout({ children }) {
             </div>
             <Link
               href="/login"
-              className="w-max px-8 py-2.5 border-2 border-solid border-black hover:border-black hover:bg-black hover:text-lightgray hover:active:bg-tan hover:active:text-black transition duration-300 rounded-xl font-medium text-black text-l tracking-[0] leading-[18px]"
+              className="w-max px-8 py-2.5 border-2 border-solid border-black hover:border-black hover:bg-black hover:text-lightgray hover:active:bg-tan hover:active:text-black transition duration-300 rounded-xl font-medium text-black text-l tracking-tight leading-[18px]"
             >
               Login/Sign Up
             </Link>
