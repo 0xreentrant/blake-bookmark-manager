@@ -11,7 +11,6 @@ const BigSquare = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>(
           height="100%"
           rx="47"
           stroke="#111111"
-          fill="white"
           strokeWidth="2"
         />
       </svg>

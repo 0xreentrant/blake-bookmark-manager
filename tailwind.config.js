@@ -24,12 +24,23 @@ module.exports = {
         playfair: ["var(--font-playfair-display)"],
       },
       colors: {
-        "blake-yellow": "#fcb64d",
-        "notion-hover-bg": "rgba(0,0,0,0.04)",
-        "notion-panel": "rgb(247,247,245)",
-        "notion-base": "rgb(95,94,91)",
-        "notion-heading": "rgb(55,53,47)",
-        "notion-active": "rgb(29,27,22)",
+        // custom for marketing pages
+        black: "#050505",
+        tan: "#EDE5D3",
+        lightgray: "#F7F7F5",
+        burntsienna: {
+          DEFAULT: "hsla(13, 93%, 66%, 1)",
+          dark: "hsla(13, 93%, 60%, 1)",
+        },
+        goldenrod: "#FBB454",
+        aqua: "#83BBC3",
+        // custom for app
+        "hover-bg": "rgba(0,0,0,0.04)",
+        panel: "rgb(247,247,245)",
+        base: "rgb(95,94,91)",
+        heading: "rgb(55,53,47)",
+        active: "rgb(29,27,22)",
+        // default
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -91,7 +102,7 @@ module.exports = {
     // set colors for horizontal rules and dividers
     plugin(function ({ addUtilities, theme }) {
       addUtilities({
-        ".divide-x, .divide-y, hr": { color: theme("colors.notion-heading") },
+        ".divide-x, .divide-y, hr": { color: theme("colors.heading") },
       });
     }),
     // get screen values in css vars

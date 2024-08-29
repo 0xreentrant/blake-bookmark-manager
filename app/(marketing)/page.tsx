@@ -86,7 +86,10 @@ export default function Page() {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col items-center w-full pb-28 xl:gap-38 gap-32 bg-white">
+      <div
+        className="flex flex-col items-center w-full pb-28 xl:gap-38 gap-32 bg-lightgra
+      y"
+      >
         {/* Hero */}
         <div
           ref={page}
@@ -143,82 +146,105 @@ export default function Page() {
         </div>
 
         {/* Blurb */}
-        <div className="lg:px-12 px-5 flex items-center w-full max-w-screen-xl">
-          <div className="flex lg:flex-row flex-col-reverse items-center xl:gap-[99px] gap-12">
-            <div className="relative grid grid-cols-1 xl:w-1/2 w-full">
-              <Image
-                className="w-full col-start-1 col-end-1 border-4 rounded-3xl"
-                id="slide-start"
-                alt=""
-                src={slide2}
-              />
-              <Image
-                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
-                id="slide3"
-                alt=""
-                src={slide3}
-              />
-              <Image
-                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
-                id="slide4"
-                alt=""
-                src={slide9}
-              />
-              <Image
-                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
-                id="slide5"
-                alt=""
-                src={slide10}
-              />
-              <Image
-                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
-                id="slide6"
-                alt=""
-                src={slide4}
-              />
-              <Image
-                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
-                id="slide7"
-                alt=""
-                src={slide6}
-              />
-              <Image
-                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
-                id="slide8"
-                alt=""
-                src={slide5}
-              />
-              <Image
-                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
-                id="slide9"
-                alt=""
-                src={slide7}
-              />
-              <Image
-                className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
-                id="slide10"
-                alt=""
-                src={slide8}
-              />
-            </div>
+        <div className="w-full flex py-28 lg:px-12 px-5 bg-black justify-center ">
+          <div className="flex items-center w-full max-w-screen-xl">
+            <div className="flex lg:flex-row flex-col-reverse items-center xl:gap-[99px] gap-12">
+              <div className="relative grid grid-cols-1 xl:w-1/2 w-full">
+                <Image
+                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl"
+                  id="slide-start"
+                  alt=""
+                  src={slide2}
+                />
+                <Image
+                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  id="slide3"
+                  alt=""
+                  src={slide3}
+                />
+                <Image
+                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  id="slide4"
+                  alt=""
+                  src={slide9}
+                />
+                <Image
+                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  id="slide5"
+                  alt=""
+                  src={slide10}
+                />
+                <Image
+                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  id="slide6"
+                  alt=""
+                  src={slide4}
+                />
+                <Image
+                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  id="slide7"
+                  alt=""
+                  src={slide6}
+                />
+                <Image
+                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  id="slide8"
+                  alt=""
+                  src={slide5}
+                />
+                <Image
+                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  id="slide9"
+                  alt=""
+                  src={slide7}
+                />
+                <Image
+                  className="w-full col-start-1 col-end-1 border-4 rounded-3xl slide absolute"
+                  id="slide10"
+                  alt=""
+                  src={slide8}
+                />
+              </div>
 
-            <div className="flex flex-col xl:w-1/2 w-full gap-[28px]">
-              <h2 className="font-bold text-[28px]">What can I do?</h2>
-              <h1 className="playfair  font-bold text-[#050505] lg:text-[64px] text-5xl tracking-[0] lg:leading-[80px] leading-[60px]">
-                Create a List, and Now You Have a Gathering Space
-              </h1>
-              <p className="top-[268px] left-0 font-normal text-[#333333] text-2xl tracking-[0] leading-[30px]">
-                Share your list, and people can comment, upvote and downvote
-                links, add to their own lists.
-              </p>
+              <div className="flex flex-col xl:w-1/2 w-full gap-[28px]">
+                <h2 className="font-bold text-[32px] text-burntsienna tracking-tight">
+                  What can I do?
+                </h2>
+                <h1 className="playfair  font-bold text-lightgray lg:text-[64px] text-5xl tracking-[0] lg:leading-[80px] leading-[60px]">
+                  Create a List, and Now You Have a Gathering Space
+                </h1>
+                <p className="top-[268px] left-0 font-normal text-lightgray text-2xl tracking-[0] leading-[30px]">
+                  Share your list, and people can comment, upvote and downvote
+                  links, add to their own lists.
+                </p>
+              </div>
             </div>
+          </div>
+        </div>
+
+        {/* try now */}
+        <div className="lg:px-12 px-5 w-full max-w-screen-xl">
+          <div className="flex md:flex-row flex-col  w-full items-center md:justify-between justify-center lg:px-[81px] lg:py-[52px] md:px-9 md:py-9 md:bg-tan lg:rounded-[52px] md:rounded-[32px] lg:gap-12 gap-8">
+            <div className="flex flex-col md:gap-2 gap-4 w-full">
+              <h1 className="playfair font-bold text-black lg:text-[64px] text-5xl tracking-[0] lg:leading-[80px] leading-[60px] md:text-left text-center">
+                Try Blake now
+              </h1>
+              <div className="font-normal text-black text-2xl tracking-[0] leading-[30px] md:text-left text-center">
+                Your bookmarks, your community
+              </div>
+            </div>
+            <AnimatedButton variant="lg" href="/login" className="text-nowrap">
+              Start Here
+            </AnimatedButton>
           </div>
         </div>
 
         {/* newsletter */}
         <div className="lg:px-12 px-5 flex flex-col items-center w-full max-w-screen-xl">
           <div className="flex flex-col gap-6 lg:w-3/4 w-full">
-            <h2 className="font-bold text-[28px]">Why use Blake?</h2>
+            <h2 className="font-bold text-[32px] tracking-tight text-burntsienna">
+              Why use Blake?
+            </h2>
             <h1 className="playfair font-bold w-full text-[#050505] lg:text-[64px] text-5xl tracking-[0] lg:leading-[80px] leading-[60px]">
               It&apos;s the new way to make communities
             </h1>
@@ -235,23 +261,6 @@ export default function Page() {
               </p>
               <Heart className="w-[47px] h-[38.96px] self-center" />
             </div>
-          </div>
-        </div>
-
-        {/* try now */}
-        <div className="lg:px-12 px-5 w-full max-w-screen-xl">
-          <div className="flex md:flex-row flex-col  w-full items-center md:justify-between justify-center lg:px-[81px] lg:py-[52px] md:px-9 md:py-9 md:bg-[#f7f7f5] lg:rounded-[52px] md:rounded-[32px] lg:gap-12 gap-8">
-            <div className="flex flex-col md:gap-2 gap-4 w-full">
-              <h1 className="playfair font-bold text-black lg:text-[64px] text-5xl tracking-[0] lg:leading-[80px] leading-[60px] md:text-left text-center">
-                Try Blake now
-              </h1>
-              <div className="font-normal text-black text-2xl tracking-[0] leading-[30px] md:text-left text-center">
-                Your bookmarks, your community
-              </div>
-            </div>
-            <AnimatedButton variant="lg" href="/login" className="text-nowrap">
-              Start Here
-            </AnimatedButton>
           </div>
         </div>
       </div>

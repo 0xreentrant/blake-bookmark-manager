@@ -28,7 +28,7 @@ const worksans = Work_Sans({
 export default function Layout({ children }) {
   return (
     <html className={`${playfair.variable} ${worksans.className}`}>
-      <body className="!pointer-events-auto pt-4">
+      <body className="!pointer-events-auto pt-4 bg-lightgray">
         {/* Header nav */}
         <div className="flex justify-between lg:px-12 px-5 pb-8">
           <img
@@ -55,8 +55,8 @@ export default function Layout({ children }) {
         <div className="">{children}</div>
 
         {/* footer */}
-        <div className="flex md:flex-row flex-col-reverse justify-between items-center w-full px-[51px] md:py-[18px] py-10 gap-[32px] bg-[#050505]">
-          <div className="font-normal text-white text-base tracking-[0] whitespace-nowrap">
+        <div className="flex md:flex-row flex-col-reverse justify-between items-center w-full px-[51px] md:py-[18px] py-10 gap-[32px] bg-tan">
+          <div className="font-normal text-black  tracking-[0] whitespace-nowrap">
             Copyright 2024 Alex Perez
           </div>
           <div className="flex md:flex-row flex-col-reverse items-center md:gap-[29px] gap-5">
@@ -68,14 +68,14 @@ export default function Layout({ children }) {
              *  Our Story
              *</div>
              */}
-            <div className="text-white flex gap-[32px]">
+            <div className="text-black flex gap-[32px]">
               Socials:
               <Link href="https://github.com/0xreentrant/blake-bookmark-manager">
-                <Github color="#ffffff" />
+                <Github color="#050505" />
               </Link>
               {/* TODO: link to blake linkedin */}
               <Link href="https://linkedin/in/alexanderlperez">
-                <Linkedin color="#ffffff" />
+                <Linkedin color="#050505" />
               </Link>
               {/* TODO: link to blake twitter */}
               {/*
@@ -84,7 +84,7 @@ export default function Layout({ children }) {
             </div>
             <Link
               href="/login"
-              className="w-max px-8 py-2.5 border-2 border-solid border-white hover:border-white hover:bg-white hover:text-black hover:active:bg-[#050505] hover:active:text-white transition duration-300 rounded-xl font-medium text-white text-l tracking-[0] leading-[18px]"
+              className="w-max px-8 py-2.5 border-2 border-solid border-black hover:border-black hover:bg-black hover:text-black hover:active:bg-[#050505] hover:active:text-black transition duration-300 rounded-xl font-medium text-black text-l tracking-[0] leading-[18px]"
             >
               Login/Sign Up
             </Link>
