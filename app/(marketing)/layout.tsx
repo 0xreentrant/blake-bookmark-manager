@@ -84,7 +84,7 @@ export default function Layout({ children }) {
             </div>
             <Link
               href="/login"
-              className="w-max px-8 py-2.5 border-2 border-solid border-black hover:border-black hover:bg-black hover:text-lightgray hover:active:bg-[#050505] hover:active:text-black transition duration-300 rounded-xl font-medium text-black text-l tracking-[0] leading-[18px]"
+              className="w-max px-8 py-2.5 border-2 border-solid border-black hover:border-black hover:bg-black hover:text-lightgray hover:active:bg-tan hover:active:text-black transition duration-300 rounded-xl font-medium text-black text-l tracking-[0] leading-[18px]"
             >
               Login/Sign Up
             </Link>
