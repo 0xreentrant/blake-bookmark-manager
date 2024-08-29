@@ -74,7 +74,7 @@ export default function Layout({ children }) {
                 <Github color="#050505" />
               </Link>
               {/* TODO: link to blake linkedin */}
-              <Link href="https://linkedin/in/alexanderlperez">
+              <Link href="https://linkedin.com/in/alexanderlperez">
                 <Linkedin color="#050505" />
               </Link>
               {/* TODO: link to blake twitter */}
