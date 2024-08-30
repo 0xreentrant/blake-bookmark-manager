@@ -74,12 +74,13 @@ export const Entry = ({
   handleRestore;
   handleUpvote;
   handleDownvote;
+  disableTrigger: boolean;
   style?;
 }) => {
   const router = useRouter();
   const [isModifyListsDialogOpen, setModifyListsDialogOpen] = useState(false);
   const [isArchiveAlertOpen, setArchiveAlertOpen] = useState(false);
-  const [isDesktopDropdownOpen, TEMPsetDesktopDropdownOpen] = useState(false);
+  const [isDesktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
   const [isMobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const shouldPreventRefresh = usePathname().includes("random");
   const linkInternetArchive = "https://web.archive.org/web/*/" + href;
@@ -92,12 +93,9 @@ export const Entry = ({
     setArchiveAlertOpen(true);
   };
 
-  const setDesktopDropdownOpen = (val) => {
-    console.log("setting", title, " to", val);
-    TEMPsetDesktopDropdownOpen(val);
+  const handleDesktopDropdownOpen = (val) => {
+    setDesktopDropdownOpen(val);
   };
-
-  console.log(title.slice(0, 10), isDesktopDropdownOpen);
 
   const handleArchiveByExistenceInLists = includedInLists?.length
     ? handleArchiveAlert // handleArchive will be called by the alert form action
@@ -224,7 +222,7 @@ export const Entry = ({
           <div className="hidden lg:flex items-center">
             <DropdownMenu
               open={isDesktopDropdownOpen}
-              onOpenChange={setDesktopDropdownOpen}
+              onOpenChange={handleDesktopDropdownOpen}
             >
               <DropdownMenuTrigger>
                 <span className="text-base">
