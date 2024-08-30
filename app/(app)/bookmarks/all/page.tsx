@@ -16,6 +16,7 @@ export default async function Page() {
   const userBookmarks = await allBookmarks(user);
   const userLists = await allLists(user);
 
+  console.log("rendering page", Date.now());
   return (
     <>
       <PageHeading>All bookmarks</PageHeading>

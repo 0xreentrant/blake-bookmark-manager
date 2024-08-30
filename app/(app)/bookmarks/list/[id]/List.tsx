@@ -74,15 +74,15 @@ export function List({ list, bookmarks, lists }) {
             {list.title}
           </div>
         </div>
-        <div className="lg:hidden text-notion-base">
+        <div className="lg:hidden text-base">
           <Drawer open={isMenuOpenMobile} onOpenChange={setMenuOpenMobile}>
             <DrawerTrigger
-              className="outline-none text-notion-heading mr-2 p-1 w-10 h-10 rounded-full bg-notion-hover-bg flex justify-center items-center"
+              className="outline-none text-heading mr-2 p-1 w-10 h-10 rounded-full bg-hover-bg flex justify-center items-center"
               asChild
             >
               <Ellipsis />
             </DrawerTrigger>
-            <DrawerContent className="h-screen text-notion-heading">
+            <DrawerContent className="h-screen text-heading">
               <DrawerHeader className="flex items-center  justify-between">
                 <DrawerTitle>List Options</DrawerTitle>
                 <DrawerClose className="flex items-center gap-2 text-lg">
@@ -116,13 +116,13 @@ export function List({ list, bookmarks, lists }) {
             open={isMenuOpenDesktop}
             onOpenChange={setMenuOpenDesktop}
           >
-            <DropdownMenuTrigger className="outline-none text-notion-heading">
+            <DropdownMenuTrigger className="outline-none text-heading">
               <Ellipsis size={16} />
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
               alignOffset={15}
-              className="text-notion-heading"
+              className="text-heading"
             >
               <DropdownMenuLabel>List Options</DropdownMenuLabel>
               <DropdownMenuItem onClick={handleEditMenuItemDesktop}>
@@ -149,7 +149,7 @@ export function List({ list, bookmarks, lists }) {
         open={isEditDrawerOpenMobile}
         onOpenChange={setEditDrawerOpenMobile}
       >
-        <DrawerContent className="h-screen text-notion-heading">
+        <DrawerContent className="h-screen text-heading">
           <form
             action={editList.bind(null, list.id)}
             onSubmit={() => setEditDrawerOpenMobile(false)}

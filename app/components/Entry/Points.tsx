@@ -13,7 +13,7 @@ export function Points({
   return (
     <>
       <div
-        className={`hidden lg:flex flex-row items-center pr-1.5 text-notion-base ${
+        className={`hidden lg:flex flex-row items-center pr-1.5 text-base ${
           className ?? ""
         }`}
       >
@@ -24,7 +24,7 @@ export function Points({
         </div>
       </div>
       <div
-        className={`flex lg:hidden flex-col h-full justify-between items-center text-notion-base ${
+        className={`flex lg:hidden flex-col h-full justify-between items-center text-base ${
           className ?? ""
         }`}
       >

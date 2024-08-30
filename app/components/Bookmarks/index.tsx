@@ -30,6 +30,8 @@ export function Bookmarks({ bookmarks, allLists }) {
   const setRemainderHeightThrottled = throttle(setRemainderHeight, 30);
   const setFirstChildHeightThrottled = throttle(setFirstChildHeight, 30);
 
+  console.log("rendering bookmarks", Date.now(), remainderHeight, firstChildHeight);
+
   const Row = ({ style, data, index }) => {
     const entry = data[index];
     const { id, archived, points, href, title, date, bookmarksToLists } = entry;

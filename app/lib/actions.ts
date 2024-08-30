@@ -48,6 +48,7 @@ export async function saveNote(id, notes, _) {
 }
 
 export async function createList(title: string, userId: string) {
+  console.log({title, userId})
   const out: InsertList[] = await db
     .insert(lists)
     .values({ title, userId })

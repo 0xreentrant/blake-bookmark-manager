@@ -31,7 +31,7 @@ export const AddMenuButton = () => {
     <div className="flex items-center">
       <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
         <DialogTrigger asChild>
-          <div className="p-2 flex items-center rounded-md [border-top-right-radius:0px] [border-bottom-right-radius:0px] [border-right-width:1px] [border-right-color:white] px-3 text-notion-heading bg-notion-hover-bg hover:bg-slate-200">
+          <div className="p-2 flex items-center rounded-md [border-top-right-radius:0px] [border-bottom-right-radius:0px] [border-right-width:1px] [border-right-color:white] px-3 text-heading bg-hover-bg hover:bg-slate-200">
             <Plus size={16} />
             <span className="pl-1 font-semibold">Add</span>
           </div>
@@ -75,9 +75,9 @@ export const AddMenuButton = () => {
       <DropdownMenu>
         <DropdownMenuTrigger
           asChild
-          className="p-2 rounded-md [border-top-left-radius:0px] [border-bottom-left-radius:0px] px-2 text-notion-heading bg-notion-hover-bg hover:bg-slate-200"
+          className="p-2 rounded-md [border-top-left-radius:0px] [border-bottom-left-radius:0px] px-2 text-heading bg-hover-bg hover:bg-slate-200"
         >
-          <span className="text-notion-base">
+          <span className="text-base">
             <ChevronDown />
           </span>
         </DropdownMenuTrigger>

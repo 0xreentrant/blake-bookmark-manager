@@ -70,7 +70,7 @@ export function Details({ entry }) {
               onOpenChange={setDesktopDropdownOpen}
             >
               <DropdownMenuTrigger>
-                <span className="text-notion-base">
+                <span className="text-base">
                   <Ellipsis
                     onClick={() =>
                       setDesktopDropdownOpen(!isDesktopDropdownOpen)
@@ -92,12 +92,12 @@ export function Details({ entry }) {
         <div className="block lg:hidden pr-2">
           <Drawer open={isMenuOpenMobile} onOpenChange={setMenuOpenMobile}>
             <DrawerTrigger
-              className="outline-none h-min text-notion-heading p-1 w-10 h-10 rounded-full bg-notion-hover-bg"
+              className="outline-none h-min text-heading p-1 w-10 h-10 rounded-full bg-hover-bg"
               asChild
             >
               <Ellipsis />
             </DrawerTrigger>
-            <DrawerContent className="h-screen text-notion-heading">
+            <DrawerContent className="h-screen text-heading">
               <DrawerHeader className="flex items-center justify-between">
                 <DrawerTitle>Edit Bookmark Options</DrawerTitle>
                 <DrawerClose className="flex items-center gap-2 text-lg">
@@ -187,7 +187,7 @@ export function Details({ entry }) {
         open={isEditDrawerOpenMobile}
         onOpenChange={setEditDrawerOpenMobile}
       >
-        <DrawerContent className="h-screen text-notion-heading">
+        <DrawerContent className="h-screen text-heading">
           <DrawerHeader className="flex items-center justify-between">
             <DrawerTitle>Edit Title</DrawerTitle>
             <DrawerClose className="flex items-center gap-2 text-lg">

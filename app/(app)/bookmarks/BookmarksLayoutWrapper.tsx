@@ -80,12 +80,12 @@ export function BookmarksLayoutWrapper({
       <div className="flex flex-col lg:flex-row w-full h-screen divide-x">
         <div className="hidden lg:block">{navPanelWithHandler}</div>
         {/* @dev this is the mobile version of page heading widgets */}
-        <div className="w-full h-12 flex justify-between items-center px-2 bg-notion-panel lg:hidden">
+        <div className="w-full h-12 flex justify-between items-center px-2 bg-panel lg:hidden">
           <Drawer
             open={isMobileDropdownOpen}
             onOpenChange={setMobileDropdownOpen}
           >
-            <DrawerTrigger className="outline-none text-notion-heading">
+            <DrawerTrigger className="outline-none text-heading">
               <Avatar>
                 <AvatarImage src={user.avatar} />
                 <AvatarFallback>
@@ -93,7 +93,7 @@ export function BookmarksLayoutWrapper({
                 </AvatarFallback>
               </Avatar>
             </DrawerTrigger>
-            <DrawerContent className="h-screen text-notion-heading">
+            <DrawerContent className="h-screen text-heading">
               <DrawerHeader className="flex items-center justify-between">
                 <DrawerTitle></DrawerTitle>
                 <DrawerClose className="flex items-center gap-2 text-lg">
@@ -129,14 +129,14 @@ export function BookmarksLayoutWrapper({
           </Drawer>
 
           <Sheet open={isNavPanelOpen} onOpenChange={setNavPanelOpen}>
-            <SheetTrigger className="text-notion-heading/75">
+            <SheetTrigger className="text-heading/75">
               <PanelRight />
             </SheetTrigger>
             <SheetContent side="right" className="w-52 p-0">
-              <SheetHeader className="flex flex-row items-center p-2 justify-between w-full bg-notion-panel">
+              <SheetHeader className="flex flex-row items-center p-2 justify-between w-full bg-panel">
                 <Logo />
                 <SheetClose asChild>
-                  <X className="!m-0 text-notion-heading/75" />
+                  <X className="!m-0 text-heading/75" />
                 </SheetClose>
               </SheetHeader>
               {navPanelWithHandler}

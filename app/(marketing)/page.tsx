@@ -68,7 +68,6 @@ export default function Page() {
     });
 
     // reveals
-    console.log("at reveals");
     const sections = gsap.utils
       .toArray(".reveal")
       .forEach((container: HTMLElement) => {

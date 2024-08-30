@@ -79,7 +79,7 @@ export const Entry = ({
   const router = useRouter();
   const [isModifyListsDialogOpen, setModifyListsDialogOpen] = useState(false);
   const [isArchiveAlertOpen, setArchiveAlertOpen] = useState(false);
-  const [isDesktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
+  const [isDesktopDropdownOpen, TEMPsetDesktopDropdownOpen] = useState(false);
   const [isMobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const shouldPreventRefresh = usePathname().includes("random");
   const linkInternetArchive = "https://web.archive.org/web/*/" + href;
@@ -91,6 +91,13 @@ export const Entry = ({
     setMobileDropdownOpen(false);
     setArchiveAlertOpen(true);
   };
+
+  const setDesktopDropdownOpen = (val) => {
+    console.log("setting", title, " to", val);
+    TEMPsetDesktopDropdownOpen(val);
+  };
+
+  console.log(title.slice(0, 10), isDesktopDropdownOpen);
 
   const handleArchiveByExistenceInLists = includedInLists?.length
     ? handleArchiveAlert // handleArchive will be called by the alert form action
@@ -115,7 +122,7 @@ export const Entry = ({
         {/* TODO: merge these doubled title and date elements w/ better tailwind css */}
         <div className="px-4 lg:px-0 lg:pl-2 grow-[5] flex flex-col lg:flex-row min-w-0 w-full whitespace-nowrap">
           <Link
-            className="lg:hidden text-sm font-bold w-full truncate text-notion-heading"
+            className="lg:hidden text-sm font-bold w-full truncate text-heading"
             title={title}
             href={href}
             target="_blank"
@@ -123,7 +130,7 @@ export const Entry = ({
           >
             {title}
           </Link>
-          <div className="block lg:hidden text-notion-base text-sm">
+          <div className="block lg:hidden text-base text-sm">
             {/* TODO: user's locale */}
             {/* @ts-ignore */}
             {new Date(date * 1000).toLocaleString("en-US", localeOptions)}
@@ -131,7 +138,7 @@ export const Entry = ({
 
           <div className="justify-between w-full items-center hidden lg:flex">
             <Link
-              className="font-bold truncate text-notion-heading"
+              className="font-bold truncate text-heading"
               title={title}
               href={href}
               target="_blank"
@@ -139,7 +146,7 @@ export const Entry = ({
             >
               {title}
             </Link>
-            <span className="pl-4 text-notion-base text-sm">
+            <span className="pl-4 text-base text-sm">
               {/* @ts-ignore */}
               {new Date(date * 1000).toLocaleString("en-US", localeOptions)}
             </span>
@@ -153,10 +160,10 @@ export const Entry = ({
               open={isMobileDropdownOpen}
               onOpenChange={setMobileDropdownOpen}
             >
-              <DrawerTrigger className="outline-none text-notion-heading">
+              <DrawerTrigger className="outline-none text-heading">
                 <Ellipsis size={18} />
               </DrawerTrigger>
-              <DrawerContent className="h-screen text-notion-heading">
+              <DrawerContent className="h-screen text-heading">
                 <DrawerHeader className="flex items-center justify-between">
                   <DrawerTitle>Bookmark Options</DrawerTitle>
                   <DrawerClose className="flex items-center gap-2 text-lg">
@@ -220,12 +227,8 @@ export const Entry = ({
               onOpenChange={setDesktopDropdownOpen}
             >
               <DropdownMenuTrigger>
-                <span className="text-notion-base">
-                  <Ellipsis
-                    onClick={() =>
-                      setDesktopDropdownOpen(!isDesktopDropdownOpen)
-                    }
-                  />
+                <span className="text-base">
+                  <Ellipsis />
                 </span>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -262,7 +265,7 @@ export const Entry = ({
             </DropdownMenu>
           </div>
 
-          <span className="text-notion-base">
+          <span className="text-base">
             {includedInLists && !includedInLists.length ? (
               <FolderPlus
                 size={20}

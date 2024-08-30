@@ -56,6 +56,8 @@ export default async function BookmarksLayout({ children }) {
     user: userCookieId,
   });
 
+  console.log("rendering layout", Date.now());
+
   return (
     <BookmarksLayoutWrapper
       navPanel={

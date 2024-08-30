@@ -11,7 +11,7 @@ import { IconHome } from "../Icon/Home";
 import { ListEntry } from "../ListEntry";
 import { withActiveToggle } from "@/lib/ui";
 import { UserContext } from "@/components/UserContext";
-import { BlakeUser } from '@/lib/auth'
+import { BlakeUser } from "@/lib/auth";
 
 export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {
   const user = useContext<BlakeUser>(UserContext);
@@ -21,8 +21,8 @@ export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {
   return (
     <>
       {/* @dev padding top is here for mobile/desktop transition + space for nav toggle icons */}
-      <div className="flex flex-col w-52 pt-2 lg:pt-4 px-2 lg:pt-2.5 h-screen overflow-hidden bg-notion-panel">
-        <ul className="flex flex-col gap-y-3 px-2 pb-6 pt-2 font-normal text-notion-heading">
+      <div className="flex flex-col w-52 pt-2 lg:pt-4 px-2 lg:pt-2.5 h-screen overflow-hidden bg-panel">
+        <ul className="flex flex-col gap-y-3 px-2 pb-6 pt-2 font-normal text-heading">
           <li className="">
             <Link
               onClick={handleNavSelection}
@@ -76,11 +76,10 @@ export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {
         <hr className="" />
 
         <div className="flex justify-between items-center px-3 pt-4 pb-2">
-          <span className="font-medium text-notion-heading">Your Lists</span>
+          <span className="font-medium text-heading">Your Lists</span>
           <IconPlus
             className="hover:cursor-pointer"
             onClick={async () => {
-              console.log({ user });
               const listId = await createList("New List", user.userId);
               handleNavSelection();
               router.push(`/bookmarks/list/${listId}`);
@@ -98,8 +97,8 @@ export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {
                 className={`${withActiveToggle(
                   pathname,
                   "/bookmarks/list/" + list.id,
-                  "font-bold bg-notion-hover-bg"
-                )} w-full px-3 inline-flex items-center whitespace-nowrap text-sm  ring-offset- transition-colors  text-notion-base hover:bg-notion-hover-bg hover:text-notion-active h-8 rounded-md justify-start`}
+                  "font-bold bg-hover-bg"
+                )} w-full px-3 inline-flex items-center whitespace-nowrap text-sm  ring-offset- transition-colors  text-base hover:bg-hover-bg hover:text-active h-8 rounded-md justify-start`}
               >
                 <span className="text-xs font-medium pr-2 ">
                   {list.bookmarksCount}
