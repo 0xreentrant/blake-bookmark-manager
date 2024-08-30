@@ -102,11 +102,10 @@ export const google = new Google(
  */
 
 export type ClientUser = {
-  userId: string;
-  username: string;
+  id: string;
   givenName: string;
   familyName: string;
-  avatar: string;
+  googleAvatar: string;
 };
 
 /////////////

@@ -87,7 +87,7 @@ export function BookmarksLayoutWrapper({
           >
             <DrawerTrigger className="outline-none text-heading">
               <Avatar>
-                <AvatarImage src={user.avatar} />
+                <AvatarImage src={user.googleAvatar} />
                 <AvatarFallback>
                   {user.givenName[0] + user.familyName[0]}
                 </AvatarFallback>

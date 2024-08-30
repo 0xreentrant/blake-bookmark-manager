@@ -80,7 +80,7 @@ export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {
           <IconPlus
             className="hover:cursor-pointer"
             onClick={async () => {
-              const listId = await createList("New List", user.userId);
+              const listId = await createList("New List", user.id);
               handleNavSelection();
               router.push(`/bookmarks/list/${listId}`);
             }}

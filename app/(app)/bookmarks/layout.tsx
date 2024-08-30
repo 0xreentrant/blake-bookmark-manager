@@ -27,11 +27,11 @@ export default async function BookmarksLayout({ children }) {
         throw new Error("User not found");
       }
       return {
-        userId: userCookieId.id,
-        username: user.googleId,
+        id: userCookieId.id,
+         googleId: user.googleId,
         givenName: user.givenName,
         familyName: user.familyName,
-        avatar: user.googleAvatar,
+        googleAvatar: user.googleAvatar,
       };
     });
 

@@ -23,9 +23,10 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { saveBookmark } from "@/lib/actions";
 import { UserContext } from "@/components/UserContext";
+import { ClientUser } from "@/lib/auth";
 
 export const AddMenuButton = () => {
-  const { user } = useContext(UserContext);
+  const user = useContext<ClientUser>(UserContext);
   const [isDialogOpen, setDialogOpen] = useState(false);
   return (
     <div className="flex items-center">

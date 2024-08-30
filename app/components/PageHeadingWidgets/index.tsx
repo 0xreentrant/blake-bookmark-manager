@@ -14,9 +14,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { UserContext } from "@/components/UserContext";
+import { ClientUser } from "@/lib/auth";
 
 export function PageHeadingWidgets() {
-  const user = useContext(UserContext);
+  const user = useContext<ClientUser>(UserContext);
   const [isDesktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
   const [isLogoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const router = useRouter();
@@ -36,7 +37,7 @@ export function PageHeadingWidgets() {
           >
             <DropdownMenuTrigger>
               <Avatar>
-                <AvatarImage src={user.avatar} />
+                <AvatarImage src={user.googleAvatar} />
                 <AvatarFallback>
                   {user.givenName[0] + user.familyName[0]}
                 </AvatarFallback>
@@ -50,7 +51,7 @@ export function PageHeadingWidgets() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              */ }
+              */}
               <DropdownMenuItem onClick={() => setLogoutDialogOpen(true)}>
                 {/* TODO: logout */}
                 <span>Logout</span>

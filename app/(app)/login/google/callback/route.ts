@@ -33,17 +33,20 @@ export async function GET(request: Request): Promise<Response> {
     const googleUser: GoogleUser = await response.json();
 
     // Replace this with your own DB client.
-    const existingUser = await db
+    const existingUser: ClientUser[] = await db
       .select()
       .from(users)
-      .where(eq(users.googleId, googleUser.email))?.[0];
+      .where(eq(users.googleId, googleUser.email))
+      .limit(1);
+
+    console.log("Logging in with existing user?", existingUser);
 
     /*
      * Existing user
      */
 
-    if (existingUser) {
-      const session = await lucia.createSession(existingUser.id, {});
+    if (existingUser.length) {
+      const session = await lucia.createSession(existingUser[0].id, {});
       const sessionCookie = lucia.createSessionCookie(session.id);
       cookies().set(
         sessionCookie.name,

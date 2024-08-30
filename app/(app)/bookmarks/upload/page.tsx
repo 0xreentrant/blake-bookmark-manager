@@ -25,8 +25,8 @@ export default function Upload() {
     const formData = new FormData();
     const file = data.files[0];
     formData.append("file", file);
-    await uploadBookmarksFile(user.userId, formData);
-    router.push('/bookmarks/all')
+    await uploadBookmarksFile(user.id, formData);
+    router.push("/bookmarks/all");
   };
 
   return (
