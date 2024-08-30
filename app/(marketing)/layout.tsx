@@ -57,7 +57,12 @@ export default function Layout({ children }) {
 
         {/* footer */}
         <div className="flex md:flex-row flex-col-reverse justify-between items-center w-full px-[51px] md:py-[28px] py-10 gap-[32px] bg-tan">
-          <div className="font-normal text-black  tracking-tight whitespace-nowrap">
+          <div className="flex items-center gap-4 font-normal text-black  tracking-tight whitespace-nowrap">
+            <img
+              className="w-[35px]"
+              alt="Blake logo removebg"
+              src="blake-logo-final.png"
+            />
             Copyright 2024 Alex Perez
           </div>
           <div className="flex md:flex-row flex-col-reverse items-center md:gap-[29px] gap-5">
