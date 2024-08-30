@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { CloudUpload, List, ExternalLink, Heart } from "lucide-react";
 import Typewriter from "typewriter-effect";
@@ -24,8 +25,9 @@ import slide8 from "@/public/slide8.png";
 import slide9 from "@/public/slide9.png";
 import slide10 from "@/public/slide10.png";
 import hero from "@/public/home-blake2.png";
+import { getAttributeValue } from "domutils";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function Page() {
   const page = useRef<HTMLDivElement>(null);
@@ -65,6 +67,39 @@ export default function Page() {
       });
     });
 
+    // reveals
+    console.log("at reveals");
+    const sections = gsap.utils
+      .toArray(".reveal")
+      .forEach((container: HTMLElement) => {
+        const tl = gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: container,
+              start: "top 70%",
+              toggleActions: "play none none reverse",
+            },
+          })
+          .delay(0);
+
+        gsap.utils
+          .toArray("[data-order]", container)
+          .sort((a: HTMLElement, b: HTMLElement) => {
+            let ordA =
+              Number(a.getAttribute("data-order")) || Number.MAX_SAFE_INTEGER;
+            let ordB =
+              Number(b.getAttribute("data-order")) || Number.MAX_SAFE_INTEGER;
+            return ordA - ordB;
+          })
+          .forEach((elem: HTMLElement) => {
+            tl.from(elem, {
+              opacity: 0,
+              duration: Number(container.getAttribute("data-duration")) || 0.25,
+              ease: "power1.in",
+            });
+          });
+      });
+
     // slideshow
     const duration = 1;
     const delay = 0.75;
@@ -86,10 +121,7 @@ export default function Page() {
 
   return (
     <div className="w-full">
-      <div
-        className="flex flex-col items-center w-full pb-28 xl:gap-38 gap-32 bg-lightgra
-      y"
-      >
+      <div className="flex flex-col items-center w-full pb-28 xl:gap-38 gap-32 bg-lightgray">
         {/* Hero */}
         <div
           ref={page}
@@ -146,10 +178,13 @@ export default function Page() {
         </div>
 
         {/* Blurb */}
-        <div className="w-full flex py-28 lg:px-12 px-5 bg-black justify-center ">
+        <div className="reveal w-full flex py-28 lg:px-12 px-5 bg-black justify-center ">
           <div className="flex items-center w-full max-w-screen-xl">
             <div className="flex lg:flex-row flex-col-reverse items-center xl:gap-[99px] gap-12">
-              <div className="relative grid grid-cols-1 xl:w-1/2 w-full xl:max-w-[500px]">
+              <div
+                data-order="4"
+                className="relative grid grid-cols-1 xl:w-1/2 w-full xl:max-w-[500px]"
+              >
                 <Image
                   className="w-full col-start-1 col-end-1 border-3 rounded-3xl"
                   id="slide-start"
@@ -207,13 +242,22 @@ export default function Page() {
               </div>
 
               <div className="flex flex-col xl:w-1/2 w-full gap-[28px]">
-                <h2 className="font-bold text-[32px] text-burntsienna tracking-tight">
+                <h2
+                  data-order="1"
+                  className="font-bold text-[32px] text-burntsienna tracking-tight"
+                >
                   What can I do?
                 </h2>
-                <h1 className="playfair  font-bold text-lightgray lg:text-[64px] text-5xl tracking-tightish lg:leading-[80px] leading-[60px]">
+                <h1
+                  data-order="2"
+                  className="playfair  font-bold text-lightgray lg:text-[64px] text-5xl tracking-tightish lg:leading-[80px] leading-[60px]"
+                >
                   Create a List, and Now You Have a Gathering Space
                 </h1>
-                <p className="top-[268px] left-0 font-normal text-lightgray text-2xl tracking-tight leading-[30px]">
+                <p
+                  data-order="3"
+                  className="top-[268px] left-0 font-normal text-lightgray text-2xl tracking-tight leading-[30px]"
+                >
                   Share your list, and people can comment, upvote and downvote
                   links, add to their own lists.
                 </p>
@@ -222,34 +266,26 @@ export default function Page() {
           </div>
         </div>
 
-        {/* try now */}
-        <div className="lg:px-12 px-5 w-full max-w-screen-xl">
-          <div className="flex md:flex-row flex-col  w-full items-center md:justify-between justify-center lg:px-[81px] lg:py-[52px] md:px-9 md:py-9 md:bg-tan lg:rounded-[52px] md:rounded-[32px] lg:gap-12 gap-8">
-            <div className="flex flex-col md:gap-2 gap-4 w-full">
-              <h1 className="playfair font-bold text-black lg:text-[64px] text-5xl tracking-tightish lg:leading-[80px] leading-[60px] md:text-left text-center">
-                Try Blake now
-              </h1>
-              <div className="font-normal text-black text-2xl tracking-tight leading-[30px] md:text-left text-center">
-                Your bookmarks, your community
-              </div>
-            </div>
-            <AnimatedButton variant="lg" href="/login" className="text-nowrap">
-              Start Here
-            </AnimatedButton>
-          </div>
-        </div>
-
         {/* newsletter */}
-        <div className="lg:px-12 px-5 flex flex-col items-center w-full max-w-screen-xl">
+        <div className="reveal lg:px-12 px-5 flex flex-col items-center w-full max-w-screen-xl">
           <div className="flex flex-col gap-6 lg:w-3/4 w-full">
-            <h2 className="font-bold text-[32px] tracking-tight text-burntsienna">
+            <h2
+              data-order="1"
+              className="font-bold text-[32px] tracking-tight text-burntsienna"
+            >
               Why use Blake?
             </h2>
-            <h1 className="playfair font-bold w-full text-[#050505] lg:text-[64px] text-5xl tracking-tightish lg:leading-[80px] leading-[60px]">
+            <h1
+              data-order="2"
+              className="playfair font-bold w-full text-[#050505] lg:text-[64px] text-5xl tracking-tightish lg:leading-[80px] leading-[60px]"
+            >
               It&apos;s the new way to make communities
             </h1>
             <div className="flex flex-col w-full">
-              <p className="pb-8 w-full font-normal text-[#333333] text-2xl tracking-tight leading-[30px]">
+              <p
+                data-order="3"
+                className="pb-8 w-full font-normal text-[#333333] text-2xl tracking-tight leading-[30px]"
+              >
                 Blake is built with Love by Alex Perez. To get updates on Blake
                 and and its author,{" "}
                 <Link
@@ -259,8 +295,41 @@ export default function Page() {
                   join the mailing list
                 </Link>
               </p>
-              <Heart className="w-[47px] h-[38.96px] self-center" />
+              <Heart
+                data-order="4"
+                className="w-[47px] h-[38.96px] self-center"
+              />
             </div>
+          </div>
+        </div>
+        {/* try now */}
+        <div className="reveal lg:px-12 px-5 w-full max-w-screen-xl">
+          <div
+            data-order="1"
+            className="flex md:flex-row flex-col  w-full items-center md:justify-between justify-center lg:px-[81px] lg:py-[52px] md:px-9 md:py-9 md:bg-tan lg:rounded-[52px] md:rounded-[32px] lg:gap-12 gap-8"
+          >
+            <div className="flex flex-col md:gap-2 gap-4 w-full">
+              <h1
+                data-order="2"
+                className="playfair font-bold text-black lg:text-[64px] text-5xl tracking-tightish lg:leading-[80px] leading-[60px] md:text-left text-center"
+              >
+                Try Blake now
+              </h1>
+              <div
+                data-order="3"
+                className="font-normal text-black text-2xl tracking-tight leading-[30px] md:text-left text-center"
+              >
+                Your bookmarks, your community
+              </div>
+            </div>
+            <AnimatedButton
+              data-order="4"
+              variant="lg"
+              href="/login"
+              className="text-nowrap"
+            >
+              Start Here
+            </AnimatedButton>
           </div>
         </div>
       </div>
