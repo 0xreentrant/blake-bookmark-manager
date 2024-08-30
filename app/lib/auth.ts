@@ -101,7 +101,7 @@ export const google = new Google(
  * Blake user
  */
 
-export type BlakeUser = {
+export type ClientUser = {
   userId: string;
   username: string;
   givenName: string;

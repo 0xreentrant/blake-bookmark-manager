@@ -5,7 +5,7 @@ import { users, sessions } from "@/lib/schema";
 import { cookies } from "next/headers";
 import { OAuth2RequestError } from "arctic";
 import { generateIdFromEntropySize } from "lucia";
-import { GoogleUser } from "@/lib/auth";
+import { GoogleUser, ClientUser } from "@/lib/auth";
 
 export async function GET(request: Request): Promise<Response> {
   const url = new URL(request.url);

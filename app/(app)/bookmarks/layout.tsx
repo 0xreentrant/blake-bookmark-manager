@@ -7,7 +7,7 @@ import { BookmarksLayoutWrapper } from "./BookmarksLayoutWrapper";
 import { db } from "@/lib/db";
 import { bookmarks, lists, users } from "@/lib/schema";
 import { redirect } from "next/navigation";
-import { validateRequest, BlakeUser } from "@/lib/auth";
+import { validateRequest, ClientUser } from "@/lib/auth";
 
 export default async function BookmarksLayout({ children }) {
   // @dev it's imperative that all pages with dynamic data derive from a layout with `noStore()`
@@ -18,7 +18,7 @@ export default async function BookmarksLayout({ children }) {
     return redirect("/login");
   }
 
-  const user: BlakeUser = await db.query.users
+  const user: ClientUser = await db.query.users
     .findFirst({
       where: eq(users.id, userCookieId.id),
     })

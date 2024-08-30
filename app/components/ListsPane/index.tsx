@@ -11,10 +11,10 @@ import { IconHome } from "../Icon/Home";
 import { ListEntry } from "../ListEntry";
 import { withActiveToggle } from "@/lib/ui";
 import { UserContext } from "@/components/UserContext";
-import { BlakeUser } from "@/lib/auth";
+import { ClientUser } from "@/lib/auth";
 
 export function ListsPane({ lists, totalBookmarks, handleNavSelection }) {
-  const user = useContext<BlakeUser>(UserContext);
+  const user = useContext<ClientUser>(UserContext);
   const router = useRouter();
   const pathname = usePathname();
 

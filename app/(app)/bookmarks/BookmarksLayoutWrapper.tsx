@@ -30,7 +30,7 @@ import {
 } from "@/components/ui/drawer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
-import { BlakeUser } from "@/lib/auth";
+import { ClientUser } from "@/lib/auth";
 
 export function BookmarksLayoutWrapper({
   navPanel,
@@ -39,7 +39,7 @@ export function BookmarksLayoutWrapper({
 }: {
   navPanel: any;
   content: any;
-  user: BlakeUser;
+  user: ClientUser;
 }) {
   const [isNavPanelOpen, setNavPanelOpen] = useState(false);
   const [isMobileDropdownOpen, setMobileDropdownOpen] = useState(false);

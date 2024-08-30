@@ -9,10 +9,10 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { UserContext } from "@/components/UserContext";
-import { BlakeUser } from "@/lib/auth";
+import { ClientUser } from "@/lib/auth";
 
 export default function Upload() {
-  const user = useContext<BlakeUser>(UserContext);
+  const user = useContext<ClientUser>(UserContext);
   const router = useRouter();
   const { register, handleSubmit } = useForm();
   const [file, setFile] = useState<File>();
