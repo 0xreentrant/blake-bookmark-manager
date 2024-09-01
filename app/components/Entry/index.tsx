@@ -60,6 +60,8 @@ export const Entry = ({
   handleRestore,
   handleUpvote,
   handleDownvote,
+  disableTrigger,
+  handleDisableTrigger,
   style,
 }: {
   id;
@@ -75,6 +77,7 @@ export const Entry = ({
   handleUpvote;
   handleDownvote;
   disableTrigger: boolean;
+  handleDisableTrigger;
   style?;
 }) => {
   const router = useRouter();
@@ -93,7 +96,15 @@ export const Entry = ({
     setArchiveAlertOpen(true);
   };
 
+  console.log({isDesktopDropdownOpen})
+
   const handleDesktopDropdownOpen = (val) => {
+    console.log({
+      disableTrigger,
+      isDesktopDropdownOpen,
+      preventOpen: disableTrigger && !isDesktopDropdownOpen,
+    });
+    handleDisableTrigger(val);
     setDesktopDropdownOpen(val);
   };
 
@@ -280,7 +291,6 @@ export const Entry = ({
         </div>
       </div>
 
-      {/* TODO: optimize, pull up so that we're only using 1 actual modal for add/remove lists */}
       <AlertDialog.Root
         open={isArchiveAlertOpen}
         onOpenChange={setArchiveAlertOpen}
@@ -324,7 +334,6 @@ export const Entry = ({
         </AlertDialog.Portal>
       </AlertDialog.Root>
 
-      {/* TODO: optimize, pull up so that we're only using 1 actual modal for add/remove lists */}
       {/* BUG, TODO: only for Random page, make sure we update if the bookmark has
        * been added to any or removed from all lists.  Also make sure the add/remove from lists
        * modal also updates which lists should be checked.

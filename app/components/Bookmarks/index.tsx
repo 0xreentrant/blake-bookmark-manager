@@ -27,19 +27,17 @@ export function Bookmarks({ bookmarks, allLists }) {
   const listRef = useRef(null);
   const [remainderHeight, setRemainderHeight] = useState(0);
   const [firstChildHeight, setFirstChildHeight] = useState(60);
+  const [isSiblingDropdownOpen, setIsSiblingDropdownOpen] = useState(false);
   const setRemainderHeightThrottled = throttle(setRemainderHeight, 30);
   const setFirstChildHeightThrottled = throttle(setFirstChildHeight, 30);
 
-  console.log("rendering bookmarks", Date.now(), remainderHeight, firstChildHeight);
+  console.log("----------------\n", { isSiblingDropdownOpen });
 
   const Row = ({ style, data, index }) => {
     const entry = data[index];
     const { id, archived, points, href, title, date, bookmarksToLists } = entry;
     const isArchived = archived == 1;
-    const includedInLists = bookmarksToLists
-      ? //? bookmarksToLists.map((e) => e.listId)
-        bookmarksToLists
-      : [];
+    const includedInLists = bookmarksToLists ? bookmarksToLists : [];
 
     return (
       <div style={style} className="">
@@ -53,6 +51,8 @@ export function Bookmarks({ bookmarks, allLists }) {
           date={date}
           allLists={allLists}
           includedInLists={includedInLists}
+          disableTrigger={isSiblingDropdownOpen}
+          handleDisableTrigger={setIsSiblingDropdownOpen}
           handleUpvote={() => upvoteBookmark(id)}
           handleDownvote={() => downvoteBookmark(id)}
           handleArchive={() => archiveBookmark(id)}

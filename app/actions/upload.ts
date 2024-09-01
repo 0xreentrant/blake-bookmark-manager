@@ -14,7 +14,7 @@ import { incr, decr } from "@/lib/dbUtils";
 import cheerio from "cheerio";
 
 export async function uploadBookmarksFile(userId: string, formData: FormData) {
-  console.log(formData);
+  console.log({formData});
 
   const file = formData.get("file") as File;
   const text = await file.text();
@@ -31,12 +31,14 @@ export async function uploadBookmarksFile(userId: string, formData: FormData) {
     });
   });
 
+  console.log("Uploading file", { name: file.name, size: file.size });
+
   try {
     const insertedBookmarks = await db
       .insert(bookmarks)
       .values(list)
       .returning();
-  console.log(insertedBookmarks);
+    console.log(insertedBookmarks);
   } catch (e) {
     throw new Error(e);
   }
