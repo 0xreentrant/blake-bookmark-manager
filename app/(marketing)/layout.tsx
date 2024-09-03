@@ -14,7 +14,53 @@ import {
 } from "lucide-react";
 
 import { AnimatedButton } from "@/components/AnimatedButton";
+import type { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Blake - Social Bookmarking Manager",
+  description:
+    "Discover Blake, the ultimate social bookmarking manager designed to help you create and share online communities through curated bookmark collections. Organize, comment, upvote, and downvote links effortlessly. Built with love by Alex Perez.",
+  keywords: [
+    "social bookmarking",
+    "bookmark manager",
+    "online communities",
+    "curated collections",
+    "link sharing",
+    "bookmark organizing",
+    "community engagement",
+    "upvote and downvote links",
+    "bookmark lists",
+    "SaaS bookmark manager",
+  ],
+  openGraph: {
+    title: "Blake - Social Bookmarking Manager",
+    description:
+      "Discover Blake, the ultimate social bookmarking manager designed to help you create and share online communities through curated bookmark collections.",
+    url: "https://getblake.link",
+    siteName: "Blake",
+    images: [
+      {
+        url: "https://getblake.link/og-image.png",
+        width: 800,
+        height: 600,
+        alt: "Blake - Social Bookmarking Manager",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blake - Social Bookmarking Manager",
+    description:
+      "Discover Blake, the ultimate social bookmarking manager designed to help you create and share online communities through curated bookmark collections.",
+    images: ["https://getblake.link/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 const playfair = Playfair_Display({
   subsets: ["latin"],
   display: "swap",
