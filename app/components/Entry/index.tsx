@@ -74,7 +74,6 @@ export const Entry = ({
   handleRestore;
   handleUpvote;
   handleDownvote;
-  disableTrigger: boolean;
   style?;
 }) => {
   const router = useRouter();
