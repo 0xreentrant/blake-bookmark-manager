@@ -1,7 +1,7 @@
 "use server";
 import { cloneElement } from "react";
 import { unstable_noStore as noStore } from "next/cache";
-import { count, eq } from "drizzle-orm";
+import { count, eq, asc } from "drizzle-orm";
 import { ListsPane } from "@/components/ListsPane";
 import { BookmarksLayoutWrapper } from "./BookmarksLayoutWrapper";
 import { db } from "@/lib/db";
@@ -28,7 +28,7 @@ export default async function BookmarksLayout({ children }) {
       }
       return {
         id: userCookieId.id,
-         googleId: user.googleId,
+        googleId: user.googleId,
         givenName: user.givenName,
         familyName: user.familyName,
         googleAvatar: user.googleAvatar,
@@ -39,6 +39,7 @@ export default async function BookmarksLayout({ children }) {
     .findMany({
       with: { bookmarksToLists: { with: { bookmark: true } } },
       where: eq(lists.userId, userCookieId.id),
+      orderBy: [asc(lists.id)],
     })
     .then((data) => {
       return data.map(({ id, title, bookmarksToLists }) => {
