@@ -2,7 +2,7 @@ import Link from "next/link";
 export function InfoBanner({ className }: { className?: string }) {
   return (
     <div
-      className={`flex items-center justify-center  w-full bg-burntsienna ${className}`}
+      className={`flex items-center justify-center w-full p-2 bg-burntsienna ${className}`}
     >
       <div className="text-lg font-bold">
         UPDATE September 17th, 2024 -{" "}
