@@ -78,14 +78,16 @@ export default function Layout({ children }) {
       <body className="!pointer-events-auto pt-4 bg-lightgray">
         {/* Header nav */}
         <div className="flex justify-between lg:px-12 px-5 pb-8">
-          <img
-            className="w-[35px]"
-            alt="Blake logo removebg"
-            src="blake-logo-final.png"
-          />
+          <Link href="/">
+            <img
+              className="w-[35px]"
+              alt="Blake logo removebg"
+              src="blake-logo-final.png"
+            />
+          </Link>
           <div className="flex items-center gap-[29px]">
             <Link
-              className="text-black text-l tracking-[0] leading-[30px] whitespace-nowrap"
+              className="text-black text-l tracking-[0] leading-[30px] whitespace-nowrap underline"
               href="/updates"
             >
               News & Updates
@@ -105,12 +107,20 @@ export default function Layout({ children }) {
         {/* footer */}
         <div className="flex md:flex-row flex-col-reverse justify-between items-center w-full px-[51px] md:py-[28px] py-10 gap-[32px] bg-tan">
           <div className="flex items-center gap-4 font-normal text-black  tracking-tight whitespace-nowrap">
-            <img
-              className="w-[35px]"
-              alt="Blake logo removebg"
-              src="blake-logo-final.png"
-            />
-            Copyright 2024 Alex Perez
+            <Link href="/">
+              <img
+                className="w-[35px]"
+                alt="Blake logo removebg"
+                src="blake-logo-final.png"
+              />
+            </Link>
+            Copyright 2024
+            <Link
+              className="underline"
+              href="https://linkedin.com/in/alexanderlperez"
+            >
+              Alex Perez
+            </Link>
           </div>
           <div className="flex md:flex-row flex-col-reverse items-center md:gap-[29px] gap-5">
             {/*
@@ -122,7 +132,7 @@ export default function Layout({ children }) {
              *</div>
              */}
             <Link
-              className="text-black text-l tracking-[0] leading-[30px] whitespace-nowrap"
+              className="text-black text-l tracking-[0] leading-[30px] whitespace-nowrap underline"
               href="/updates"
             >
               News & Updates
