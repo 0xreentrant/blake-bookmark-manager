@@ -84,11 +84,12 @@ export default function Layout({ children }) {
             src="blake-logo-final.png"
           />
           <div className="flex items-center gap-[29px]">
-            {/*
-             *<div className="text-black text-l tracking-[0] leading-[30px] whitespace-nowrap">
-             *  Blog
-             *</div>
-             */}
+            <Link
+              className="text-black text-l tracking-[0] leading-[30px] whitespace-nowrap"
+              href="/updates"
+            >
+              News & Updates
+            </Link>
             {/*
              *<div className="text-black text-l tracking-[0] leading-[30px] whitespace-nowrap">
              *  Our Story
@@ -120,8 +121,13 @@ export default function Layout({ children }) {
              *  Our Story
              *</div>
              */}
+            <Link
+              className="text-black text-l tracking-[0] leading-[30px] whitespace-nowrap"
+              href="/updates"
+            >
+              News & Updates
+            </Link>
             <div className="text-black flex gap-[32px]">
-              Socials:
               <Link href="https://gitresethard.com">
                 <Globe color="#050505" />
               </Link>
