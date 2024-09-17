@@ -30,7 +30,7 @@ export default async function Page({ params }) {
     where: eq(lists.id, id),
   });
 
-  const bookmarksOnList = listWithBookmarks.bookmarksToLists
+  const bookmarksOnList = listWithBookmarks?.bookmarksToLists
     .map((b) => ({
       ...b.bookmark,
     }))
@@ -38,7 +38,7 @@ export default async function Page({ params }) {
 
   let currentList = listWithBookmarks
     ? { id: listWithBookmarks.id, title: listWithBookmarks.title }
-    : { id: Number.MAX_SAFE_INTEGER, title: "" };
+    : { id: Number.MAX_SAFE_INTEGER, title: "List Doesn't Exist" };
 
   return (
     <List
