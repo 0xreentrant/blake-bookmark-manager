@@ -151,7 +151,7 @@ export async function addRemoveFromLists(preventRefresh, bookmarkId, formData) {
 export async function deleteList(id) {
   await db.delete(lists).where(eq(lists.id, id)).returning();
   revalidatePath("/");
-  redirect("/");
+  redirect("/bookmarks/all");
 }
 
 export async function editList(id, formData: FormData) {
