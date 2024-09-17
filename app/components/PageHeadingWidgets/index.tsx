@@ -28,9 +28,9 @@ export function PageHeadingWidgets() {
 
   return (
     <>
-      <div className="flex justify-between">
+      <div className="pt-2 flex justify-between">
         <AddMenuButton />
-        <div className="hidden lg:block">
+        <div className="hidden lg:flex">
           <DropdownMenu
             open={isDesktopDropdownOpen}
             onOpenChange={setDesktopDropdownOpen}
@@ -53,7 +53,6 @@ export function PageHeadingWidgets() {
               <DropdownMenuSeparator />
               */}
               <DropdownMenuItem onClick={() => setLogoutDialogOpen(true)}>
-                {/* TODO: logout */}
                 <span>Logout</span>
               </DropdownMenuItem>
             </DropdownMenuContent>

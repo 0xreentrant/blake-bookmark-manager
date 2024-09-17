@@ -41,10 +41,13 @@ export default async function Page({ params }) {
     : { id: Number.MAX_SAFE_INTEGER, title: "List Doesn't Exist" };
 
   return (
-    <List
-      list={currentList}
-      bookmarks={bookmarksOnList ?? []}
-      lists={allLists ?? []}
-    />
+    <div className="lg:pt-0 pt-2">
+      {/* TODO: rearrange styles to get rid of this mobile-only style, above */}
+      <List
+        list={currentList}
+        bookmarks={bookmarksOnList ?? []}
+        lists={allLists ?? []}
+      />
+    </div>
   );
 }

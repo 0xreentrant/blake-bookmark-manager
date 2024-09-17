@@ -60,20 +60,50 @@ export function List({ list, bookmarks, lists }) {
   };
 
   return (
-    /* @dev THERE MUST BE NO WRAPPERS AROUND THIS FILE'S ENTIRE REACT COMPONENT, (React.Fragment only) */
+    /* @invariant, @dev THERE MUST BE NO WRAPPERS AROUND THIS FILE'S ENTIRE REACT COMPONENT, (React.Fragment only)
+     * so that the resizeObserver code in BookmarksLayoutWrapper works correctly */
     <>
-      <div className="flex justify-center lg:items-center pb-2 px-3 lg:pb-4 lg:pt-3">
+      <div className="flex justify-center lg:items-center pb-2 lg:pb-4">
         <div className="flex flex-col lg:flex-row grow-[5] lg:items-center gap-1 lg:gap-3">
+          {/* @dev: this is the mobile heading */}
           <div className="flex gap-3 lg:hidden" onClick={() => router.back()}>
             <ArrowLeft />
             <span className="underline">All bookmarks</span>
           </div>
-          <div
-            className={`[overflow-wrap:anywhere] flex flex-wrap text-wrap text-2xl lg:text-3xl font-semibold`}
-          >
-            {list.title}
+
+          <div className="w-full">
+            <PageHeading className="flex justify-between w-full">
+              {list.title}
+              <div className="hidden lg:block">
+                <DropdownMenu
+                  open={isMenuOpenDesktop}
+                  onOpenChange={setMenuOpenDesktop}
+                >
+                  <DropdownMenuTrigger className="outline-none text-heading">
+                    <Ellipsis size={16} />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    align="end"
+                    alignOffset={15}
+                    className="text-heading"
+                  >
+                    <DropdownMenuLabel>List Options</DropdownMenuLabel>
+                    <DropdownMenuItem onClick={handleEditMenuItemDesktop}>
+                      <Pencil size={16} />
+                      <span className="pl-2">Edit details</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleDeleteMenuItem}>
+                      <Trash2 size={16} />
+                      <span className="pl-2">Delete list</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </PageHeading>
           </div>
         </div>
+
+        {/* @dev: this is the mobile dropdown */}
         <div className="lg:hidden text-base">
           <Drawer open={isMenuOpenMobile} onOpenChange={setMenuOpenMobile}>
             <DrawerTrigger
@@ -111,34 +141,9 @@ export function List({ list, bookmarks, lists }) {
             </DrawerContent>
           </Drawer>
         </div>
-        <div className="hidden lg:block">
-          <DropdownMenu
-            open={isMenuOpenDesktop}
-            onOpenChange={setMenuOpenDesktop}
-          >
-            <DropdownMenuTrigger className="outline-none text-heading">
-              <Ellipsis size={16} />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              alignOffset={15}
-              className="text-heading"
-            >
-              <DropdownMenuLabel>List Options</DropdownMenuLabel>
-              <DropdownMenuItem onClick={handleEditMenuItemDesktop}>
-                <Pencil size={16} />
-                <span className="pl-2">Edit details</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={handleDeleteMenuItem}>
-                <Trash2 size={16} />
-                <span className="pl-2">Delete list</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
       </div>
 
-      {/* TODO: pull up NothingList to page */}
+      {/* TODO: pull up NothingList to a separate page */}
       {bookmarks?.length ? (
         <Bookmarks bookmarks={bookmarks} allLists={lists} />
       ) : (
