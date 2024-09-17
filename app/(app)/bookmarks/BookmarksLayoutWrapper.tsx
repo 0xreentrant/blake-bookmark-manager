@@ -29,8 +29,8 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Link from "next/link";
 import { ClientUser } from "@/lib/auth";
+import { InfoBanner } from "@/components/InfoBanner";
 
 export function BookmarksLayoutWrapper({
   navPanel,
@@ -77,7 +77,10 @@ export function BookmarksLayoutWrapper({
 
   return (
     <UserContext.Provider value={user}>
-      <div className="flex flex-col lg:flex-row w-full h-screen divide-x">
+      {/* @dev: 55px is the height of alert banner, and subtracted from app wrapper in the "calc" below */}
+      <InfoBanner className="h-[55px]" />
+
+      <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-55px)] divide-x">
         <div className="hidden lg:block">{navPanelWithHandler}</div>
         {/* @dev this is the mobile version of page heading widgets */}
         <div className="w-full h-12 flex justify-between items-center px-2 bg-panel lg:hidden">
