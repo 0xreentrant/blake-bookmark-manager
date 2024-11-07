@@ -47,6 +47,7 @@ export function BookmarksLayoutWrapper({
   const router = useRouter();
   const parentRef = useRef(null);
 
+  // @dev: we do this because we need to attach state to a server-rendered component (in ./layout.tsx)
   const navPanelWithHandler = cloneElement(navPanel, {
     handleNavSelection: () => setNavPanelOpen(false),
   });
@@ -106,16 +107,7 @@ export function BookmarksLayoutWrapper({
               <hr />
 
               <ul className="divide-y">
-                {/* TODO: account details 
-                <li>
-                  <Link
-                    href={`/bookmarks/account`}
-                    className="flex px-4 py-4 text-lg items-center gap-2"
-                  >
-                    <span>Account</span>
-                  </Link>
-                </li>
-                */}
+                {/* TODO: account details */}
                 <li
                   className="flex px-4 py-4 text-lg items-center gap-2"
                   onClick={() => {
@@ -123,7 +115,6 @@ export function BookmarksLayoutWrapper({
                     setLogoutDialogOpen(true);
                   }}
                 >
-                  {/* TODO: logout */}
                   Logout
                 </li>
               </ul>
@@ -147,15 +138,16 @@ export function BookmarksLayoutWrapper({
           </Sheet>
         </div>
         <div
-          className="pt-4 flex flex-col flex-1 h-screen overflow-hidden relative"
+          className="flex flex-col flex-1 h-screen overflow-hidden relative"
           ref={parentRef}
         >
-          {/* @dev: for the bookmarks list to measurements (see: resizeObserver in Bookmarks.tsx) */}
+          {/* @dev: LayoutContext for the bookmarks list to measurements (see: resizeObserver in Bookmarks.tsx) */}
           <LayoutContext.Provider value={parentRef}>
             {content}
           </LayoutContext.Provider>
         </div>
       </div>
+
       <Dialog.Root open={isLogoutDialogOpen} onOpenChange={setLogoutDialogOpen}>
         <Dialog.Trigger />
         <Dialog.Portal>

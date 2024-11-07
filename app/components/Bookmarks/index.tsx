@@ -30,37 +30,12 @@ export function Bookmarks({ bookmarks, allLists }) {
   const setRemainderHeightThrottled = throttle(setRemainderHeight, 30);
   const setFirstChildHeightThrottled = throttle(setFirstChildHeight, 30);
 
-  console.log("rendering bookmarks", Date.now(), remainderHeight, firstChildHeight);
-
-  const Row = ({ style, data, index }) => {
-    const entry = data[index];
-    const { id, archived, points, href, title, date, bookmarksToLists } = entry;
-    const isArchived = archived == 1;
-    const includedInLists = bookmarksToLists
-      ? //? bookmarksToLists.map((e) => e.listId)
-        bookmarksToLists
-      : [];
-
-    return (
-      <div style={style} className="">
-        <Entry
-          key={id}
-          id={id}
-          isArchived={isArchived}
-          points={points}
-          href={href}
-          title={title}
-          date={date}
-          allLists={allLists}
-          includedInLists={includedInLists}
-          handleUpvote={() => upvoteBookmark(id)}
-          handleDownvote={() => downvoteBookmark(id)}
-          handleArchive={() => archiveBookmark(id)}
-          handleRestore={() => restoreBookmark(id)}
-        />
-      </div>
-    );
-  };
+  console.log(
+    "rendering bookmarks",
+    Date.now(),
+    remainderHeight,
+    firstChildHeight
+  );
 
   // TODO: turn into hook
   useEffect(() => {
@@ -83,28 +58,30 @@ export function Bookmarks({ bookmarks, allLists }) {
 
     const observationCb = (event) => {
       const rawParentHeight = event[0].contentBoxSize[0].blockSize;
+      const offset = parentContainer.getBoundingClientRect().top;
 
       const remainder =
         rawParentHeight -
-        getRemainderHeightWithoutList(parentContainer, listRef);
+        getRemainderHeightWithoutList(parentContainer, listRef) -
+        offset;
 
       const firstChildHeight =
         // @ts-ignore
         listRef?.current?.children[0]?.children[0]?.offsetHeight;
 
-      /*
-       *console.log({
-       *  parentContainer,
-       *  listRef: listRef.current,
-       *  remainderHeightWithoutList: getRemainderHeightWithoutList(
-       *    parentContainer,
-       *    listRef
-       *  ),
-       *  remainderHeight,
-       *  rawParentHeight,
-       *  rawParent: event[0].target,
-       *});
-       */
+      console.log({
+        parentContainer,
+        listRef: listRef.current,
+        offset,
+        remainder,
+        remainderHeightWithoutList: getRemainderHeightWithoutList(
+          parentContainer,
+          listRef
+        ),
+        remainderHeight,
+        rawParentHeight,
+        rawParent: event[0].target,
+      });
 
       setRemainderHeightThrottled(remainder);
       setFirstChildHeightThrottled(firstChildHeight);
@@ -120,6 +97,33 @@ export function Bookmarks({ bookmarks, allLists }) {
       }
     };
   }, [parentRef, listRef]);
+
+  const Row = ({ style, data, index }) => {
+    const entry = data[index];
+    const { id, archived, points, href, title, date, bookmarksToLists } = entry;
+    const isArchived = archived == 1;
+    const includedInLists = bookmarksToLists ? bookmarksToLists : [];
+
+    return (
+      <div style={style} className="">
+        <Entry
+          key={id}
+          id={id}
+          isArchived={isArchived}
+          points={points}
+          href={href}
+          title={title}
+          date={date}
+          allLists={allLists}
+          includedInLists={includedInLists}
+          handleUpvote={() => upvoteBookmark(id)}
+          handleDownvote={() => downvoteBookmark(id)}
+          handleArchive={() => archiveBookmark(id)}
+          handleRestore={() => restoreBookmark(id)}
+        />
+      </div>
+    );
+  };
 
   return (
     // @ts-ignore todo: fix this type error
